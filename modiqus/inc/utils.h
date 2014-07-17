@@ -197,18 +197,18 @@ namespace modiqus
         return configPath;
     }
     
-    static String getAudioPath()
-    {
-        String audioPath = "";
-        String contentsPath = getBundleContentsPath();
-        USize slashIdx = contentsPath.rfind("/");
-        audioPath = contentsPath.substr(0, slashIdx - 1);
-        slashIdx = audioPath.rfind("/");
-        audioPath = audioPath.substr(0, slashIdx);
-        audioPath += "/audio";
-        
-        return audioPath;
-    }
+//    static String getAudioPath()
+//    {
+//        String audioPath = "";
+//        String contentsPath = getBundleContentsPath();
+//        USize slashIdx = contentsPath.rfind("/");
+//        audioPath = contentsPath.substr(0, slashIdx - 1);
+//        slashIdx = audioPath.rfind("/");
+//        audioPath = audioPath.substr(0, slashIdx);
+//        audioPath += "/audio";
+//        
+//        return audioPath;
+//    }
     
     static S32 findListIndex(String str, const String* strList, S32 size)
     {

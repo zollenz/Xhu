@@ -45,6 +45,8 @@ namespace modiqus
         
         void setChannelControlInput(MYFLT value, const char *name) const;
         
+        void setControlChannelInput(MYFLT value, const char *name) const;
+        
         void sendMessage(const char* message) const;
         
         void sendScoreEvent(const char type, MYFLT* parameters, S32 numParameters);
@@ -78,7 +80,6 @@ namespace modiqus
         void performanceThreadRunning(bool running);
         
     private:
-        String _csdPath;
         CsoundState _state;
         volatile bool _performanceThreadRunning;
         F32 _ksmpsDuration;

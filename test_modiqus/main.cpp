@@ -16,6 +16,7 @@ int main(int argc, const char * argv[])
 //    std::string str = doc.path();
 //    modiqus::CsoundWrapper wrapper;
 //    wrapper.start();
+    
     modiqus::Core* test = new modiqus::Core();
     test->start(modiqus::ENGINE_MODE_GAME);
     // insert code here...

@@ -24,8 +24,6 @@
 
 using namespace modiqus;
 
-const S32 CSOUND_0DBFS = 32767;
-
 // Non-member functions
 static void noMsg_CB(
                     CSOUND *csound,
@@ -143,8 +141,8 @@ void onDeleteTable(void*, const S32 tableNumber, void* context)
 bool CsoundWrapper::start()
 {
     // Set Csound environment variables
-    _csdPath.clear();    
     String executablePath = getExecutablePath();
+    USize lastSlashIndex = executablePath.rfind("/");
     
     // For application bundle ////////////////////////////////////////////////
 //    USize lastSlashIndex = executablePath.rfind("/");
@@ -156,18 +154,16 @@ bool CsoundWrapper::start()
     //////////////////////////////////////////////////////////////////////////
     
     // For command-line tool /////////////////////////////////////////////////
-    USize lastSlashIndex = executablePath.rfind("/");
     String executableDirectoryPath = executablePath.substr(0, lastSlashIndex);
-//    String relativeOpcodePath = "/lib/CsoundLib.framework/Resources/Opcodes";
-    String relativeOpcodePath = "/lib";
-    String relativeCSDPath = "/resources/csound/modiqus.csd";
     //////////////////////////////////////////////////////////////////////////
     
-    String opcodePath = executableDirectoryPath + relativeOpcodePath;
-    _csdPath = executableDirectoryPath + relativeCSDPath;
+    String opcodePath = executableDirectoryPath + "/lib";
+    String audioPath = executableDirectoryPath + "/resources/audio";
+    String csdPath = executableDirectoryPath + "/resources/csound/modiqus.csd";
     
     MQ_LOG(LOG_DBG, "Csound opcode directory: " + opcodePath);
-    MQ_LOG(LOG_DBG, "Csound orchestra file path: " + _csdPath);
+    MQ_LOG(LOG_DBG, "Csound audio directory: " + audioPath);
+    MQ_LOG(LOG_DBG, "Csound orchestra file path: " + csdPath);
     
     S32 callResult = CSOUND_ERROR;
     callResult = csoundSetGlobalEnv("OPCODE6DIR", opcodePath.c_str());
@@ -180,7 +176,7 @@ bool CsoundWrapper::start()
         return false;
     }
     
-    callResult = csoundSetGlobalEnv("SSDIR", getAudioPath().c_str());
+    callResult = csoundSetGlobalEnv("SSDIR", audioPath.c_str());
 #ifdef DEBUG
     sanityCheck("csoundSetGlobalEnv", callResult);
 #endif
@@ -210,9 +206,9 @@ bool CsoundWrapper::start()
     S32 cSoundArgsCount = 2;
     char* cSoundArgs[cSoundArgsCount];
     cSoundArgs[0] = const_cast<char *>("csound");
-    char temp[_csdPath.size() + 1];
+    char temp[csdPath.size() + 1];
 //    char* temp = new char[_csdPath.size() + 1];
-    strcpy(temp, _csdPath.c_str());
+    strcpy(temp, csdPath.c_str());
     cSoundArgs[1] = temp;
     _state.compileResult = csoundCompile(_state.csound, cSoundArgsCount, cSoundArgs);
 //    delete temp;
@@ -287,6 +283,12 @@ void CsoundWrapper::setChannelControlInput(MYFLT value, const char *name) const
         sanityCheck("csoundGetChannelPtr", result);
 #endif
     }
+}
+
+void CsoundWrapper::setControlChannelInput(MYFLT value, const char *name) const
+{
+    csoundSetControlChannel(_state.csound, name, value);
+    MQ_LOG(LOG_DBG, "Value " + toString(value) + " sent to channel " + name);
 }
 
 void CsoundWrapper::sendMessage(const char* message) const

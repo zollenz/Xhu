@@ -20,10 +20,6 @@
 #ifndef __DEBUG_H__
 #define __DEBUG_H__
 
-#include <iostream>
-
-namespace modiqus
-{
 #define LOG_MUTE     (1)
 #define LOG_FATAL    (2)
 #define LOG_ERROR    (3)
@@ -35,13 +31,17 @@ namespace modiqus
 
 #ifdef DEBUG
 #define MQ_LOG(level, input) \
-do { trace(input, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
+do { modiqus::trace(input, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
 #else
 #define MQ_LOG(level, input) do {} while (0);
 #endif
-    
-    static std::ostream& dbgStream = std::cout;
-    static S32 dbgLevel = LOG_DBG;
+
+#include <iostream>
+
+namespace modiqus
+{
+    extern std::ostream& dbgStream;
+    extern S32 dbgLevel;
     
     inline const char* const logLevelName(S32 logLevel)
     {

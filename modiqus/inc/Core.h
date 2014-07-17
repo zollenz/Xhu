@@ -97,6 +97,8 @@ namespace modiqus
         virtual bool loadConfig(const String& filename);
         
         mqSound* const getSound(const String& name);
+        
+        CsoundWrapper* getCsoundWrapper();
                 
     protected:
         

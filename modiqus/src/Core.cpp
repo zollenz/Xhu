@@ -25,6 +25,9 @@
 
 using namespace modiqus;
 
+S32 modiqus::dbgLevel = LOG_MUTE;
+std::ostream& modiqus::dbgStream = std::cout;
+
 void Core::start(S32 mode)
 {
     if (!_wrapper.start()) {
@@ -604,5 +607,10 @@ void Core::getLinSegTableData(const mqSegmentTable& table, F32List* data)
 void Core::SendMessage(const String& msg) const
 {
     _wrapper.sendMessage(msg.c_str());
+}
+
+CsoundWrapper* Core::getCsoundWrapper()
+{
+    return &_wrapper;
 }
 ////// FOR DEBUGGING /////////
