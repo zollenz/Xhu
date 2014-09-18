@@ -40,7 +40,6 @@ do { modiqus::trace(input, level, __TRUNC_FILE__, __LINE__, __func__); } while (
 
 namespace modiqus
 {
-    extern std::ostream& dbgStream;
     extern S32 dbgLevel;
     
     inline const char* const logLevelName(S32 logLevel)
@@ -69,7 +68,7 @@ namespace modiqus
         shortFile = shortFile.substr(0, lastDot);
         
         if (level <= dbgLevel) {
-            dbgStream << "[" << logLevelName(level) << "][" << shortFile << "(" << line << ")]"
+            std::cout << "[" << logLevelName(level) << "][" << shortFile << "(" << line << ")]"
             << "[" << func << "] "
             << (input) << std::endl;
         }

@@ -426,7 +426,7 @@
 					CsoundLib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				SYMROOT = build;
 			};
 			name = Debug;
@@ -454,7 +454,7 @@
 					CsoundLib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				SYMROOT = build;
 			};
 			name = Release;

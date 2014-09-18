@@ -25,8 +25,7 @@
 
 using namespace modiqus;
 
-S32 modiqus::dbgLevel = LOG_MUTE;
-std::ostream& modiqus::dbgStream = std::cout;
+S32 dbgLevel;
 
 void Core::start(S32 mode)
 {
