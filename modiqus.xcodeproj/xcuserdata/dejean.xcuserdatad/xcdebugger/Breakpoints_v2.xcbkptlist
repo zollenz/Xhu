@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "modiqus/src/CsoundWrapper.cpp"
+            filePath = "modiqus/src/mqCsoundWrapper.cpp"
             timestampString = "415056432.584382"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "257"
             endingLineNumber = "257"
-            landmarkName = "CsoundWrapper::getChannelControlOutput(MYFLT&amp; value, const char *name)"
+            landmarkName = "mqCsoundWrapper::GetChannelControlOutput(MYFLT&amp; value, const char *name)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "modiqus/src/mqConfiguration.cpp"
+            timestampString = "436562534.014152"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
+            landmarkName = "mqConfiguration::Reset()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

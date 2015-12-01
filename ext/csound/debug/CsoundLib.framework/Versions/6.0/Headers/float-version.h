@@ -21,10 +21,13 @@
     02111-1307 USA
 */
 
-/* uncomment the line below for double-precision installed headers */
-
-/*
-#ifndef USE_DOUBLE
-#define USE_DOUBLE
-#endif
+/* this file can be copied as float-version.h in installers for double precision
+   currently implemented only for OSX
 */
+
+#ifndef FLOAT_VERSION_H
+#define FLOAT_VERSION_H
+
+/* #undef USE_DOUBLE */
+
+#endif

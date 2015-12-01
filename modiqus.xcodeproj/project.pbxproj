@@ -7,26 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BF28E5C618BD427C0037D98E /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5A18685BE500DF51F5 /* Core.h */; };
-		BF28E5C718BD42810037D98E /* Core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6D18685BF000DF51F5 /* Core.cpp */; };
-		BF5DA3AC18BD1C160053453C /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2FAE0218B93273007F0519 /* pugixml.cpp */; };
-		BF5DA3AD18BD1C190053453C /* pugixml.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BF2FAE0318B93273007F0519 /* pugixml.hpp */; };
-		BF5DA3AE18BD1C1F0053453C /* pugiconfig.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BF2FAE0118B93273007F0519 /* pugiconfig.hpp */; };
-		BF5DA3B018BD1E6C0053453C /* core_events.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5118685BE500DF51F5 /* core_events.h */; };
-		BF5DA3B118BD1E6C0053453C /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5218685BE500DF51F5 /* debug.h */; };
-		BF5DA3B218BD1E6C0053453C /* event.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5318685BE500DF51F5 /* event.h */; };
-		BF5DA3B318BD1E6C0053453C /* io.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5418685BE500DF51F5 /* io.h */; };
-		BF5DA3B418BD1E6C0053453C /* math_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5518685BE500DF51F5 /* math_utils.h */; };
-		BF5DA3B518BD1E6C0053453C /* thread.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5618685BE500DF51F5 /* thread.h */; };
-		BF5DA3B618BD1E6C0053453C /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5718685BE500DF51F5 /* types.h */; };
-		BF5DA3B718BD1E6C0053453C /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5818685BE500DF51F5 /* utils.h */; };
-		BF5DA3B918BD1E6C0053453C /* Configuration.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5B18685BE500DF51F5 /* Configuration.h */; };
-		BF5DA3BA18BD1E6C0053453C /* CsoundWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5C18685BE500DF51F5 /* CsoundWrapper.h */; };
-		BF5DA3BB18BD1E6C0053453C /* modiqus.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5D18685BE500DF51F5 /* modiqus.h */; };
-		BF5DA3BD18BD22260053453C /* CsoundWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6F18685BF000DF51F5 /* CsoundWrapper.cpp */; };
+		BF1681111AE984DA00FB1755 /* modiqus.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5D18685BE500DF51F5 /* modiqus.h */; };
+		BF1681121AE984DD00FB1755 /* mq_core_events.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5118685BE500DF51F5 /* mq_core_events.h */; };
+		BF1681131AE984E000FB1755 /* mq_debug.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5218685BE500DF51F5 /* mq_debug.h */; };
+		BF1681141AE984E300FB1755 /* mq_event.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5318685BE500DF51F5 /* mq_event.h */; };
+		BF1681151AE984E700FB1755 /* mq_io.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5418685BE500DF51F5 /* mq_io.h */; };
+		BF1681161AE984E900FB1755 /* mq_utils_math.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5518685BE500DF51F5 /* mq_utils_math.h */; };
+		BF1681171AE984ED00FB1755 /* mq_thread.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5618685BE500DF51F5 /* mq_thread.h */; };
+		BF1681181AE984F000FB1755 /* mq_types.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5718685BE500DF51F5 /* mq_types.h */; };
+		BF1681191AE984F500FB1755 /* mq_utils_system.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5818685BE500DF51F5 /* mq_utils_system.h */; };
+		BF16811A1AE9850600FB1755 /* mqConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5B18685BE500DF51F5 /* mqConfiguration.h */; };
+		BF16811B1AE9850900FB1755 /* mqCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5A18685BE500DF51F5 /* mqCore.h */; };
+		BF16811C1AE9850E00FB1755 /* mqCsoundWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5C18685BE500DF51F5 /* mqCsoundWrapper.h */; };
+		BF28E5C718BD42810037D98E /* mqCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6D18685BF000DF51F5 /* mqCore.cpp */; };
+		BF5DA3BD18BD22260053453C /* mqCsoundWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6F18685BF000DF51F5 /* mqCsoundWrapper.cpp */; };
 		BF5DA3BF18BD23560053453C /* libmodiqus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5DA3A718BD1A550053453C /* libmodiqus.a */; };
-		BF5DA3C318BD26E40053453C /* Configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6E18685BF000DF51F5 /* Configuration.cpp */; };
+		BF5DA3C318BD26E40053453C /* mqConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6E18685BF000DF51F5 /* mqConfiguration.cpp */; };
 		BF92230B18BA2CFF00EFD7E8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF92230A18BA2CFF00EFD7E8 /* main.cpp */; };
+		BFD7996D1AF00E5E006AB607 /* mqFFT.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD7996C1AF00E5E006AB607 /* mqFFT.h */; };
+		BFD7996F1AF00E73006AB607 /* mqFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFD7996E1AF00E73006AB607 /* mqFFT.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,29 +51,72 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BF2C5E5118685BE500DF51F5 /* core_events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core_events.h; sourceTree = "<group>"; };
-		BF2C5E5218685BE500DF51F5 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
-		BF2C5E5318685BE500DF51F5 /* event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = event.h; sourceTree = "<group>"; };
-		BF2C5E5418685BE500DF51F5 /* io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = io.h; sourceTree = "<group>"; };
-		BF2C5E5518685BE500DF51F5 /* math_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math_utils.h; sourceTree = "<group>"; };
-		BF2C5E5618685BE500DF51F5 /* thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread.h; sourceTree = "<group>"; };
-		BF2C5E5718685BE500DF51F5 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
-		BF2C5E5818685BE500DF51F5 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		BF2C5E5A18685BE500DF51F5 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
-		BF2C5E5B18685BE500DF51F5 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
-		BF2C5E5C18685BE500DF51F5 /* CsoundWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundWrapper.h; sourceTree = "<group>"; };
+		BF1680C21AE97AF300FB1755 /* mqAnalysis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mqAnalysis.cpp; sourceTree = "<group>"; };
+		BF1680C51AE97C2300FB1755 /* mqAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mqAnalysis.h; sourceTree = "<group>"; };
+		BF1680CC1AE9846100FB1755 /* api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = api.h; path = ext/fftw/inc/api.h; sourceTree = "<group>"; };
+		BF1680CD1AE9846100FB1755 /* f77funcs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = f77funcs.h; path = ext/fftw/inc/f77funcs.h; sourceTree = "<group>"; };
+		BF1680CE1AE9846100FB1755 /* fftw3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fftw3.h; path = ext/fftw/inc/fftw3.h; sourceTree = "<group>"; };
+		BF1680CF1AE9846100FB1755 /* guru.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = guru.h; path = ext/fftw/inc/guru.h; sourceTree = "<group>"; };
+		BF1680D01AE9846100FB1755 /* guru64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = guru64.h; path = ext/fftw/inc/guru64.h; sourceTree = "<group>"; };
+		BF1680D11AE9846100FB1755 /* mktensor-iodims.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "mktensor-iodims.h"; path = "ext/fftw/inc/mktensor-iodims.h"; sourceTree = "<group>"; };
+		BF1680D21AE9846100FB1755 /* plan-guru-dft-c2r.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "plan-guru-dft-c2r.h"; path = "ext/fftw/inc/plan-guru-dft-c2r.h"; sourceTree = "<group>"; };
+		BF1680D31AE9846100FB1755 /* plan-guru-dft-r2c.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "plan-guru-dft-r2c.h"; path = "ext/fftw/inc/plan-guru-dft-r2c.h"; sourceTree = "<group>"; };
+		BF1680D41AE9846100FB1755 /* plan-guru-dft.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "plan-guru-dft.h"; path = "ext/fftw/inc/plan-guru-dft.h"; sourceTree = "<group>"; };
+		BF1680D51AE9846100FB1755 /* plan-guru-r2r.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "plan-guru-r2r.h"; path = "ext/fftw/inc/plan-guru-r2r.h"; sourceTree = "<group>"; };
+		BF1680D61AE9846100FB1755 /* plan-guru-split-dft-c2r.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "plan-guru-split-dft-c2r.h"; path = "ext/fftw/inc/plan-guru-split-dft-c2r.h"; sourceTree = "<group>"; };
+		BF1680D71AE9846100FB1755 /* plan-guru-split-dft-r2c.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "plan-guru-split-dft-r2c.h"; path = "ext/fftw/inc/plan-guru-split-dft-r2c.h"; sourceTree = "<group>"; };
+		BF1680D81AE9846100FB1755 /* plan-guru-split-dft.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "plan-guru-split-dft.h"; path = "ext/fftw/inc/plan-guru-split-dft.h"; sourceTree = "<group>"; };
+		BF1680D91AE9846100FB1755 /* x77.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = x77.h; path = ext/fftw/inc/x77.h; sourceTree = "<group>"; };
+		BF1680DB1AE984AF00FB1755 /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cfgvar.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/cfgvar.h; sourceTree = "<group>"; };
+		BF1680DC1AE984AF00FB1755 /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CppSound.hpp; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/CppSound.hpp; sourceTree = "<group>"; };
+		BF1680DD1AE984AF00FB1755 /* cs_par_structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cs_par_structs.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/cs_par_structs.h; sourceTree = "<group>"; };
+		BF1680DE1AE984AF00FB1755 /* cscore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cscore.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/cscore.h; sourceTree = "<group>"; };
+		BF1680DF1AE984AF00FB1755 /* csdebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csdebug.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/csdebug.h; sourceTree = "<group>"; };
+		BF1680E01AE984AF00FB1755 /* csdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csdl.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/csdl.h; sourceTree = "<group>"; };
+		BF1680E11AE984AF00FB1755 /* csound_data_structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csound_data_structures.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/csound_data_structures.h; sourceTree = "<group>"; };
+		BF1680E21AE984AF00FB1755 /* csound_standard_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csound_standard_types.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/csound_standard_types.h; sourceTree = "<group>"; };
+		BF1680E31AE984AF00FB1755 /* csound_type_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csound_type_system.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/csound_type_system.h; sourceTree = "<group>"; };
+		BF1680E41AE984AF00FB1755 /* csound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csound.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/csound.h; sourceTree = "<group>"; };
+		BF1680E51AE984AF00FB1755 /* csound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = csound.hpp; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/csound.hpp; sourceTree = "<group>"; };
+		BF1680E61AE984AF00FB1755 /* csoundCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csoundCore.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/csoundCore.h; sourceTree = "<group>"; };
+		BF1680E71AE984AF00FB1755 /* CsoundFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CsoundFile.hpp; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/CsoundFile.hpp; sourceTree = "<group>"; };
+		BF1680E81AE984AF00FB1755 /* csPerfThread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = csPerfThread.hpp; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/csPerfThread.hpp; sourceTree = "<group>"; };
+		BF1680E91AE984AF00FB1755 /* cwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cwindow.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/cwindow.h; sourceTree = "<group>"; };
+		BF1680EA1AE984AF00FB1755 /* filebuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filebuilding.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/filebuilding.h; sourceTree = "<group>"; };
+		BF1680EB1AE984AF00FB1755 /* float-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "float-version.h"; path = "ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/float-version.h"; sourceTree = "<group>"; };
+		BF1680EC1AE984AF00FB1755 /* interlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interlocks.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/interlocks.h; sourceTree = "<group>"; };
+		BF1680ED1AE984AF00FB1755 /* msg_attr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = msg_attr.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/msg_attr.h; sourceTree = "<group>"; };
+		BF1680EE1AE984AF00FB1755 /* OpcodeBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OpcodeBase.hpp; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/OpcodeBase.hpp; sourceTree = "<group>"; };
+		BF1680EF1AE984AF00FB1755 /* pools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pools.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/pools.h; sourceTree = "<group>"; };
+		BF1680F01AE984AF00FB1755 /* pstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pstream.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/pstream.h; sourceTree = "<group>"; };
+		BF1680F11AE984AF00FB1755 /* pvfileio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pvfileio.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/pvfileio.h; sourceTree = "<group>"; };
+		BF1680F21AE984AF00FB1755 /* soundio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = soundio.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/soundio.h; sourceTree = "<group>"; };
+		BF1680F31AE984AF00FB1755 /* sysdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sysdep.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/sysdep.h; sourceTree = "<group>"; };
+		BF1680F41AE984AF00FB1755 /* text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = text.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/text.h; sourceTree = "<group>"; };
+		BF1680F51AE984AF00FB1755 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = ext/csound/debug/CsoundLib.framework/Versions/6.0/Headers/version.h; sourceTree = "<group>"; };
+		BF2C5E5118685BE500DF51F5 /* mq_core_events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_core_events.h; sourceTree = "<group>"; };
+		BF2C5E5218685BE500DF51F5 /* mq_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_debug.h; sourceTree = "<group>"; };
+		BF2C5E5318685BE500DF51F5 /* mq_event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_event.h; sourceTree = "<group>"; };
+		BF2C5E5418685BE500DF51F5 /* mq_io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_io.h; sourceTree = "<group>"; };
+		BF2C5E5518685BE500DF51F5 /* mq_utils_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_utils_math.h; sourceTree = "<group>"; };
+		BF2C5E5618685BE500DF51F5 /* mq_thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_thread.h; sourceTree = "<group>"; };
+		BF2C5E5718685BE500DF51F5 /* mq_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_types.h; sourceTree = "<group>"; };
+		BF2C5E5818685BE500DF51F5 /* mq_utils_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_utils_system.h; sourceTree = "<group>"; };
+		BF2C5E5A18685BE500DF51F5 /* mqCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mqCore.h; sourceTree = "<group>"; };
+		BF2C5E5B18685BE500DF51F5 /* mqConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mqConfiguration.h; sourceTree = "<group>"; };
+		BF2C5E5C18685BE500DF51F5 /* mqCsoundWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mqCsoundWrapper.h; sourceTree = "<group>"; };
 		BF2C5E5D18685BE500DF51F5 /* modiqus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modiqus.h; sourceTree = "<group>"; };
-		BF2C5E6D18685BF000DF51F5 /* Core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Core.cpp; sourceTree = "<group>"; };
-		BF2C5E6E18685BF000DF51F5 /* Configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Configuration.cpp; sourceTree = "<group>"; };
-		BF2C5E6F18685BF000DF51F5 /* CsoundWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CsoundWrapper.cpp; sourceTree = "<group>"; };
+		BF2C5E6D18685BF000DF51F5 /* mqCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mqCore.cpp; sourceTree = "<group>"; };
+		BF2C5E6E18685BF000DF51F5 /* mqConfiguration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mqConfiguration.cpp; sourceTree = "<group>"; };
+		BF2C5E6F18685BF000DF51F5 /* mqCsoundWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mqCsoundWrapper.cpp; sourceTree = "<group>"; };
 		BF2FAE0118B93273007F0519 /* pugiconfig.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pugiconfig.hpp; sourceTree = "<group>"; };
 		BF2FAE0218B93273007F0519 /* pugixml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pugixml.cpp; sourceTree = "<group>"; };
 		BF2FAE0318B93273007F0519 /* pugixml.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pugixml.hpp; sourceTree = "<group>"; };
-		BF5DA38718BD14DB0053453C /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ext/csound/debug/CsoundLib.framework; sourceTree = "<group>"; };
 		BF5DA3A718BD1A550053453C /* libmodiqus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmodiqus.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF92230818BA2CFF00EFD7E8 /* test_modiqus */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test_modiqus; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF92230A18BA2CFF00EFD7E8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		BF92230C18BA2CFF00EFD7E8 /* test_modiq.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = test_modiq.1; sourceTree = "<group>"; };
+		BFD7996C1AF00E5E006AB607 /* mqFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mqFFT.h; sourceTree = "<group>"; };
+		BFD7996E1AF00E73006AB607 /* mqFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mqFFT.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +138,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF1680C91AE9836F00FB1755 /* fftw */ = {
+			isa = PBXGroup;
+			children = (
+				BF1680CC1AE9846100FB1755 /* api.h */,
+				BF1680CD1AE9846100FB1755 /* f77funcs.h */,
+				BF1680CE1AE9846100FB1755 /* fftw3.h */,
+				BF1680CF1AE9846100FB1755 /* guru.h */,
+				BF1680D01AE9846100FB1755 /* guru64.h */,
+				BF1680D11AE9846100FB1755 /* mktensor-iodims.h */,
+				BF1680D21AE9846100FB1755 /* plan-guru-dft-c2r.h */,
+				BF1680D31AE9846100FB1755 /* plan-guru-dft-r2c.h */,
+				BF1680D41AE9846100FB1755 /* plan-guru-dft.h */,
+				BF1680D51AE9846100FB1755 /* plan-guru-r2r.h */,
+				BF1680D61AE9846100FB1755 /* plan-guru-split-dft-c2r.h */,
+				BF1680D71AE9846100FB1755 /* plan-guru-split-dft-r2c.h */,
+				BF1680D81AE9846100FB1755 /* plan-guru-split-dft.h */,
+				BF1680D91AE9846100FB1755 /* x77.h */,
+			);
+			name = fftw;
+			sourceTree = "<group>";
+		};
+		BF1680DA1AE984A100FB1755 /* csound */ = {
+			isa = PBXGroup;
+			children = (
+				BF1680DB1AE984AF00FB1755 /* cfgvar.h */,
+				BF1680DC1AE984AF00FB1755 /* CppSound.hpp */,
+				BF1680DD1AE984AF00FB1755 /* cs_par_structs.h */,
+				BF1680DE1AE984AF00FB1755 /* cscore.h */,
+				BF1680DF1AE984AF00FB1755 /* csdebug.h */,
+				BF1680E01AE984AF00FB1755 /* csdl.h */,
+				BF1680E11AE984AF00FB1755 /* csound_data_structures.h */,
+				BF1680E21AE984AF00FB1755 /* csound_standard_types.h */,
+				BF1680E31AE984AF00FB1755 /* csound_type_system.h */,
+				BF1680E41AE984AF00FB1755 /* csound.h */,
+				BF1680E51AE984AF00FB1755 /* csound.hpp */,
+				BF1680E61AE984AF00FB1755 /* csoundCore.h */,
+				BF1680E71AE984AF00FB1755 /* CsoundFile.hpp */,
+				BF1680E81AE984AF00FB1755 /* csPerfThread.hpp */,
+				BF1680E91AE984AF00FB1755 /* cwindow.h */,
+				BF1680EA1AE984AF00FB1755 /* filebuilding.h */,
+				BF1680EB1AE984AF00FB1755 /* float-version.h */,
+				BF1680EC1AE984AF00FB1755 /* interlocks.h */,
+				BF1680ED1AE984AF00FB1755 /* msg_attr.h */,
+				BF1680EE1AE984AF00FB1755 /* OpcodeBase.hpp */,
+				BF1680EF1AE984AF00FB1755 /* pools.h */,
+				BF1680F01AE984AF00FB1755 /* pstream.h */,
+				BF1680F11AE984AF00FB1755 /* pvfileio.h */,
+				BF1680F21AE984AF00FB1755 /* soundio.h */,
+				BF1680F31AE984AF00FB1755 /* sysdep.h */,
+				BF1680F41AE984AF00FB1755 /* text.h */,
+				BF1680F51AE984AF00FB1755 /* version.h */,
+			);
+			name = csound;
+			sourceTree = "<group>";
+		};
 		BF2C5E401868565000DF51F5 = {
 			isa = PBXGroup;
 			children = (
@@ -118,18 +215,20 @@
 		BF2C5E5018685BE500DF51F5 /* inc */ = {
 			isa = PBXGroup;
 			children = (
-				BF2C5E5B18685BE500DF51F5 /* Configuration.h */,
-				BF2C5E5A18685BE500DF51F5 /* Core.h */,
-				BF2C5E5118685BE500DF51F5 /* core_events.h */,
-				BF2C5E5C18685BE500DF51F5 /* CsoundWrapper.h */,
-				BF2C5E5218685BE500DF51F5 /* debug.h */,
-				BF2C5E5318685BE500DF51F5 /* event.h */,
-				BF2C5E5418685BE500DF51F5 /* io.h */,
-				BF2C5E5518685BE500DF51F5 /* math_utils.h */,
 				BF2C5E5D18685BE500DF51F5 /* modiqus.h */,
-				BF2C5E5618685BE500DF51F5 /* thread.h */,
-				BF2C5E5718685BE500DF51F5 /* types.h */,
-				BF2C5E5818685BE500DF51F5 /* utils.h */,
+				BF2C5E5118685BE500DF51F5 /* mq_core_events.h */,
+				BF2C5E5218685BE500DF51F5 /* mq_debug.h */,
+				BF2C5E5318685BE500DF51F5 /* mq_event.h */,
+				BF2C5E5418685BE500DF51F5 /* mq_io.h */,
+				BF2C5E5618685BE500DF51F5 /* mq_thread.h */,
+				BF2C5E5718685BE500DF51F5 /* mq_types.h */,
+				BF2C5E5518685BE500DF51F5 /* mq_utils_math.h */,
+				BF2C5E5818685BE500DF51F5 /* mq_utils_system.h */,
+				BF1680C51AE97C2300FB1755 /* mqAnalysis.h */,
+				BF2C5E5B18685BE500DF51F5 /* mqConfiguration.h */,
+				BF2C5E5A18685BE500DF51F5 /* mqCore.h */,
+				BF2C5E5C18685BE500DF51F5 /* mqCsoundWrapper.h */,
+				BFD7996C1AF00E5E006AB607 /* mqFFT.h */,
 			);
 			name = inc;
 			path = modiqus/inc;
@@ -138,9 +237,11 @@
 		BF2C5E6B18685BF000DF51F5 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				BF2C5E6E18685BF000DF51F5 /* Configuration.cpp */,
-				BF2C5E6D18685BF000DF51F5 /* Core.cpp */,
-				BF2C5E6F18685BF000DF51F5 /* CsoundWrapper.cpp */,
+				BF1680C21AE97AF300FB1755 /* mqAnalysis.cpp */,
+				BF2C5E6E18685BF000DF51F5 /* mqConfiguration.cpp */,
+				BF2C5E6D18685BF000DF51F5 /* mqCore.cpp */,
+				BF2C5E6F18685BF000DF51F5 /* mqCsoundWrapper.cpp */,
+				BFD7996E1AF00E73006AB607 /* mqFFT.cpp */,
 			);
 			name = src;
 			path = modiqus/src;
@@ -170,7 +271,6 @@
 			isa = PBXGroup;
 			children = (
 				BF92230A18BA2CFF00EFD7E8 /* main.cpp */,
-				BF92230C18BA2CFF00EFD7E8 /* test_modiq.1 */,
 			);
 			path = test_modiqus;
 			sourceTree = "<group>";
@@ -178,7 +278,8 @@
 		BFFCF3E218B6A61A001BE6C9 /* ext */ = {
 			isa = PBXGroup;
 			children = (
-				BF5DA38718BD14DB0053453C /* CsoundLib.framework */,
+				BF1680DA1AE984A100FB1755 /* csound */,
+				BF1680C91AE9836F00FB1755 /* fftw */,
 				BF2FAE0018B93273007F0519 /* pugixml */,
 			);
 			name = ext;
@@ -191,20 +292,19 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF28E5C618BD427C0037D98E /* Core.h in Headers */,
-				BF5DA3B918BD1E6C0053453C /* Configuration.h in Headers */,
-				BF5DA3B018BD1E6C0053453C /* core_events.h in Headers */,
-				BF5DA3B118BD1E6C0053453C /* debug.h in Headers */,
-				BF5DA3B218BD1E6C0053453C /* event.h in Headers */,
-				BF5DA3B318BD1E6C0053453C /* io.h in Headers */,
-				BF5DA3B418BD1E6C0053453C /* math_utils.h in Headers */,
-				BF5DA3B518BD1E6C0053453C /* thread.h in Headers */,
-				BF5DA3B618BD1E6C0053453C /* types.h in Headers */,
-				BF5DA3B718BD1E6C0053453C /* utils.h in Headers */,
-				BF5DA3BA18BD1E6C0053453C /* CsoundWrapper.h in Headers */,
-				BF5DA3BB18BD1E6C0053453C /* modiqus.h in Headers */,
-				BF5DA3AE18BD1C1F0053453C /* pugiconfig.hpp in Headers */,
-				BF5DA3AD18BD1C190053453C /* pugixml.hpp in Headers */,
+				BF1681111AE984DA00FB1755 /* modiqus.h in Headers */,
+				BF1681121AE984DD00FB1755 /* mq_core_events.h in Headers */,
+				BF1681131AE984E000FB1755 /* mq_debug.h in Headers */,
+				BF1681141AE984E300FB1755 /* mq_event.h in Headers */,
+				BF1681151AE984E700FB1755 /* mq_io.h in Headers */,
+				BF1681161AE984E900FB1755 /* mq_utils_math.h in Headers */,
+				BF1681171AE984ED00FB1755 /* mq_thread.h in Headers */,
+				BF1681181AE984F000FB1755 /* mq_types.h in Headers */,
+				BF1681191AE984F500FB1755 /* mq_utils_system.h in Headers */,
+				BF16811A1AE9850600FB1755 /* mqConfiguration.h in Headers */,
+				BF16811B1AE9850900FB1755 /* mqCore.h in Headers */,
+				BF16811C1AE9850E00FB1755 /* mqCsoundWrapper.h in Headers */,
+				BFD7996D1AF00E5E006AB607 /* mqFFT.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +353,7 @@
 		BF2C5E411868565000DF51F5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = Modicus;
 			};
 			buildConfigurationList = BF2C5E441868565000DF51F5 /* Build configuration list for PBXProject "modiqus" */;
@@ -286,7 +386,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/modiqus/Build/Products/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/modiqus/Build/Products/Release\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/lib ]\nthen\nmkdir ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/resources ]\nthen\nmkdir ${TARGET_BUILD_DIR}/resources\nfi\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/debug/CsoundLib.framework ${TARGET_BUILD_DIR}/lib\ncp -R $PROJECT_DIR/ext/csound/debug/librtauhal.dylib ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/CsoundLib.framework ${TARGET_BUILD_DIR}/lib\ncp -R $PROJECT_DIR/ext/csound/release/librtauhal.dylib ${TARGET_BUILD_DIR}/lib\nfi\n\ncp -R $PROJECT_DIR/ext/libsndfile.1.dylib ${TARGET_BUILD_DIR}/lib\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/resources\n";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/modiqus/Build/Products/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/modiqus/Build/Products/Release\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/lib ]\nthen\nmkdir ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/resources ]\nthen\nmkdir ${TARGET_BUILD_DIR}/resources\nfi\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/debug/CsoundLib.framework ${TARGET_BUILD_DIR}/lib\n#cp -R $PROJECT_DIR/ext/csound/debug/librtauhal.dylib ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/CsoundLib.framework ${TARGET_BUILD_DIR}/lib\n#cp -R $PROJECT_DIR/ext/csound/release/librtauhal.dylib ${TARGET_BUILD_DIR}/lib\nfi\n\n#cp -R $PROJECT_DIR/ext/libsndfile.1.dylib ${TARGET_BUILD_DIR}/lib\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/resources\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -295,10 +395,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF5DA3AC18BD1C160053453C /* pugixml.cpp in Sources */,
-				BF28E5C718BD42810037D98E /* Core.cpp in Sources */,
-				BF5DA3BD18BD22260053453C /* CsoundWrapper.cpp in Sources */,
-				BF5DA3C318BD26E40053453C /* Configuration.cpp in Sources */,
+				BF28E5C718BD42810037D98E /* mqCore.cpp in Sources */,
+				BF5DA3C318BD26E40053453C /* mqConfiguration.cpp in Sources */,
+				BFD7996F1AF00E73006AB607 /* mqFFT.cpp in Sources */,
+				BF5DA3BD18BD22260053453C /* mqCsoundWrapper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,9 +425,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -355,7 +454,7 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
@@ -366,9 +465,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -401,9 +499,11 @@
 		BF5DA3A918BD1A550053453C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -413,20 +513,22 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/ext/csound/debug/CsoundLib.framework/Headers",
+					"$(PROJECT_DIR)/ext/fftw/inc",
 				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ext/fftw/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-framework",
 					CsoundLib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				SYMROOT = build;
 			};
 			name = Debug;
@@ -434,27 +536,31 @@
 		BF5DA3AA18BD1A550053453C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ext/csound/release",
 				);
-				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/ext/csound/release/CsoundLib.framework/Headers",
+					"$(PROJECT_DIR)/ext/fftw/inc",
 				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ext/fftw/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
 					CsoundLib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				SYMROOT = build;
 			};
 			name = Release;
@@ -462,8 +568,8 @@
 		BF92230F18BA2CFF00EFD7E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -473,13 +579,13 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/ext/csound/debug/CsoundLib.framework/Headers",
 				);
-				LIBRARY_SEARCH_PATHS = "$(BUILD_DIR)/lib";
+				LIBRARY_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -488,27 +594,27 @@
 					CsoundLib,
 				);
 				PRODUCT_NAME = test_modiqus;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		BF92231018BA2CFF00EFD7E8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ext/csound/release",
 				);
-				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/ext/csound/release/CsoundLib.framework/Headers",
 				);
-				LIBRARY_SEARCH_PATHS = "$(BUILD_DIR)/lib";
+				LIBRARY_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -517,7 +623,7 @@
 					CsoundLib,
 				);
 				PRODUCT_NAME = test_modiqus;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
