@@ -597,14 +597,12 @@ void mqCore::UpdateBaseTableNumber(const U32 number)
     }
 }
 
-#ifdef DEBUG
 void mqCore::SendMessage(const mq_str& msg) const
 {
     _wrapper.SendMessage(msg.c_str());
 }
 
-mqCsoundWrapper* mqCore::GetCsoundWrapper()
+mqCsoundWrapper* const mqCore::GetCsoundWrapper()
 {
     return &_wrapper;
 }
-#endif

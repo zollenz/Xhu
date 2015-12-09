@@ -79,11 +79,8 @@ namespace mq
         void CreateSampleTable(mqSampleTable& table, F32List* const samples = NULL);
         void CreateImmediateTable(mqImmediateTable& table);
         void CreateSegmentTable(mqSegmentTable& table);
-
-#ifdef DEBUG
         void SendMessage(const mq_str& msg) const; // FOR DEBUGGING, TODO: DELETE IN FINAL BUILD
-        mqCsoundWrapper* GetCsoundWrapper();
-#endif
+        mqCsoundWrapper* const GetCsoundWrapper();
     private:
         enum InstrumentType
         {
