@@ -35,11 +35,11 @@ mqSoundParam::mqSoundParam() :
 void mqCore::Start(S32 mode)
 {
     if (!_wrapper.Start()) {
-        MQ_LOG(LOG_FATAL,"Modiqus engine failed initialization")
+        MQ_LOG(MQ_LOG_FATAL,"Modiqus engine failed initialization")
         Stop();
         exit(EXIT_FAILURE);
     } else {
-        MQ_LOG(LOG_INFO, "Modiqus engine initialized")
+        MQ_LOG(MQ_LOG_INFO, "Modiqus engine initialized")
     }
 
     _mode = mode;
@@ -49,7 +49,7 @@ void mqCore::Start(S32 mode)
 //    for (S32 i = 0; i < MAX_INSTANCES; i++) {
 //        for (S32 j = NOTE_AMPLITUDE; j < SOUND_PARAM_UNDEFINED; j++) {
 //            _channelValues[i][j] = 1.0f;
-//            String channelName = "i." + getInstanceString(INSTR_PARTIKKEL, i) + "." + SoundParamNames[j];
+//            mq_str channelName = "i." + getInstanceString(INSTR_PARTIKKEL, i) + "." + SoundParamNames[j];
 //            _wrapper.setChannelControlInput(1.0f, channelName.c_str());
 //        }
 //    }
@@ -80,7 +80,7 @@ void mqCore::Stop()
     if (IsRunning()) {
         _wrapper.Stop();
         while(IsRunning());
-        MQ_LOG(LOG_INFO, "Modiqus engine terminated")
+        MQ_LOG(MQ_LOG_INFO, "Modiqus engine terminated")
     }
 }
 
@@ -92,7 +92,7 @@ const bool mqCore::IsRunning() const
 void mqCore::PlaySound(mqSoundInfo* const info)
 {
     info->soundInstance = GetNewInstanceNumber();
-    String soundName = info->sourceName + "." + info->sourceEvent;
+    mq_str soundName = info->sourceName + "." + info->sourceEvent;
     mqSound* sound = GetSound(soundName);
     
     if (sound == NULL) {
@@ -100,7 +100,7 @@ void mqCore::PlaySound(mqSoundInfo* const info)
     }
     
     if (sound->grainWaveTable.number == TABLE_UNDEFINED) {
-        MQ_LOG(LOG_INFO, "Sound has no wave table.")
+        MQ_LOG(MQ_LOG_INFO, "Sound has no wave table.")
         return;
     }
     
@@ -108,7 +108,7 @@ void mqCore::PlaySound(mqSoundInfo* const info)
     info->soundCompleteName = soundName + "." + info->soundInstanceString;
     // Send score event
     F32 value = 0.0f;
-    String message = "i ";
+    mq_str message = "i ";
     message += info->soundInstanceString + " 0 ";
     value = GetMappedValue(sound, NOTE_DURATION);
     message += toString(value) + " ";
@@ -127,7 +127,7 @@ void mqCore::PlaySound(mqSoundInfo* const info)
 
 void mqCore::StopSound(mqSoundInfo* const info)
 {
-    String message = "i 1 0 " + toString(_wrapper.GetControlPeriodDuration());
+    mq_str message = "i 1 0 " + toString(_wrapper.GetControlPeriodDuration());
     message += " " + info->soundInstanceString;
     _wrapper.SendMessage(message.c_str());
     info->soundInstance = UNDEFINED_INT;
@@ -140,7 +140,7 @@ void mqCore::UpdateControlParam(const mqParamUpdate& update)
     mqControlParam* controlParam = mapGet(update.name, _config.controlParams);
     
     if (controlParam == NULL) {
-        MQ_LOG(LOG_ERROR, "Could not find game parameter '" + update.name + "' in config")
+        MQ_LOG(MQ_LOG_ERROR, "Could not find game parameter '" + update.name + "' in config")
     } else {
         clamp(update.value, controlParam->min, controlParam->max);
         controlParam->value = update.value;
@@ -158,7 +158,7 @@ void mqCore::UpdateControlParams(const std::vector<mqParamUpdate>& updates)
 
 void mqCore::SetSoundParam(const SoundParamType param, F32 value, const mqSoundInfo& info)
 {
-    String channelName = info.soundCompleteName + "." + SoundParamNames[soundParams[param].type];
+    mq_str channelName = info.soundCompleteName + "." + SoundParamNames[soundParams[param].type];
     value = clamp(value, soundParams[param].min, soundParams[param].max);
     _wrapper.SetChannelControlInput(value, channelName.c_str());
 }
@@ -186,10 +186,10 @@ void mqCore::ClearConfig()
     _config.baseTableNumber = TABLE_BASE_OFFSET;
     _nextTableNumber = TABLE_BASE_OFFSET;
     
-    MQ_LOG(LOG_INFO, "Modiqus configuration cleared");
+    MQ_LOG(MQ_LOG_INFO, "Modiqus configuration cleared");
 }
 
-//bool mqCore::loadConfig(const String& filename)
+//bool mqCore::loadConfig(const mq_str& filename)
 //{
 //    _config.reset();
 //    bool success = parseConfig(filename, _config);
@@ -200,7 +200,7 @@ void mqCore::ClearConfig()
 //        
 //        while (soundIt != _config.sounds.end()) {
 //            if (soundIt->second.grainWaveTable.number == TABLE_UNDEFINED) {
-//                MQ_LOG(LOG_ERROR, "Wave table for sound '" + soundIt->second.name + "' is undefined.")
+//                MQ_LOG(MQ_LOG_ERROR, "Wave table for sound '" + soundIt->second.name + "' is undefined.")
 //            } else {
 //                if (!_wrapper.tableExists(soundIt->second.grainWaveTable.number)) {
 //                    createSampleTable(soundIt->second.grainWaveTable, &dummyData);
@@ -264,8 +264,8 @@ void mqCore::ClearConfig()
 //        
 //        _nextInstance = INDEX_INVALID;
 //        _nextTableNumber = _config.baseTableNumber;
-//        MQ_LOG(LOG_INFO, "Modiqus configuration '" + filename + "' loaded")
-//        MQ_LOG(LOG_INFO, "Base table number is: " + toString(_config.baseTableNumber))
+//        MQ_LOG(MQ_LOG_INFO, "Modiqus configuration '" + filename + "' loaded")
+//        MQ_LOG(MQ_LOG_INFO, "Base table number is: " + toString(_config.baseTableNumber))
 //        
 //        return true;
 //    }
@@ -273,12 +273,12 @@ void mqCore::ClearConfig()
 //    return false;
 //}
 
-mqSound* const mqCore::GetSound(const String& name)
+mqSound* const mqCore::GetSound(const mq_str& name)
 {
     mqSound* sound = mapGet(name, _config.sounds);
     
     if (sound == NULL) {
-        MQ_LOG(LOG_ERROR, "Invalid sound '" + name + "'");
+        MQ_LOG(MQ_LOG_ERROR, "Invalid sound '" + name + "'");
     }
     
     return sound;
@@ -287,7 +287,7 @@ mqSound* const mqCore::GetSound(const String& name)
 void mqCore::CreateSampleTable(mqSampleTable& table, F32List* const samples)
 {
     if (_wrapper.DoesTableExist(table.number)) {
-        MQ_LOG(LOG_WARN, "Table " + toString(table.number) + " already exists.")
+        MQ_LOG(MQ_LOG_WARN, "Table " + toString(table.number) + " already exists.")
         return;
     }
     
@@ -332,16 +332,16 @@ void mqCore::GetLinSegTableData(const mqSegmentTable& table, F32List* data)
 
 void mqCore::StartInstanceMonitor(InstrumentType instr, bool oneshot) const
 {
-    String playInstr = toString<S32>(instr);
-    String monInstr = "";
+    mq_str playInstr = toString<S32>(instr);
+    mq_str monInstr = "";
     
     if (oneshot == true) {
         monInstr = toString<S32>(INSTR_MONITOR_I);
-        String msg = String("i ") + monInstr + String(" 0 0 ") + playInstr;
+        mq_str msg = mq_str("i ") + monInstr + mq_str(" 0 0 ") + playInstr;
         _wrapper.SendMessage(msg.c_str());
     } else {
         monInstr = toString<S32>(INSTR_MONITOR_K);
-        String msg = String("i ") + monInstr + String(" 0 -1 ") + playInstr;
+        mq_str msg = mq_str("i ") + monInstr + mq_str(" 0 -1 ") + playInstr;
         _wrapper.SendMessage(msg.c_str());
     }
 }
@@ -357,7 +357,7 @@ void mqCore::StopInstanceMonitor(InstrumentType instr, bool oneshot) const
         monInstr = INSTR_MONITOR_K;
     }
     
-    String message = String("i -") + toString<S32>(monInstr) + String(" 0 0 ") + toString<S32>(playInstr);
+    mq_str message = mq_str("i -") + toString<S32>(monInstr) + mq_str(" 0 0 ") + toString<S32>(playInstr);
     _wrapper.SendMessage(message.c_str());
 }
 
@@ -390,7 +390,7 @@ void mqCore::ResetMapping(mqMapping* const mapping)
         
         mapping->Reset();
     } else {
-        MQ_LOG(LOG_WARN, "Mapping is NULL. Could not reset.")
+        MQ_LOG(MQ_LOG_WARN, "Mapping is NULL. Could not reset.")
     }
 }
 
@@ -429,12 +429,12 @@ void mqCore::MorphTables(const mqMapping& mapping)
 
 #ifdef DEBUG
         if (morphMinTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphMinTable)) {
-            MQ_LOG(LOG_ERROR, "Morph min table undefined or does not exist.")
+            MQ_LOG(MQ_LOG_ERROR, "Morph min table undefined or does not exist.")
             return;
         }
         
         if (morphMinTableTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphMinTableTable)) {
-            MQ_LOG(LOG_ERROR, "Morph min table table undefined or does not exist.")
+            MQ_LOG(MQ_LOG_ERROR, "Morph min table table undefined or does not exist.")
             return;
         }
 #endif
@@ -447,12 +447,12 @@ void mqCore::MorphTables(const mqMapping& mapping)
         
 #ifdef DEBUG
         if (morphMaxTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphMaxTable)) {
-            MQ_LOG(LOG_ERROR, "Morph max table undefined or does not exist.")
+            MQ_LOG(MQ_LOG_ERROR, "Morph max table undefined or does not exist.")
             return;
         }
         
         if (morphMaxTableTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphMaxTableTable)) {
-            MQ_LOG(LOG_ERROR, "Morph max table table undefined or does not exist.")
+            MQ_LOG(MQ_LOG_ERROR, "Morph max table table undefined or does not exist.")
             return;
         }
 #endif
@@ -463,12 +463,12 @@ void mqCore::MorphTables(const mqMapping& mapping)
         
 #ifdef DEBUG
         if (morphIntraTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphIntraTable)) {
-            MQ_LOG(LOG_ERROR, "Morph intra table undefined or does not exist.")
+            MQ_LOG(MQ_LOG_ERROR, "Morph intra table undefined or does not exist.")
             return;
         }
         
         if (morphIntraTableTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphIntraTableTable)) {
-            MQ_LOG(LOG_ERROR, "Morph intra table table undefined or does not exist.")
+            MQ_LOG(MQ_LOG_ERROR, "Morph intra table table undefined or does not exist.")
             return;
         }
 #endif
@@ -479,7 +479,7 @@ void mqCore::MorphTables(const mqMapping& mapping)
 
 void mqCore::MorphTable(const F32 morphIndex, const S32 morphTable, const S32 morphTableTable) const
 {
-    String message = "i " + toString<InstrumentType>(INSTR_TABLE_MORPH);
+    mq_str message = "i " + toString<InstrumentType>(INSTR_TABLE_MORPH);
     message += " 0 " + toString(_wrapper.GetControlPeriodDuration()) + " ";
     message += toString<F32>(morphIndex) + " ";
     message += toString<S32>(morphTableTable) + " ";
@@ -499,7 +499,7 @@ const F32 mqCore::GetMorphTableListIndex(const mqMapping& mapping) const
     }
     
     if (index == INDEX_INVALID) {
-        MQ_LOG(LOG_DBG, "Could not find morph table table index.")
+        MQ_LOG(MQ_LOG_DBG, "Could not find morph table table index.")
         return 0.0f;
     }
     
@@ -517,14 +517,14 @@ const F32 mqCore::GetMorphTableListIndex(const mqMapping& mapping) const
 const F32 mqCore::InterpolateSoundParam(const mqSoundParam& soundParam, const mqMapping& mapping) const
 {
     if (mapping.controlParam == NULL) {
-        MQ_LOG(LOG_DBG, "Sound param '" + SoundParamNames[soundParam.type] + "' has no mapping. Using default param value.")
+        MQ_LOG(MQ_LOG_DBG, "Sound param '" + SoundParamNames[soundParam.type] + "' has no mapping. Using default param value.")
         return soundParam.defaultVal;
     }
     
     S32 tableNum = mapping.modifiers[0].minTable.number;
     
     if (tableNum == TABLE_UNDEFINED) {
-        MQ_LOG(LOG_ERROR, "Segment table " + toString<S32>(tableNum) + " not defined. Using default param value.")
+        MQ_LOG(MQ_LOG_ERROR, "Segment table " + toString<S32>(tableNum) + " not defined. Using default param value.")
         return soundParam.defaultVal;
     }
     
@@ -553,7 +553,7 @@ const F32 mqCore::InterpolateSoundParam(const mqSoundParam& soundParam, const mq
     return lerp(lowerX, lowerY, upperX, upperY, controlParam->value);
 }
 
-const String mqCore::GetInstanceString(InstrumentType instrument, const S32 instance)
+const mq_str mqCore::GetInstanceString(InstrumentType instrument, const S32 instance)
 {
     std::ostringstream stream;
     stream << std::setfill('0') << std::setw(6) << instance;
@@ -598,7 +598,7 @@ void mqCore::UpdateBaseTableNumber(const U32 number)
 }
 
 #ifdef DEBUG
-void mqCore::SendMessage(const String& msg) const
+void mqCore::SendMessage(const mq_str& msg) const
 {
     _wrapper.SendMessage(msg.c_str());
 }

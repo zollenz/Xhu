@@ -45,7 +45,7 @@ namespace mq
     
     struct mqSampleTable : public mqTable
     {
-        String filcod;
+        mq_str filcod;
         F32 skiptime;
         S32 format;
         S32 channel;
@@ -75,7 +75,7 @@ namespace mq
     
     struct mqControlParam
     {
-        String name;
+        mq_str name;
         F32 min;
         F32 max;
         F32 value;
@@ -98,7 +98,7 @@ namespace mq
     
     struct mqMapping
     {
-        static const String TypeNames[5];
+        static const mq_str TypeNames[5];
         
         enum Type
         {
@@ -128,7 +128,7 @@ namespace mq
     
     struct mqSound
     {
-        String name;
+        mq_str name;
         F32 grainStart;
         F32 grainEnd;
         S32 grainDuration;
@@ -140,14 +140,14 @@ namespace mq
         void Reset();
     };
         
-    typedef std::map<String, mqSound> mqSoundMap;
-    typedef std::pair<String, mqSound> mqSoundMapPair;
-    typedef std::map<String, mqControlParam> mqControlParamMap;
-    typedef std::pair<String, mqControlParam> mqControlParamMapPair;
+    typedef std::map<mq_str, mqSound> mqSoundMap;
+    typedef std::pair<mq_str, mqSound> mqSoundMapPair;
+    typedef std::map<mq_str, mqControlParam> mqControlParamMap;
+    typedef std::pair<mq_str, mqControlParam> mqControlParamMapPair;
     
     struct mqConfiguration
     {
-        String name;
+        mq_str name;
         mqSoundMap sounds;
         mqControlParamMap controlParams;
         U32 baseTableNumber;

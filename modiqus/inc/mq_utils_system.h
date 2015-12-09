@@ -29,7 +29,7 @@
 namespace mq
 {
     template<class T>
-    static String toString(const T& input)
+    static mq_str toString(const T& input)
     {
         std::ostringstream stream;
         stream << input;
@@ -52,7 +52,7 @@ namespace mq
     }
     
     template<class T>
-    static T fromString(const String& input)
+    static T fromString(const mq_str& input)
     {
         std::istringstream stream(input);
         T output;
@@ -74,7 +74,7 @@ namespace mq
     static U32 sizeToUnsignedInt(USize value)
     {
         if(value > UINT_MAX) {
-            MQ_LOG(LOG_ERROR, "Value is bigger than UINT_MAX. Return value will not be correct.")
+            MQ_LOG(MQ_LOG_ERROR, "Value is bigger than UINT_MAX. Return value will not be correct.")
         }
         
         return static_cast<U32>(value);
@@ -83,7 +83,7 @@ namespace mq
     static const S32 sizeToInt(const USize value)
     {
         if (value > std::numeric_limits<S32>::max()) {
-            MQ_LOG(LOG_ERROR, "Size is bigger than INT_MAX. Return value will not be correct.");
+            MQ_LOG(MQ_LOG_ERROR, "Size is bigger than INT_MAX. Return value will not be correct.");
         }
         
         return static_cast<S32>(value);
@@ -94,7 +94,7 @@ namespace mq
         if (value < std::numeric_limits<S32>::max()) {
             return static_cast<S32>(value);
         } else {
-            MQ_LOG(LOG_ERROR, "Size is bigger than INT_MAX")
+            MQ_LOG(MQ_LOG_ERROR, "Size is bigger than INT_MAX")
             return -1;
         }
     }
@@ -120,8 +120,8 @@ namespace mq
         try {
             elmPtr = &map.at(key);
         } catch (const std::out_of_range& oor) {
-            MQ_LOG(LOG_ERROR, "Out of Range error: " + String(oor.what()) + ", key: " + toString(key))
-            MQ_LOG(LOG_ERROR, "Returning NULL pointer")
+            MQ_LOG(MQ_LOG_ERROR, "Out of Range error: " + mq_str(oor.what()) + ", key: " + toString(key))
+            MQ_LOG(MQ_LOG_ERROR, "Returning NULL pointer")
         }
         
         return elmPtr;
@@ -133,36 +133,36 @@ namespace mq
         std::pair<typename std::map<T1,T2>::iterator, bool> retVal = map.insert(mapPair);
         
         if (!retVal.second) {
-            MQ_LOG(LOG_WARN, "Element with key " + toString<T1>(mapPair.first) + " already exists.")
+            MQ_LOG(MQ_LOG_WARN, "Element with key " + toString<T1>(mapPair.first) + " already exists.")
             return &retVal.first->second;
         }
         
         return mapGet(mapPair.first, map);
     }
 
-    static String getExecutablePath()
+    static mq_str getExecutablePath()
     {
 #ifdef __APPLE__
         char path[PATH_MAX];
         uint32_t size = sizeof(path);
         if (_NSGetExecutablePath(path, &size) == 0) {
-//            MQ_LOG(LOG_DBG, "Executable path is " + String(path))   
+//            MQ_LOG(MQ_LOG_DBG, "Executable path is " + mq_str(path))   
         } else {
-            MQ_LOG(LOG_ERROR, "Buffer too small; need size " + toString<S32>(size))
+            MQ_LOG(MQ_LOG_ERROR, "Buffer too small; need size " + toString<S32>(size))
         }
 
-        return String(path);
+        return mq_str(path);
 #else
     //    char temp[PATH_MAX];
-    //    return (getcwd(temp, PATH_MAX) ? String(temp) : String(""));
+    //    return (getcwd(temp, PATH_MAX) ? mq_str(temp) : mq_str(""));
         return "";
 #endif
     }
     
-    static String getBundleContentsPath()
+    static mq_str getBundleContentsPath()
     {
-        String path = getExecutablePath();
-        String contentsPath = String(path);
+        mq_str path = getExecutablePath();
+        mq_str contentsPath = mq_str(path);
         USize slashIdx = contentsPath.rfind("/");
         contentsPath = contentsPath.substr(0, slashIdx - 1);
         slashIdx = contentsPath.rfind("/");
@@ -170,22 +170,22 @@ namespace mq
         return contentsPath;
     }
 
-    static String getBundleFrameworksPath()
+    static mq_str getBundleFrameworksPath()
     {
-        String contentsPath = getBundleContentsPath();
+        mq_str contentsPath = getBundleContentsPath();
         return contentsPath + "/Frameworks";
     }
 
-    static String getBundleResourcesPath()
+    static mq_str getBundleResourcesPath()
     {
-        String contentsPath = getBundleContentsPath();
+        mq_str contentsPath = getBundleContentsPath();
         return contentsPath + "/Resources";
     }
     
-    static String getConfigPath()
+    static mq_str getConfigPath()
     {
-        String configPath = "";
-        String contentsPath = getBundleContentsPath();
+        mq_str configPath = "";
+        mq_str contentsPath = getBundleContentsPath();
         USize slashIdx = contentsPath.rfind("/");
         configPath = contentsPath.substr(0, slashIdx - 1);
         slashIdx = configPath.rfind("/");
@@ -195,10 +195,10 @@ namespace mq
         return configPath;
     }
     
-//    static String getAudioPath()
+//    static mq_str getAudioPath()
 //    {
-//        String audioPath = "";
-//        String contentsPath = getBundleContentsPath();
+//        mq_str audioPath = "";
+//        mq_str contentsPath = getBundleContentsPath();
 //        USize slashIdx = contentsPath.rfind("/");
 //        audioPath = contentsPath.substr(0, slashIdx - 1);
 //        slashIdx = audioPath.rfind("/");
@@ -208,7 +208,7 @@ namespace mq
 //        return audioPath;
 //    }
     
-    static S32 findListIndex(String str, const String* strList, S32 size)
+    static S32 findListIndex(mq_str str, const mq_str* strList, S32 size)
     {
         S32 index = -1;
         
@@ -220,13 +220,13 @@ namespace mq
         }
         
         if (index == -1) {
-            MQ_LOG(LOG_ERROR, "Index of string '" + str + "' not found");
+            MQ_LOG(MQ_LOG_ERROR, "Index of string '" + str + "' not found");
         }
         
         return index;
     }
 
-    static S32 findListIndex(String str, const char** strList, S32 size)
+    static S32 findListIndex(mq_str str, const char** strList, S32 size)
     {
         S32 index = -1;
         
@@ -238,13 +238,13 @@ namespace mq
         }
         
         if (index == -1) {
-            MQ_LOG(LOG_ERROR, "Index of string '" + str + "' not found");
+            MQ_LOG(MQ_LOG_ERROR, "Index of string '" + str + "' not found");
         }
         
         return index;
     }
 
-    static S32 findListIndex(const String& str, const StringList& strList)
+    static S32 findListIndex(const mq_str& str, const StringList& strList)
     {
         S32 index = -1;
         USize numElements = strList.size();
@@ -257,7 +257,7 @@ namespace mq
         }
         
         if (index == -1) {
-            MQ_LOG(LOG_ERROR, "Index of string '" + str + "' not found");
+            MQ_LOG(MQ_LOG_ERROR, "Index of string '" + str + "' not found");
         }
         
         return index;

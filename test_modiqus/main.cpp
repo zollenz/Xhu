@@ -10,7 +10,7 @@
 #include "modiqus.h"
 #include "pugixml.hpp"
 
-mq::S32 mq::dbgLevel = LOG_MUTE;
+mq::S32 mq::dbgLevel = MQ_LOG_MUTE;
 
 int main(int argc, const char * argv[])
 {

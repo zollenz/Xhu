@@ -42,7 +42,7 @@ namespace mq
         SOUND_PARAM_UNDEFINED
     };
     
-    static const String SoundParamNames[SOUND_PARAM_UNDEFINED] =
+    static const mq_str SoundParamNames[SOUND_PARAM_UNDEFINED] =
     {
         "NoteDuration",
         "NoteAmplitude",
@@ -74,14 +74,14 @@ namespace mq
         void UpdateControlParams(const std::vector<mqParamUpdate>& update);
         void SetSoundParam(const SoundParamType channel, const F32 value, const mqSoundInfo& info);
         void ClearConfig();
-//        virtual bool loadConfig(const String& filename);
-        mqSound* const GetSound(const String& name);
+//        virtual bool loadConfig(const mq_str& filename);
+        mqSound* const GetSound(const mq_str& name);
         void CreateSampleTable(mqSampleTable& table, F32List* const samples = NULL);
         void CreateImmediateTable(mqImmediateTable& table);
         void CreateSegmentTable(mqSegmentTable& table);
 
 #ifdef DEBUG
-        void SendMessage(const String& msg) const; // FOR DEBUGGING, TODO: DELETE IN FINAL BUILD
+        void SendMessage(const mq_str& msg) const; // FOR DEBUGGING, TODO: DELETE IN FINAL BUILD
         mqCsoundWrapper* GetCsoundWrapper();
 #endif
     private:
@@ -120,7 +120,7 @@ namespace mq
                 F32 sampleData[KSMPS];
                 F32 value = -1;
                 
-                MQ_LOG(LOG_INFO, "OutputThread started\n");
+                MQ_LOG(MQ_LOG_INFO, "OutputThread started\n");
                 
                 _audio->StartInstanceMonitor(INSTR_PARTIKKEL, false);
                 
@@ -139,7 +139,7 @@ namespace mq
                 
                 _audio->StopInstanceMonitor(INSTR_PARTIKKEL, false);
                 //                CoreEvents::Instance().OutputSilent.FireEvent("OutputSilent");
-                MQ_LOG(LOG_INFO, "OutputThread stopped\n");
+                MQ_LOG(MQ_LOG_INFO, "OutputThread stopped\n");
             }
         };
         
@@ -162,7 +162,7 @@ namespace mq
         void MorphTable(const F32 morphIndex, const S32 morphTable, const S32 morphTableTable) const;
         const F32 GetMorphTableListIndex(const mqMapping& mapping) const;
         const F32 InterpolateSoundParam(const mqSoundParam& soundParam, const mqMapping& mapping) const;
-        const String GetInstanceString(InstrumentType instrument, const S32 instance);
+        const mq_str GetInstanceString(InstrumentType instrument, const S32 instance);
         const U32 GetNewInstanceNumber();
         const U32 GetNewTableNumber();
         void UpdateBaseTableNumber(const U32 number);

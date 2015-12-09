@@ -20,12 +20,12 @@
 #ifndef __MQ_DEBUG_H__
 #define __MQ_DEBUG_H__
 
-#define LOG_MUTE     (1)
-#define LOG_FATAL    (2)
-#define LOG_ERROR    (3)
-#define LOG_WARN     (4)
-#define LOG_INFO     (5)
-#define LOG_DBG      (6)
+#define MQ_LOG_MUTE     (1)
+#define MQ_LOG_FATAL    (2)
+#define MQ_LOG_ERROR    (3)
+#define MQ_LOG_WARN     (4)
+#define MQ_LOG_INFO     (5)
+#define MQ_LOG_DBG      (6)
 
 #define __TRUNC_FILE__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
@@ -46,15 +46,15 @@ namespace mq
     inline const char* const LogLevelName(S32 logLevel)
     {
         switch (logLevel) {
-            case LOG_FATAL:
+            case MQ_LOG_FATAL:
                 return "FATAL";
-            case LOG_ERROR:
+            case MQ_LOG_ERROR:
                 return "ERROR";
-            case LOG_WARN:
+            case MQ_LOG_WARN:
                 return "WARN";
-            case LOG_INFO:
+            case MQ_LOG_INFO:
                 return "INFO";
-            case LOG_DBG:
+            case MQ_LOG_DBG:
                 return "DEBUG";
             default:
                 return "";
@@ -64,7 +64,7 @@ namespace mq
     template<class T>
     inline void Trace(T input, S32 level, const char* file, S32 line, const char* func)
     {
-        String shortFile = String(file);
+        mq_str shortFile = mq_str(file);
         USize lastDot = shortFile.rfind(".");
         shortFile = shortFile.substr(0, lastDot);
         

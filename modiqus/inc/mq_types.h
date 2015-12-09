@@ -45,8 +45,8 @@ namespace mq
     typedef U8 Byte;
     typedef size_t MemSize;
     typedef wchar_t WChar;
-    typedef std::string String;
-    typedef std::vector<String> StringList, *StringListPtr;
+    typedef std::string mq_str;
+    typedef std::vector<mq_str> StringList, *StringListPtr;
     typedef std::vector<S32> S32List;
     typedef std::vector<F32> F32List;
     static const S32 SRATE = 44100;
@@ -55,11 +55,11 @@ namespace mq
     static const S32 BUFFER_SIZE = 512;
     static const S32 INDEX_INVALID = -1;
     static const S32 TABLE_UNDEFINED = 0;
-    static const String UNDEFINED_STR = "UNDEFINED";
+    static const mq_str UNDEFINED_STR = "UNDEFINED";
     static const S32 UNDEFINED_INT = -1;
     static const S32 HAS_DATA = 1;
     static const F32 F_EPSILON = 0.001f;
-    static const String DEFAULT_CONFIG_FILENAME = "mq_config.xml";
+    static const mq_str DEFAULT_CONFIG_FILENAME = "mq_config.xml";
     
 #define F32_INF std::numeric_limits<F32>::infinity()
 #define F64_INF std::numeric_limits<F64>::infinity()
@@ -86,20 +86,20 @@ namespace mq
     
     struct mqSoundInfo
     {
-        String sourceType;
-        String sourceName;
-        String sourceEvent;
+        mq_str sourceType;
+        mq_str sourceName;
+        mq_str sourceEvent;
         S32 soundInstance;
-        String soundInstanceString;
-        String soundCompleteName;
+        mq_str soundInstanceString;
+        mq_str soundCompleteName;
         
         mqSoundInfo(
-                        const String& _sourcetype = UNDEFINED_STR,
-                        const String& _sourceName = UNDEFINED_STR,
-                        const String& _sourceEvent = UNDEFINED_STR,
+                        const mq_str& _sourcetype = UNDEFINED_STR,
+                        const mq_str& _sourceName = UNDEFINED_STR,
+                        const mq_str& _sourceEvent = UNDEFINED_STR,
                         const S32 _soundInstance = UNDEFINED_INT,
-                        const String& _soundInstanceString = UNDEFINED_STR,
-                        const String& _soundCompleteName = UNDEFINED_STR
+                        const mq_str& _soundInstanceString = UNDEFINED_STR,
+                        const mq_str& _soundCompleteName = UNDEFINED_STR
                         ) :
         sourceType(_sourcetype),
         sourceName(_sourceName),
@@ -121,10 +121,10 @@ namespace mq
     
     struct mqParamUpdate
     {
-        String name;
+        mq_str name;
         F32 value;
         
-        mqParamUpdate(const String& n = UNDEFINED_STR, const F32 v = 0.0f) :
+        mqParamUpdate(const mq_str& n = UNDEFINED_STR, const F32 v = 0.0f) :
         name(n), value(v) {}
     };
         

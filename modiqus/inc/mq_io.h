@@ -31,7 +31,7 @@ typedef pugi::xml_document xmlDocument;
 
 namespace mq
 {
-    static bool saveTextFile(String text, String fileName)
+    static bool saveTextFile(mq_str text, mq_str fileName)
     {
         std::ofstream file;
         file.open(fileName.c_str());
@@ -53,9 +53,9 @@ namespace mq
         return true;
     }
 
-    static String readTextFile(String fileName)
+    static mq_str readTextFile(mq_str fileName)
     {
-        String fileContents = "";
+        mq_str fileContents = "";
         std::ifstream file;
         file.open(fileName.c_str());
 
@@ -96,7 +96,7 @@ namespace mq
     
     static void parseImmediateTable(mqImmediateTable& table, const xmlNode& node)
     {
-        String valueStr = node.child("number").child_value();
+        mq_str valueStr = node.child("number").child_value();
         table.number = fromString<S32>(valueStr);
         valueStr = node.child("start").child_value();
         table.start = fromString<S32>(valueStr);
@@ -116,7 +116,7 @@ namespace mq
 
     static void parseModifier(mqModifier& modifier, const xmlNode& parentNode)
     {
-        String valueStr = parentNode.child("control_param_value").child_value();
+        mq_str valueStr = parentNode.child("control_param_value").child_value();
         modifier.controlValue = fromString<F32>(valueStr);
         parseLinSegTable(modifier.minTable, parentNode.child("min_table"));
         parseLinSegTable(modifier.maxTable, parentNode.child("max_table"));
@@ -124,7 +124,7 @@ namespace mq
 
     static void parseMapping(mqMapping& mapping, Configuration& configuration, const xmlNode& mappingNode)
     {
-        String valueStr = mappingNode.child("type").child_value();
+        mq_str valueStr = mappingNode.child("type").child_value();
         S32 index = findListIndex(valueStr, mqMapping::TypeNames, mqMapping::TYPE_COUNT);
         mapping.type = mqMapping::Type(index);
         
@@ -168,7 +168,7 @@ namespace mq
     static void parseControlParam(Configuration& configuration, const xmlNode& parentNode)
     {
         mqControlParam param = mqControlParam();
-        String valueStr = parentNode.child("name").child_value();
+        mq_str valueStr = parentNode.child("name").child_value();
         param.name = valueStr;
         valueStr = parentNode.child("min").child_value();
         param.min = fromString<F32>(valueStr);
@@ -207,12 +207,12 @@ namespace mq
         configuration.sounds.insert(std::make_pair(sound.name, sound));
     }
     
-    static bool parseConfig(const String& filename, Configuration& configuration)
+    static bool parseConfig(const mq_str& filename, Configuration& configuration)
     {            
         xmlDocument doc;
     
         if (doc.load_file(filename.c_str()).status != 0) {
-            MQ_LOG(LOG_ERROR, "Could not load config file.")
+            MQ_LOG(MQ_LOG_ERROR, "Could not load config file.")
             
             return false;
         }
@@ -220,13 +220,13 @@ namespace mq
         xmlNode rootNode = doc.child("configuration");
 
         if (rootNode == NULL) {
-            MQ_LOG(LOG_ERROR, "Config file is invalid or malformed.")
+            MQ_LOG(MQ_LOG_ERROR, "Config file is invalid or malformed.")
             
             return false;
         }
         
         
-        configuration.name = String(rootNode.attribute("name").value());
+        configuration.name = mq_str(rootNode.attribute("name").value());
         
         // Globals
         xmlNode globalsNode = rootNode.child("globals");
@@ -258,7 +258,7 @@ namespace mq
     
     static void serializeLinSegTable(const mqSegmentTable& table, xmlNode& parentNode)
     {
-        String value = toString(table.number);
+        mq_str value = toString(table.number);
         parentNode.append_child("number");
         parentNode.child("number").append_child(xmlValue).set_value(value.c_str());
         value = toString(table.start);
@@ -286,7 +286,7 @@ namespace mq
     
     static void serializeImmediateTable(const mqImmediateTable& table, xmlNode& parentNode)
     {
-        String value = toString(table.number);
+        mq_str value = toString(table.number);
         parentNode.append_child("number");
         parentNode.child("number").append_child(xmlValue).set_value(value.c_str());
         value = toString(table.start);
@@ -310,7 +310,7 @@ namespace mq
     
     static void serializeModifier(const mqModifier& modifier, xmlNode& node)
     {
-        String value = "";        
+        mq_str value = "";        
         xmlNode valNode = node.append_child("control_param_value");
         value = toString(modifier.controlValue);
         valNode.append_child(xmlValue).set_value(value.c_str());
@@ -323,7 +323,7 @@ namespace mq
     static void serializeMapping(const mqMapping& mapping, xmlNode& node)
     {
         xmlNode modifierTypeNode = node.append_child("type");
-        String value = mqMapping::TypeNames[mapping.type];
+        mq_str value = mqMapping::TypeNames[mapping.type];
         modifierTypeNode.append_child(xmlValue).set_value(value.c_str());
         
         node.append_child("control_param");
@@ -365,7 +365,7 @@ namespace mq
     
     static void serializeControlParam(const mqControlParam& controlParam, xmlNode& node)
     {
-        String value = "";
+        mq_str value = "";
         
         node.append_child("name");
         value = controlParam.name;
@@ -382,7 +382,7 @@ namespace mq
     
     static void serializeSound(const mqSound& sound, xmlNode& parentNode)
     {        
-        String value = "";
+        mq_str value = "";
 
         parentNode.append_child("name");
         parentNode.child("name").append_child(xmlValue).set_value(sound.name.c_str());
@@ -429,7 +429,7 @@ namespace mq
         }
     }
         
-    static void serializeConfig(const Configuration& config, const String& filename)
+    static void serializeConfig(const Configuration& config, const mq_str& filename)
     {
         xmlDocument document;
         document.append_child(pugi::node_comment).set_value("Modiqus configuration");
@@ -439,7 +439,7 @@ namespace mq
         // Globals
         xmlNode globalsNode = rootNode.append_child("globals");
         xmlNode baseTableNumberNode = globalsNode.append_child("base_table_number");
-        String value = toString(config.baseTableNumber);
+        mq_str value = toString(config.baseTableNumber);
         baseTableNumberNode.append_child(xmlValue).set_value(value.c_str());
 
         // Sounds
@@ -496,7 +496,7 @@ namespace mq
         _myContents(),
         _redirect(_myContents, stream) {}
         
-        String contents () const
+        mq_str contents () const
         {
             return(_myContents.str());
         }

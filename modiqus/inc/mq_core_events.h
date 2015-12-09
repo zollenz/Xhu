@@ -30,7 +30,7 @@ namespace mq
     {
     public:
         Event<void, const F32* const> OutputDataReady;
-        Event<void, const String&> OutputSilent;
+        Event<void, const mq_str&> OutputSilent;
         
         static CoreEvents& Instance()
         {

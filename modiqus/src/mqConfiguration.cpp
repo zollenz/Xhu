@@ -24,7 +24,7 @@ using namespace mq;
 
 const S32 SOUND_PARAM_COUNT = 4;
 
-const String mqMapping::TypeNames[5] =
+const mq_str mqMapping::TypeNames[5] =
 {
     "Constant",
     "Segment",
