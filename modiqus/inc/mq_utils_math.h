@@ -209,9 +209,10 @@ namespace mq
 
     static F32 randomInRange(F32 min, F32 max)
     {
-        S32 delta = ceil(max) - floor(min);
-        
-        return rand() % delta + (S32)floor(min);
+        F32 random = ((F32) rand()) / (F32) RAND_MAX;
+        F32 diff = max - min;
+        F32 r = random * diff;
+        return min + r;
     }
 
     static F32 mean(const F32* data, const S32 size, const S32 startIndex, const S32 endIndex)

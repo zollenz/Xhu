@@ -357,39 +357,37 @@ void mqCsoundWrapper::CreateImmediateTable(mqImmediateTable& table)
     while (!DoesTableExist(table.number)); // TODO: replace with safer solution
 }
 
-void mqCsoundWrapper::CreateSegmentTable(mqSegmentTable& table)
+void mqCsoundWrapper::CreateSegmentTable(mqSegmentTable* const table)
 {    
-    USize numSegments = table.segments.size();
+    USize numSegments = table->segments.size();
 
 	// Check segment/tablesize integrity
     F32 totalLength = 0;
 
 	for (USize i = 0; i < numSegments; i++) {
-		totalLength += table.segments.at(i).length;
+		totalLength += table->segments.at(i).length;
 	}
     
-#ifdef DEBUG
-    if (totalLength < table.size) {
+    if (totalLength < table->size) {
         MQ_LOG(MQ_LOG_WARN, "Segment length sum is less than table size. Padding table end with zeros.");
     }
     
-    if (totalLength > table.size) {
+    if (totalLength > table->size) {
         MQ_LOG(MQ_LOG_WARN, "Segment length sum is bigger than table size. Excess segments will not be included.");
     }
-#endif
     
 	//Create score event:
-    mq_str message = "f " + toString<S32>(table.number);
-    message += " 0 " + toString<S32>(table.size) + " -7";
+    mq_str message = "f " + toString<S32>(table->number);
+    message += " 0 " + toString<S32>(table->size) + " -7";
     
     for (S32 i = 0; i < numSegments; i++) {
-        message += " " + toString<F32>(table.segments.at(i).value);
-        message += " " + toString<F32>(table.segments.at(i).length);
+        message += " " + toString<F32>(table->segments.at(i).value);
+        message += " " + toString<F32>(table->segments.at(i).length);
     }
 	
 	SendMessage(message.c_str());
     
-    while (!DoesTableExist(table.number));
+    while (!DoesTableExist(table->number));
 }
 
 const S32 mqCsoundWrapper::GetTableData(const S32 tableNumber, F32List* const data)

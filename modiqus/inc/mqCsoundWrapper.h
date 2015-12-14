@@ -46,7 +46,7 @@ namespace mq
         void SendScoreEvent(const char type, MYFLT* parameters, S32 numParameters);
         void CreateSampleTable(mqSampleTable& table);
         void CreateImmediateTable(mqImmediateTable& table);
-        void CreateSegmentTable(mqSegmentTable& table);
+        void CreateSegmentTable(mqSegmentTable* const table);
         const S32 GetTableData(const S32 tableNumber, F32List* const data);
         void SetTableData(const S32 table, const F32List* const data);
         const F32 GetTableValue(const S32 table, const S32 index);

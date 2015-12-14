@@ -78,7 +78,7 @@ namespace mq
         mqSound* const GetSound(const mq_str& name);
         void CreateSampleTable(mqSampleTable& table, F32List* const samples = NULL);
         void CreateImmediateTable(mqImmediateTable& table);
-        void CreateSegmentTable(mqSegmentTable& table);
+        void CreateSegmentTable(mqSegmentTable* const table);
         void SendMessage(const mq_str& msg) const; // FOR DEBUGGING, TODO: DELETE IN FINAL BUILD
         mqCsoundWrapper* const GetCsoundWrapper();
     private:

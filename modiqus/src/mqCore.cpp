@@ -310,14 +310,14 @@ void mqCore::CreateImmediateTable(mqImmediateTable& table)
     UpdateBaseTableNumber(table.number);
 }
 
-void mqCore::CreateSegmentTable(mqSegmentTable& table)
+void mqCore::CreateSegmentTable(mqSegmentTable* const table)
 {
-    if (table.number == TABLE_UNDEFINED) {
-        table.number = GetNewTableNumber();
+    if (table->number == TABLE_UNDEFINED) {
+        table->number = GetNewTableNumber();
     }
     
     _wrapper.CreateSegmentTable(table);
-    UpdateBaseTableNumber(table.number);
+    UpdateBaseTableNumber(table->number);
 }
 
 void mqCore::GetSampleTableData(mqSampleTable& table, F32List* data)
