@@ -117,7 +117,7 @@ namespace mq
                 F32 sampleData[KSMPS];
                 F32 value = -1;
                 
-                MQ_LOG(MQ_LOG_INFO, "OutputThread started\n");
+                MQ_LOG_INFO( "OutputThread started\n");
                 
                 _audio->StartInstanceMonitor(INSTR_PARTIKKEL, false);
                 
@@ -136,7 +136,7 @@ namespace mq
                 
                 _audio->StopInstanceMonitor(INSTR_PARTIKKEL, false);
                 //                CoreEvents::Instance().OutputSilent.FireEvent("OutputSilent");
-                MQ_LOG(MQ_LOG_INFO, "OutputThread stopped\n");
+                MQ_LOG_INFO( "OutputThread stopped\n");
             }
         };
         

@@ -76,7 +76,7 @@ S32 sanityCheck(const char *name, S32 errorCode)
     }
     
     msg += ") ======";
-    MQ_LOG(MQ_LOG_INFO, msg);
+    MQ_LOG_INFO( msg);
 #endif
     return errorCode;
 }
@@ -88,13 +88,13 @@ uintptr_t performanceRoutine(void* data)
 
     if (state->compileResult == CSOUND_SUCCESS) {
         core->IsPerformanceThreadRunning(true);
-        MQ_LOG(MQ_LOG_DBG, "Csound performance thread created");
+        MQ_LOG_DEBUG("Csound performance thread created");
         
         while (true) {
             // Yield for non-reentrant API functions
             if (state->yieldPerformance) {
                 state->performanceThreadYield = true;
-                MQ_LOG(MQ_LOG_DBG, "CSOUND THREAD YIELD");
+                MQ_LOG_DEBUG("CSOUND THREAD YIELD");
             }
             
             while (state->yieldPerformance);
@@ -107,9 +107,9 @@ uintptr_t performanceRoutine(void* data)
         }
         
         core->IsPerformanceThreadRunning(false);
-        MQ_LOG(MQ_LOG_DBG, "Csound performance loop stopped");
+        MQ_LOG_DEBUG("Csound performance loop stopped");
         csoundDestroy(state->csound);
-        MQ_LOG(MQ_LOG_DBG, "Csound instance destroyed");
+        MQ_LOG_DEBUG("Csound instance destroyed");
     }
     
     return 1;
@@ -162,16 +162,16 @@ bool mqCsoundWrapper::Start()
     mq_str audioPath = executableDirectoryPath + "/../Resources/audio";
     mq_str csdPath = executableDirectoryPath + "/../Resources/csound/modiqus.csd";
     
-    MQ_LOG(MQ_LOG_DBG, "Csound opcode directory: " + opcodePath);
-    MQ_LOG(MQ_LOG_DBG, "Csound audio directory: " + audioPath);
-    MQ_LOG(MQ_LOG_DBG, "Csound orchestra file path: " + csdPath);
+    MQ_LOG_DEBUG("Csound opcode directory: " + opcodePath);
+    MQ_LOG_DEBUG("Csound audio directory: " + audioPath);
+    MQ_LOG_DEBUG("Csound orchestra file path: " + csdPath);
     
     S32 callResult = CSOUND_ERROR;
     callResult = csoundSetGlobalEnv("OPCODE6DIR", opcodePath.c_str());
     sanityCheck("csoundSetGlobalEnv", callResult);
     
     if (callResult != CSOUND_SUCCESS) {
-        MQ_LOG(MQ_LOG_FATAL, "Csound initialization of environment variable 'OPCODE6DIR' failed");
+        MQ_LOG_FATAL( "Csound initialization of environment variable 'OPCODE6DIR' failed");
         return false;
     }
     
@@ -179,7 +179,7 @@ bool mqCsoundWrapper::Start()
     sanityCheck("csoundSetGlobalEnv", callResult);
     
     if (callResult != CSOUND_SUCCESS) {
-        MQ_LOG(MQ_LOG_FATAL, "Csound initialization of environment variable 'SSDIR' failed");
+        MQ_LOG_FATAL( "Csound initialization of environment variable 'SSDIR' failed");
         return false;
     }
     
@@ -187,7 +187,7 @@ bool mqCsoundWrapper::Start()
     _state.csound = csoundCreate(this);
     
     if (_state.csound == NULL) {
-        MQ_LOG(MQ_LOG_FATAL, "Csound instance creation failed");
+        MQ_LOG_FATAL( "Csound instance creation failed");
         return false;
     }
     
@@ -195,7 +195,7 @@ bool mqCsoundWrapper::Start()
     _state.compileResult = CSOUND_ERROR;
     _state.runPerformanceThread = false;
     
-    if (dbgLevel < MQ_LOG_INFO) {
+    if (dbgLevel < MQ_LOG_LEVEL_INFO) {
         csoundSetMessageCallback(_state.csound, noMsg_CB);
     }
     
@@ -212,7 +212,7 @@ bool mqCsoundWrapper::Start()
     sanityCheck("cSoundCompile", _state.compileResult);
     
     if (_state.compileResult != CSOUND_SUCCESS) {
-        MQ_LOG(MQ_LOG_FATAL, "Csound .csd compilation failed");
+        MQ_LOG_FATAL( "Csound .csd compilation failed");
         return false;
     }
     
@@ -224,7 +224,7 @@ bool mqCsoundWrapper::Start()
     _state.performanceThreadYield = false;
     
     if (csoundCreateThread(performanceRoutine, (void *)&_state) == NULL) {
-        MQ_LOG(MQ_LOG_FATAL, "Csound performance thread creation failed");
+        MQ_LOG_FATAL( "Csound performance thread creation failed");
         return false;
     }    
 
@@ -239,7 +239,7 @@ bool mqCsoundWrapper::Start()
     }
     
     // Everything is OK...
-    MQ_LOG(MQ_LOG_DBG, "Csound wrapper initialized and performance thread running");
+    MQ_LOG_DEBUG("Csound wrapper initialized and performance thread running");
     return true;
 }
 
@@ -256,7 +256,7 @@ void mqCsoundWrapper::GetChannelControlOutput(MYFLT& value, const char *name) co
     
     if (result == CSOUND_SUCCESS) {
         value = *chnPtr;
-        MQ_LOG(MQ_LOG_DBG, "Value " + toString(value) + " received from channel " + name);
+        MQ_LOG_DEBUG("Value " + toString(value) + " received from channel " + name);
     } else {
         sanityCheck("csoundGetChannelPtr", result);
     }
@@ -270,7 +270,7 @@ void mqCsoundWrapper::SetChannelControlInput(MYFLT value, const char *name) cons
     
     if (result == CSOUND_SUCCESS) {
         *chnPtr = (MYFLT)value;
-        MQ_LOG(MQ_LOG_DBG, "Value " + toString(value) + " sent to channel " + name);
+        MQ_LOG_DEBUG("Value " + toString(value) + " sent to channel " + name);
     } else {
         sanityCheck("csoundGetChannelPtr", result);
     }
@@ -279,12 +279,12 @@ void mqCsoundWrapper::SetChannelControlInput(MYFLT value, const char *name) cons
 void mqCsoundWrapper::SetControlChannelInput(MYFLT value, const char *name) const
 {
     csoundSetControlChannel(_state.csound, name, value);
-    MQ_LOG(MQ_LOG_DBG, "Value " + toString(value) + " sent to channel " + name);
+    MQ_LOG_DEBUG("Value " + toString(value) + " sent to channel " + name);
 }
 
 void mqCsoundWrapper::SendMessage(const char* message) const
 {
-    MQ_LOG(MQ_LOG_DBG, "Sending message to Csound:\n" + mq_str(message));
+    MQ_LOG_DEBUG("Sending message to Csound:\n" + mq_str(message));
 	csoundInputMessage(_state.csound , message);
 }
 
@@ -293,7 +293,7 @@ void mqCsoundWrapper::SendScoreEvent(const char type, MYFLT* parameters, S32 num
     S32 result = csoundScoreEvent(_state.csound, type, parameters, numParameters);
     
     if(result == CSOUND_SUCCESS) {
-        MQ_LOG(MQ_LOG_DBG, "Sent score event");
+        MQ_LOG_DEBUG("Sent score event");
     } else {
         sanityCheck("csoundScoreEvent", result);
     }
@@ -358,11 +358,11 @@ void mqCsoundWrapper::CreateSegmentTable(mqSegmentTable* const table)
 	}
     
     if (totalLength < table->size) {
-        MQ_LOG(MQ_LOG_WARN, "Segment length sum is less than table size. Padding table end with zeros.");
+        MQ_LOG_WARN("Segment length sum is less than table size. Padding table end with zeros.");
     }
     
     if (totalLength > table->size) {
-        MQ_LOG(MQ_LOG_WARN, "Segment length sum is bigger than table size. Excess segments will not be included.");
+        MQ_LOG_WARN("Segment length sum is bigger than table size. Excess segments will not be included.");
     }
     
 	//Create score event:
@@ -384,12 +384,12 @@ const S32 mqCsoundWrapper::GetTableData(const S32 tableNumber, F32List* const da
     S32 length = -1;
     
     if (tableNumber == 0) {
-        MQ_LOG(MQ_LOG_ERROR, "Could not retrieve data. Table is undefined.");
+        MQ_LOG_ERROR("Could not retrieve data. Table is undefined.");
         return length;
     }
     
     if (data == NULL) {
-        MQ_LOG(MQ_LOG_ERROR, "NULL arg pointer, could not return data.");
+        MQ_LOG_ERROR("NULL arg pointer, could not return data.");
         return length;
     }
     
@@ -397,7 +397,7 @@ const S32 mqCsoundWrapper::GetTableData(const S32 tableNumber, F32List* const da
 
     while (!_state.performanceThreadYield);
     
-    MQ_LOG(MQ_LOG_DBG,"Retrieving data for table " + toString(tableNumber));
+    MQ_LOG_DEBUG("Retrieving data for table " + toString(tableNumber));
 
     MYFLT* tempDataPtr = NULL;
     length = csoundGetTable(_state.csound, &tempDataPtr, tableNumber);
@@ -409,12 +409,12 @@ const S32 mqCsoundWrapper::GetTableData(const S32 tableNumber, F32List* const da
         for (S32 i = 0; i < length; i++) {
             data->at(i) = tempDataPtr[i];
             //        samples[i] = tempSamples[i] / CSOUND_0DBFS;
-            //        MQ_LOG(MQ_LOG_DBG, "samples[" + toString<S32>(i) + "] = " + toString<F32>(samples[i]));
+            //        MQ_LOG_DEBUG("samples[" + toString<S32>(i) + "] = " + toString<F32>(samples[i]));
         }
     }
 #ifdef DEBUG
     else {
-        MQ_LOG(MQ_LOG_ERROR, "Could not retrieve data for table " + toString(tableNumber) + ". Table does not exist.");
+        MQ_LOG_ERROR("Could not retrieve data for table " + toString(tableNumber) + ". Table does not exist.");
     }
 #endif
     
@@ -425,7 +425,7 @@ const S32 mqCsoundWrapper::GetTableData(const S32 tableNumber, F32List* const da
 void mqCsoundWrapper::SetTableData(const S32 table, const F32List* const data)
 {
     if (table == TABLE_UNDEFINED) {
-        MQ_LOG(MQ_LOG_DBG, "Table is undefined.");
+        MQ_LOG_DEBUG("Table is undefined.");
         return;
     }
     
@@ -447,12 +447,12 @@ const F32 mqCsoundWrapper::GetTableValue(const S32 tableNumber, const S32 index)
     F32 value = NAN;
     
     if (tableNumber <= 0) {
-        MQ_LOG(MQ_LOG_ERROR, "Could not retrieve data. Invalid table number.");
+        MQ_LOG_ERROR("Could not retrieve data. Invalid table number.");
         return value;
     }
     
     if (index < 0) {
-        MQ_LOG(MQ_LOG_ERROR, "Could not retrieve data. Index is negative.");        
+        MQ_LOG_ERROR("Could not retrieve data. Index is negative.");        
         return value;
     }
     
@@ -471,11 +471,11 @@ bool mqCsoundWrapper::DoesTableExist(S32 tableNumber)
     bool exists = false;
     
     if (tableNumber == 0) {
-        MQ_LOG(MQ_LOG_ERROR, "Could not retrieve data. Table is undefined.");
+        MQ_LOG_ERROR("Could not retrieve data. Table is undefined.");
         return exists;
     }
 
-    MQ_LOG(MQ_LOG_DBG,"Checking if table " + toString(tableNumber) + " exists.");
+    MQ_LOG_DEBUG("Checking if table " + toString(tableNumber) + " exists.");
 
     S32 length = -1;
     MYFLT* tablePtr = NULL;    
@@ -488,9 +488,9 @@ bool mqCsoundWrapper::DoesTableExist(S32 tableNumber)
     exists = length > 0 && tablePtr != NULL;
 
     if (exists) {
-        MQ_LOG(MQ_LOG_DBG,"Table " + toString(tableNumber) + " exists.");
+        MQ_LOG_DEBUG("Table " + toString(tableNumber) + " exists.");
     } else {
-        MQ_LOG(MQ_LOG_DBG,"Table " + toString(tableNumber) + " does not exist.");
+        MQ_LOG_DEBUG("Table " + toString(tableNumber) + " does not exist.");
     }
     
     return exists;
@@ -499,16 +499,16 @@ bool mqCsoundWrapper::DoesTableExist(S32 tableNumber)
 void mqCsoundWrapper::DeleteTable(const S32 tableNum)
 {
     if (tableNum == TABLE_UNDEFINED) {
-        MQ_LOG(MQ_LOG_DBG, "Table is undefined.");
+        MQ_LOG_DEBUG("Table is undefined.");
         return;
     }
     
     if (DoesTableExist(tableNum)) {
-        MQ_LOG(MQ_LOG_DBG, "Deleting table " + toString(tableNum));
+        MQ_LOG_DEBUG("Deleting table " + toString(tableNum));
         mq_str message = "f -" + toString<S32>(tableNum) + " 0";
         SendMessage(message.c_str());
     } else {
-        MQ_LOG(MQ_LOG_DBG, "Table " + toString(tableNum) + " does not exist.");
+        MQ_LOG_DEBUG("Table " + toString(tableNum) + " does not exist.");
     }
 }
 

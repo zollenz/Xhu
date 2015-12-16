@@ -74,7 +74,7 @@ namespace mq
     static U32 sizeToUnsignedInt(USize value)
     {
         if(value > UINT_MAX) {
-            MQ_LOG(MQ_LOG_ERROR, "Value is bigger than UINT_MAX. Return value will not be correct.")
+            MQ_LOG_ERROR("Value is bigger than UINT_MAX. Return value will not be correct.")
         }
         
         return static_cast<U32>(value);
@@ -83,7 +83,7 @@ namespace mq
     static const S32 sizeToInt(const USize value)
     {
         if (value > std::numeric_limits<S32>::max()) {
-            MQ_LOG(MQ_LOG_ERROR, "Size is bigger than INT_MAX. Return value will not be correct.");
+            MQ_LOG_ERROR("Size is bigger than INT_MAX. Return value will not be correct.");
         }
         
         return static_cast<S32>(value);
@@ -94,7 +94,7 @@ namespace mq
         if (value < std::numeric_limits<S32>::max()) {
             return static_cast<S32>(value);
         } else {
-            MQ_LOG(MQ_LOG_ERROR, "Size is bigger than INT_MAX")
+            MQ_LOG_ERROR("Size is bigger than INT_MAX")
             return -1;
         }
     }
@@ -120,8 +120,8 @@ namespace mq
         try {
             elmPtr = &map.at(key);
         } catch (const std::out_of_range& oor) {
-            MQ_LOG(MQ_LOG_ERROR, "Out of Range error: " + mq_str(oor.what()) + ", key: " + toString(key))
-            MQ_LOG(MQ_LOG_ERROR, "Returning NULL pointer")
+            MQ_LOG_ERROR("Out of Range error: " + mq_str(oor.what()) + ", key: " + toString(key))
+            MQ_LOG_ERROR("Returning NULL pointer")
         }
         
         return elmPtr;
@@ -133,7 +133,7 @@ namespace mq
         std::pair<typename std::map<T1,T2>::iterator, bool> retVal = map.insert(mapPair);
         
         if (!retVal.second) {
-            MQ_LOG(MQ_LOG_WARN, "Element with key " + toString<T1>(mapPair.first) + " already exists.")
+            MQ_LOG_WARN("Element with key " + toString<T1>(mapPair.first) + " already exists.")
             return &retVal.first->second;
         }
         
@@ -146,9 +146,9 @@ namespace mq
         char path[PATH_MAX];
         uint32_t size = sizeof(path);
         if (_NSGetExecutablePath(path, &size) == 0) {
-//            MQ_LOG(MQ_LOG_DBG, "Executable path is " + mq_str(path))   
+//            MQ_LOG_DEBUG("Executable path is " + mq_str(path))   
         } else {
-            MQ_LOG(MQ_LOG_ERROR, "Buffer too small; need size " + toString<S32>(size))
+            MQ_LOG_ERROR("Buffer too small; need size " + toString<S32>(size))
         }
 
         return mq_str(path);
@@ -220,7 +220,7 @@ namespace mq
         }
         
         if (index == -1) {
-            MQ_LOG(MQ_LOG_ERROR, "Index of string '" + str + "' not found");
+            MQ_LOG_ERROR("Index of string '" + str + "' not found");
         }
         
         return index;
@@ -238,7 +238,7 @@ namespace mq
         }
         
         if (index == -1) {
-            MQ_LOG(MQ_LOG_ERROR, "Index of string '" + str + "' not found");
+            MQ_LOG_ERROR("Index of string '" + str + "' not found");
         }
         
         return index;
@@ -257,7 +257,7 @@ namespace mq
         }
         
         if (index == -1) {
-            MQ_LOG(MQ_LOG_ERROR, "Index of string '" + str + "' not found");
+            MQ_LOG_ERROR("Index of string '" + str + "' not found");
         }
         
         return index;

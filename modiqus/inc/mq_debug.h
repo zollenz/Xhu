@@ -20,21 +20,12 @@
 #ifndef __MQ_DEBUG_H__
 #define __MQ_DEBUG_H__
 
-#define MQ_LOG_MUTE     (1)
-#define MQ_LOG_FATAL    (2)
-#define MQ_LOG_ERROR    (3)
-#define MQ_LOG_WARN     (4)
-#define MQ_LOG_INFO     (5)
-#define MQ_LOG_DBG      (6)
-
-#define __TRUNC_FILE__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
-
-#ifdef DEBUG
-#define MQ_LOG(level, input) \
-do { mq::Trace(input, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
-#else
-#define MQ_LOG(level, input) do {} while (0);
-#endif
+#define MQ_LOG_LEVEL_MUTE     (1)
+#define MQ_LOG_LEVEL_FATAL    (2)
+#define MQ_LOG_LEVEL_ERROR    (3)
+#define MQ_LOG_LEVEL_WARN     (4)
+#define MQ_LOG_LEVEL_INFO     (5)
+#define MQ_LOG_LEVEL_DEBUG    (6)
 
 #include <iostream>
 #include "mq_types.h"
@@ -43,18 +34,17 @@ namespace mq
 {
     extern S32 dbgLevel;
     
-    inline const char* const LogLevelName(S32 logLevel)
-    {
+    inline const char* const LogLevelName(S32 logLevel) {
         switch (logLevel) {
-            case MQ_LOG_FATAL:
+            case MQ_LOG_LEVEL_FATAL:
                 return "FATAL";
-            case MQ_LOG_ERROR:
+            case MQ_LOG_LEVEL_ERROR:
                 return "ERROR";
-            case MQ_LOG_WARN:
+            case MQ_LOG_LEVEL_WARN:
                 return "WARN";
-            case MQ_LOG_INFO:
+            case MQ_LOG_LEVEL_INFO:
                 return "INFO";
-            case MQ_LOG_DBG:
+            case MQ_LOG_LEVEL_DEBUG:
                 return "DEBUG";
             default:
                 return "";
@@ -62,8 +52,7 @@ namespace mq
     }
 
     template<class T>
-    inline void Trace(T input, S32 level, const char* file, S32 line, const char* func)
-    {
+    inline void Trace(T input, S32 level, const char* file, S32 line, const char* func) {
         mq_str shortFile = mq_str(file);
         USize lastDot = shortFile.rfind(".");
         shortFile = shortFile.substr(0, lastDot);
@@ -75,5 +64,20 @@ namespace mq
         }
     }
 }
+
+#define __TRUNC_FILE__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+
+#ifdef DEBUG
+#define MQ_LOG(level, input) \
+do { mq::Trace(input, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
+#else
+#define MQ_LOG(level, input) do {} while (0);
+#endif
+
+#define MQ_LOG_FATAL(input) MQ_LOG(MQ_LOG_LEVEL_FATAL, input)
+#define MQ_LOG_ERROR(input) MQ_LOG(MQ_LOG_LEVEL_ERROR, input)
+#define MQ_LOG_WARN(input) MQ_LOG(MQ_LOG_LEVEL_WARN, input)
+#define MQ_LOG_INFO(input) MQ_LOG(MQ_LOG_LEVEL_INFO, input)
+#define MQ_LOG_DEBUG(input) MQ_LOG(MQ_LOG_LEVEL_DEBUG, input)
 
 #endif //__MQ_DEBUG_H__

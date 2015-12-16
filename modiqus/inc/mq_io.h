@@ -212,7 +212,7 @@ namespace mq
         xmlDocument doc;
     
         if (doc.load_file(filename.c_str()).status != 0) {
-            MQ_LOG(MQ_LOG_ERROR, "Could not load config file.")
+            MQ_LOG_ERROR("Could not load config file.")
             
             return false;
         }
@@ -220,7 +220,7 @@ namespace mq
         xmlNode rootNode = doc.child("configuration");
 
         if (rootNode == NULL) {
-            MQ_LOG(MQ_LOG_ERROR, "Config file is invalid or malformed.")
+            MQ_LOG_ERROR("Config file is invalid or malformed.")
             
             return false;
         }

@@ -173,7 +173,7 @@ namespace mq
     static const F32 squaredEuclidDist(const F32List& vectorA, const F32List& vectorB)
     {
         if (vectorA.size() != vectorB.size()) {
-            MQ_LOG(MQ_LOG_ERROR, "Vectors are not the same size")
+            MQ_LOG_ERROR("Vectors are not the same size")
             return -1.0f;
         }
         
@@ -220,7 +220,7 @@ namespace mq
         if (startIndex < 0 || endIndex < 0 ||
             startIndex >= size || endIndex >= size ||
             startIndex > endIndex) {
-            MQ_LOG(MQ_LOG_ERROR, "Illegal range")
+            MQ_LOG_ERROR("Illegal range")
             return -1.0f;
         }
 
