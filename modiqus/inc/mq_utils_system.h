@@ -265,7 +265,7 @@ namespace mq
     
     static bool floatEquality(const F32 value1, const F32 value2)
     {
-        const F32 difference = abs(value1 - value2);
+        const F32 difference = std::abs(value1 - value2);
         
         return difference < F_EPSILON;
     }

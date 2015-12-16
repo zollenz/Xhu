@@ -126,7 +126,7 @@ namespace mq
         F32 maxValue = 0.0f;
         
         for (i = 0; i < size; i++) {
-            nextValue = abs(data[i]);
+            nextValue = std::abs(data[i]);
 
             if (maxValue < nextValue) {
                 maxValue = nextValue;
@@ -240,7 +240,7 @@ namespace mq
 
     static F32 absMean(const F32* data, const S32 size, const S32 startIndex, const S32 endIndex)
     {
-        return abs(mean(data, size, startIndex, endIndex));
+        return std::abs(mean(data, size, startIndex, endIndex));
     }
     
     static F32 absMean(const F32List& data, const S32 startIndex, const S32 endIndex)
