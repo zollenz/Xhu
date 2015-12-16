@@ -284,30 +284,30 @@ mqSound* const mqCore::GetSound(const mq_str& name)
     return sound;
 }
 
-void mqCore::CreateSampleTable(mqSampleTable& table, F32List* const samples)
+void mqCore::CreateSampleTable(mqSampleTable* const table, F32List* const samples)
 {
-    if (_wrapper.DoesTableExist(table.number)) {
-        MQ_LOG_WARN("Table " + toString(table.number) + " already exists.")
+    if (_wrapper.DoesTableExist(table->number)) {
+        MQ_LOG_WARN("Table " + toString(table->number) + " already exists.")
         return;
     }
     
-    if (table.number == TABLE_UNDEFINED) {
-        table.number = GetNewTableNumber();
+    if (table->number == TABLE_UNDEFINED) {
+        table->number = GetNewTableNumber();
     }
     
     _wrapper.CreateSampleTable(table);
-    table.size = _wrapper.GetTableData(table.number, samples);
-    UpdateBaseTableNumber(table.number);
+    table->size = _wrapper.GetTableData(table->number, samples);
+    UpdateBaseTableNumber(table->number);
 }
 
-void mqCore::CreateImmediateTable(mqImmediateTable& table)
+void mqCore::CreateImmediateTable(mqImmediateTable* const table)
 {
-    if (table.number == TABLE_UNDEFINED) {
-        table.number = GetNewTableNumber();
+    if (table->number == TABLE_UNDEFINED) {
+        table->number = GetNewTableNumber();
     }
     
     _wrapper.CreateImmediateTable(table);
-    UpdateBaseTableNumber(table.number);
+    UpdateBaseTableNumber(table->number);
 }
 
 void mqCore::CreateSegmentTable(mqSegmentTable* const table)

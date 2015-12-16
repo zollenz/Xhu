@@ -319,31 +319,31 @@ const F32 mqCsoundWrapper::GetControlPeriodDuration() const
     return _ksmpsDuration;
 }
 
-void mqCsoundWrapper::CreateSampleTable(mqSampleTable& table)
+void mqCsoundWrapper::CreateSampleTable(mqSampleTable* const table)
 {
-    mq_str message = "f " + toString<S32>(table.number) + " 0 0 ";
-    message += toString<S32>(table.GENRoutine) + " \"" + table.filcod + "\" ";
-    message += toString<F32>(table.skiptime) + " ";
-    message += toString<S32>(table.format) + " ";
-    message += toString<S32>(table.channel);
+    mq_str message = "f " + toString<S32>(table->number) + " 0 0 ";
+    message += toString<S32>(table->GENRoutine) + " \"" + table->filcod + "\" ";
+    message += toString<F32>(table->skiptime) + " ";
+    message += toString<S32>(table->format) + " ";
+    message += toString<S32>(table->channel);
 	SendMessage(message.c_str());
     
-    while (!DoesTableExist(table.number));
+    while (!DoesTableExist(table->number));
 }
 
-void mqCsoundWrapper::CreateImmediateTable(mqImmediateTable& table)
+void mqCsoundWrapper::CreateImmediateTable(mqImmediateTable* const table)
 {
-    USize numTables = table.tableNums.size();
-    mq_str message = "f " + toString<S32>(table.number) + " 0 ";
-    message += toString<S32>(table.size)  + " -2";
+    USize numTables = table->tableNums.size();
+    mq_str message = "f " + toString<S32>(table->number) + " 0 ";
+    message += toString<S32>(table->size)  + " -2";
 
     for (USize i = 0; i < numTables; i++) {
-        message += " " + toString<S32>(table.tableNums[i]);
+        message += " " + toString<S32>(table->tableNums[i]);
     }
         
 	SendMessage(message.c_str());
     
-    while (!DoesTableExist(table.number)); // TODO: replace with safer solution
+    while (!DoesTableExist(table->number)); // TODO: replace with safer solution
 }
 
 void mqCsoundWrapper::CreateSegmentTable(mqSegmentTable* const table)

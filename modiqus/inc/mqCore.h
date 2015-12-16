@@ -68,6 +68,12 @@ namespace mq
         void Start(S32 mode);
         void Stop();
         const bool IsRunning() const;
+        mqCsoundWrapper* const GetCsoundWrapper();
+        void SendMessage(const mq_str& msg) const;
+        void CreateSampleTable(mqSampleTable* const table, F32List* const samples = NULL);
+        void CreateImmediateTable(mqImmediateTable* const table);
+        void CreateSegmentTable(mqSegmentTable* const table);
+        // TODO FUNCS
         void PlaySound(mqSoundInfo* const info);
         void StopSound(mqSoundInfo* const info);
         void UpdateControlParam(const mqParamUpdate& update);
@@ -76,11 +82,6 @@ namespace mq
         void ClearConfig();
 //        virtual bool loadConfig(const mq_str& filename);
         mqSound* const GetSound(const mq_str& name);
-        void CreateSampleTable(mqSampleTable& table, F32List* const samples = NULL);
-        void CreateImmediateTable(mqImmediateTable& table);
-        void CreateSegmentTable(mqSegmentTable* const table);
-        void SendMessage(const mq_str& msg) const; // FOR DEBUGGING, TODO: DELETE IN FINAL BUILD
-        mqCsoundWrapper* const GetCsoundWrapper();
     private:
         enum InstrumentType
         {
