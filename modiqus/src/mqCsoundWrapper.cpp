@@ -37,6 +37,7 @@ static void noMsg_CB(
 
 S32 sanityCheck(const char *name, S32 errorCode)
 {
+#ifdef DEBUG
     mq_str msg = "====== " + mq_str(name);
     msg += "() returned: " + toString<S32>(errorCode) + " (";
     
@@ -76,7 +77,7 @@ S32 sanityCheck(const char *name, S32 errorCode)
     
     msg += ") ======";
     MQ_LOG(MQ_LOG_INFO, msg);
-    
+#endif
     return errorCode;
 }
 
@@ -167,9 +168,7 @@ bool mqCsoundWrapper::Start()
     
     S32 callResult = CSOUND_ERROR;
     callResult = csoundSetGlobalEnv("OPCODE6DIR", opcodePath.c_str());
-#ifdef DEBUG
     sanityCheck("csoundSetGlobalEnv", callResult);
-#endif
     
     if (callResult != CSOUND_SUCCESS) {
         MQ_LOG(MQ_LOG_FATAL, "Csound initialization of environment variable 'OPCODE6DIR' failed");
@@ -177,9 +176,7 @@ bool mqCsoundWrapper::Start()
     }
     
     callResult = csoundSetGlobalEnv("SSDIR", audioPath.c_str());
-#ifdef DEBUG
     sanityCheck("csoundSetGlobalEnv", callResult);
-#endif
     
     if (callResult != CSOUND_SUCCESS) {
         MQ_LOG(MQ_LOG_FATAL, "Csound initialization of environment variable 'SSDIR' failed");
@@ -212,9 +209,7 @@ bool mqCsoundWrapper::Start()
     cSoundArgs[1] = temp;
     _state.compileResult = csoundCompile(_state.csound, cSoundArgsCount, cSoundArgs);
 //    delete temp;
-#ifdef DEBUG
     sanityCheck("cSoundCompile", _state.compileResult);
-#endif
     
     if (_state.compileResult != CSOUND_SUCCESS) {
         MQ_LOG(MQ_LOG_FATAL, "Csound .csd compilation failed");
@@ -263,9 +258,7 @@ void mqCsoundWrapper::GetChannelControlOutput(MYFLT& value, const char *name) co
         value = *chnPtr;
         MQ_LOG(MQ_LOG_DBG, "Value " + toString(value) + " received from channel " + name);
     } else {
-#ifdef DEBUG
         sanityCheck("csoundGetChannelPtr", result);
-#endif
     }
 }
 
@@ -279,9 +272,7 @@ void mqCsoundWrapper::SetChannelControlInput(MYFLT value, const char *name) cons
         *chnPtr = (MYFLT)value;
         MQ_LOG(MQ_LOG_DBG, "Value " + toString(value) + " sent to channel " + name);
     } else {
-#ifdef DEBUG
         sanityCheck("csoundGetChannelPtr", result);
-#endif
     }
 }
 
@@ -304,9 +295,7 @@ void mqCsoundWrapper::SendScoreEvent(const char type, MYFLT* parameters, S32 num
     if(result == CSOUND_SUCCESS) {
         MQ_LOG(MQ_LOG_DBG, "Sent score event");
     } else {
-#ifdef DEBUG
         sanityCheck("csoundScoreEvent", result);
-#endif
     }
 }
 
