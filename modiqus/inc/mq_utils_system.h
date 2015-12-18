@@ -29,7 +29,7 @@
 namespace mq
 {
     template<class T>
-    inline static mq_str toString(const T& input)
+    inline mq_str toString(const T& input)
     {
         std::ostringstream stream;
         stream << input;
@@ -43,7 +43,7 @@ namespace mq
     }
     
     template<class T>
-    inline static const char* toCString(const T& input)
+    inline const char* toCString(const T& input)
     {
         std::ostringstream stream;
         stream << input;
@@ -52,7 +52,7 @@ namespace mq
     }
     
     template<class T>
-    inline static T fromString(const mq_str& input)
+    inline T fromString(const mq_str& input)
     {
         std::istringstream stream(input);
         T output;
@@ -62,7 +62,7 @@ namespace mq
     }
     
     template<class T>
-    inline static T fromString(const char* input)
+    inline T fromString(const char* input)
     {
         std::istringstream stream(input);
         T output;
@@ -71,7 +71,7 @@ namespace mq
         return output;
     }
     
-    inline static U32 sizeToUnsignedInt(USize value)
+    inline U32 sizeToUnsignedInt(USize value)
     {
         if(value > UINT_MAX) {
             MQ_LOG_ERROR("Value is bigger than UINT_MAX. Return value will not be correct.")
@@ -80,7 +80,7 @@ namespace mq
         return static_cast<U32>(value);
     }
     
-    inline static const S32 sizeToInt(const USize value)
+    inline const S32 sizeToInt(const USize value)
     {
         if (value > std::numeric_limits<S32>::max()) {
             MQ_LOG_ERROR("Size is bigger than INT_MAX. Return value will not be correct.");
@@ -89,7 +89,7 @@ namespace mq
         return static_cast<S32>(value);
     }
     
-    inline static const S32 longToInt(const S64 value)
+    inline const S32 longToInt(const S64 value)
     {
         if (value < std::numeric_limits<S32>::max()) {
             return static_cast<S32>(value);
@@ -99,21 +99,21 @@ namespace mq
         }
     }
 
-    inline static void randomSeed()
+    inline void randomSeed()
     {
         timeval time;
         gettimeofday(&time,NULL);
         srand((U32)(time.tv_sec * 1000) + (time.tv_usec / 1000));
     }
     
-    inline static void pause(USize seconds)
+    inline void pause(USize seconds)
     {
         clock_t goal = clock() + seconds * CLOCKS_PER_SEC;
         while (goal > clock());
     }
     
     template<typename T1, typename T2>
-    inline static T2* mapGet(const T1& key, std::map<T1,T2>& map)
+    inline T2* mapGet(const T1& key, std::map<T1,T2>& map)
     {
         T2* elmPtr = NULL;
         
@@ -128,7 +128,7 @@ namespace mq
     }
     
     template<typename T1, typename T2>
-    inline static T2* mapInsert(std::map<T1,T2>& map, typename std::pair<T1,T2>& mapPair)
+    inline T2* mapInsert(std::map<T1,T2>& map, typename std::pair<T1,T2>& mapPair)
     {
         std::pair<typename std::map<T1,T2>::iterator, bool> retVal = map.insert(mapPair);
         
@@ -140,7 +140,7 @@ namespace mq
         return mapGet(mapPair.first, map);
     }
 
-    inline static mq_str getExecutablePath()
+    inline mq_str getExecutablePath()
     {
 #ifdef __APPLE__
         char path[PATH_MAX];
@@ -159,7 +159,7 @@ namespace mq
 #endif
     }
     
-    inline static mq_str getBundleContentsPath()
+    inline mq_str getBundleContentsPath()
     {
         mq_str path = getExecutablePath();
         mq_str contentsPath = mq_str(path);
@@ -170,19 +170,19 @@ namespace mq
         return contentsPath;
     }
 
-    inline static mq_str getBundleFrameworksPath()
+    inline mq_str getBundleFrameworksPath()
     {
         mq_str contentsPath = getBundleContentsPath();
         return contentsPath + "/Frameworks";
     }
 
-    inline static mq_str getBundleResourcesPath()
+    inline mq_str getBundleResourcesPath()
     {
         mq_str contentsPath = getBundleContentsPath();
         return contentsPath + "/Resources";
     }
     
-    inline static mq_str getConfigPath()
+    inline mq_str getConfigPath()
     {
         mq_str configPath = "";
         mq_str contentsPath = getBundleContentsPath();
@@ -195,7 +195,7 @@ namespace mq
         return configPath;
     }
     
-//    inline static mq_str getAudioPath()
+//    inline mq_str getAudioPath()
 //    {
 //        mq_str audioPath = "";
 //        mq_str contentsPath = getBundleContentsPath();
@@ -208,7 +208,7 @@ namespace mq
 //        return audioPath;
 //    }
     
-    inline static S32 findListIndex(mq_str str, const mq_str* strList, S32 size)
+    inline S32 findListIndex(mq_str str, const mq_str* strList, S32 size)
     {
         S32 index = -1;
         
@@ -226,7 +226,7 @@ namespace mq
         return index;
     }
 
-    inline static S32 findListIndex(mq_str str, const char** strList, S32 size)
+    inline S32 findListIndex(mq_str str, const char** strList, S32 size)
     {
         S32 index = -1;
         
@@ -244,7 +244,7 @@ namespace mq
         return index;
     }
 
-    inline static S32 findListIndex(const mq_str& str, const StringList& strList)
+    inline S32 findListIndex(const mq_str& str, const StringList& strList)
     {
         S32 index = -1;
         USize numElements = strList.size();
@@ -263,14 +263,14 @@ namespace mq
         return index;
     }
     
-    inline static bool floatEquality(const F32 value1, const F32 value2)
+    inline bool floatEquality(const F32 value1, const F32 value2)
     {
         const F32 difference = std::abs(value1 - value2);
         
         return difference < F_EPSILON;
     }
     
-    inline static long getTimeStampMs()
+    inline long getTimeStampMs()
     {
         clock_t timestamp = clock() * CLK_TCK;
         
