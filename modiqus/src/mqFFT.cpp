@@ -42,17 +42,26 @@ mqFFT::~mqFFT()
 void mqFFT::DoTransform(const unsigned int dataSize, const float* const data)
 {
     int max = 0;
+    
     // Convert input from float array to double array and apply window function
-    for (unsigned int i = 0; i < _windowSize; i++) {
+    for (unsigned int i = 0; i < _windowSize; i++)
+    {
         max = min<unsigned int>(_windowSize, dataSize);
-        if (i < dataSize) {
+    
+        if (i < dataSize)
+        {
             _realDataForward[i] = (double)data[i] * HannFunction(i, max);
-        } else {
+        }
+        else
+        {
             _realDataForward[i] = 0.0;
         }
     }
+    
     fftw_execute(_FFTPlan);
+    
     const unsigned int numberOfBins = GetBinCount();
+    
     for (unsigned int i = 0; i < numberOfBins; i++)
     {
         //printf("re: %f - im: %f\n", out[i][0], out[i][1]);
@@ -68,11 +77,15 @@ const unsigned int mqFFT::GetWindowSize() const
 
 void mqFFT::SetWindowSize(const unsigned int windowSize)
 {
-    if (windowSize == _windowSize) {
+    if (windowSize == _windowSize)
+    {
         return;
     }
+    
     _windowSize = windowSize;
+    
     Cleanup();
+    
     _realDataForward = (double*)fftw_malloc(sizeof(double) * _windowSize);
     _realDataInverse = (double*)fftw_malloc(sizeof(double) * _windowSize);
     _complexDataForward = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) * _windowSize);
@@ -89,6 +102,7 @@ const unsigned int mqFFT::GetBinCount() const
 void mqFFT::Cleanup()
 {
     delete _magnitudes;
+    
     fftw_destroy_plan(_FFTPlan);
     fftw_destroy_plan(_FFTPlanInverse);
     fftw_free(_realDataForward);

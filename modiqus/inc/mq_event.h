@@ -29,7 +29,9 @@ namespace mq
     template<typename SourceType, typename EventArgType>
     class Event
     {
+        
     protected:
+        
         /*
          * Event handler function pointer definition
          * source 		- Subject - the object which fired the event.
@@ -47,7 +49,9 @@ namespace mq
          */
         class SubscriberRecord
         {
+            
         private:
+            
             EventHandler handlerProc; // The event handler function pointer
             void *handlerContext; // pointer to context information
             
@@ -58,10 +62,12 @@ namespace mq
         };
         
     protected:
+        
         std::vector<SubscriberRecord> Subscribers;
         SourceType *_eventSource;
         
     public:
+        
         /*
          * Constructor - sets the Event source
          */
@@ -80,6 +86,7 @@ namespace mq
         {
             Subscribers.push_back(SubscriberRecord(handler));
         }
+        
         /*
          * Operator used to unsubscribe a handler C# style event subscription
          */
@@ -91,6 +98,7 @@ namespace mq
                 Subscribers.erase(itr);
             }
         }
+        
         /*
          * Function used to subscribe a handler with optional context information
          */
@@ -124,6 +132,7 @@ namespace mq
                                            Subscribers[i].handlerContext);
             }
         }
+        
     };
 }
 

@@ -25,14 +25,16 @@ using namespace mq;
 
 mqAnalysis::~mqAnalysis()
 {
-    if (_audio_vector != NULL) {
+    if (_audio_vector != NULL)
+    {
         delete _audio_vector;
     }
 }
 
 void mqAnalysis::SetAudio(F32List* audio_vector)
 {
-    if (_audio_vector) {
+    if (_audio_vector)
+    {
         delete _audio_vector;
     }
     //Normalize(audio_vector, 1);
@@ -88,24 +90,29 @@ mqAnalysis::ComputeSpectralFlux(float* result)
 
 void mqAnalysis::DoAmplitudeAnalysis(F32List* amplitudeDelta, F32List* amplitudeMean)
 {
-    if (amplitudeDelta == NULL) {
+    if (amplitudeDelta == NULL)
+    {
         amplitudeDelta = new F32List();
     }
     
-    if (amplitudeMean == NULL) {
+    if (amplitudeMean == NULL)
+    {
         amplitudeMean = new F32List();
     }
     
     amplitudeDelta->resize(0);
     amplitudeMean->resize(0);
+    
     float mean1 = 0;
     float mean2 = -1;
     
-    for (unsigned int index = 0; index < _audio_vector->size(); index += _windowSize) {
+    for (unsigned int index = 0; index < _audio_vector->size(); index += _windowSize)
+    {
         int upper = min<int>((unsigned int)_audio_vector->size(), index + _windowSize);
         mean1 = AbsMean(_audio_vector, index, upper);
         
-        if (mean2 >= 0) {
+        if (mean2 >= 0)
+        {
             amplitudeMean->push_back(mean2);
             amplitudeDelta->push_back(abs(mean2 - mean1));
         }
@@ -116,25 +123,29 @@ void mqAnalysis::DoAmplitudeAnalysis(F32List* amplitudeDelta, F32List* amplitude
 
 void mqAnalysis::Clear()
 {
-    if (_audio_vector != NULL) {
+    if (_audio_vector != NULL)
+    {
         delete _audio_vector;
     }
 }
 
 float mqAnalysis::AbsMean(F32List* v, int startIndex, int endIndex)
 {
-    if (endIndex == 0) {
+    if (endIndex == 0)
+    {
         endIndex = v->size();
     }
     
-    if (startIndex > endIndex) {
+    if (startIndex > endIndex)
+    {
         printf("Fatal mistake. Start index is higher than end index.\n");
         exit(EXIT_FAILURE);
     }
     
     float mean = 0.0f;
     
-    for (unsigned int i = startIndex; i < endIndex; i++) {
+    for (unsigned int i = startIndex; i < endIndex; i++)
+    {
         mean += abs(v->at(i));
     }
     

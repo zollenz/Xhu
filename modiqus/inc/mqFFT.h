@@ -26,14 +26,18 @@ namespace mq
 {
     class mqFFT
     {
+        
     public:
+        
         mqFFT();
         ~mqFFT();
         const unsigned int GetWindowSize() const;
         void SetWindowSize(const unsigned int size);
         const unsigned int GetBinCount() const;
         void DoTransform(const unsigned int dataSize, const float* const data);
+        
     private:
+        
         void Cleanup();
         unsigned int _windowSize;
         double* _realDataForward;
@@ -43,6 +47,7 @@ namespace mq
         fftw_complex* _complexDataInverse;
         fftw_plan _FFTPlan;
         fftw_plan _FFTPlanInverse;
+        
     };
 }
 #endif //__MQ_FFT_H__

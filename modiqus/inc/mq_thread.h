@@ -26,7 +26,9 @@ namespace mq
 {
     class mqThread
     {
+        
     public:
+        
         mqThread() {}
         
         virtual ~mqThread() {}
@@ -42,16 +44,20 @@ namespace mq
         }
         
     protected:
+        
         virtual void InternalThreadEntry() = 0;
         
     private:
+        
         pthread_t _thread;
         
         static void* InternalThreadEntryFunc(void* This)
         {
             ((mqThread*)This)->InternalThreadEntry();
+            
             return NULL;
         }
+        
     };
 }
 #endif //__MQ_THREAD_H__

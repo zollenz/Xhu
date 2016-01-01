@@ -36,8 +36,10 @@ namespace mq
         std::ofstream file;
         file.open(fileName.c_str());
         
-        if (file.is_open()) {
-            if (file.bad()) {
+        if (file.is_open())
+        {
+            if (file.bad())
+            {
                 perror(("error while reading file " + fileName).c_str());
                 
                 return false;
@@ -45,7 +47,9 @@ namespace mq
             
             file << text << "\n";
             file.close();
-        } else {
+        }
+        else
+        {
             perror(("error while opening file " + fileName).c_str());
             return false;
         }
@@ -59,18 +63,23 @@ namespace mq
         std::ifstream file;
         file.open(fileName.c_str());
 
-        if (file) {
-            if (file.bad()) {
+        if (file)
+        {
+            if (file.bad())
+            {
                 perror(("Error while reading file " + fileName).c_str());
 
                 return "ERROR";
             }
 
-            while (file) {
+            while (file)
+            {
                 getline(file, fileContents);
                 std::cout << fileContents << std::endl;
             }
-        } else {
+        }
+        else
+        {
             perror(("error while opening file " + fileName).c_str());
 
             return "ERROR";
@@ -87,7 +96,8 @@ namespace mq
         table.GENRoutine = fromString<S32>(node.child("gen_routine").child_value());
         xmlNode segmentsNode = node.child("segment_list");
 
-        for (xmlNode nextNode = segmentsNode.child("segment"); nextNode; nextNode = nextNode.next_sibling("segment")) {
+        for (xmlNode nextNode = segmentsNode.child("segment"); nextNode; nextNode = nextNode.next_sibling("segment"))
+        {
             F32 value = fromString<F32>(nextNode.child("value").child_value());
             F32 length = fromString<F32>(nextNode.child("length").child_value());
             table.segments.push_back(mqSegment(value, length));
@@ -108,7 +118,8 @@ namespace mq
         
         for (xmlNode nextNode = numberListNode.child("table_number");
              nextNode;
-             nextNode = nextNode.next_sibling("table_number")) {
+             nextNode = nextNode.next_sibling("table_number"))
+        {
             valueStr = nextNode.child_value();
             table.tableNums.push_back(fromString<S32>(valueStr));
         }
@@ -130,9 +141,12 @@ namespace mq
         
         valueStr = mappingNode.child("control_param").child_value();
         
-        if (valueStr.compare(UNDEFINED_STR) == 0) {
+        if (valueStr.compare(UNDEFINED_STR) == 0)
+        {
             mapping.controlParam = NULL;
-        } else {
+        }
+        else
+        {
             mapping.controlParam = mapGet(valueStr, configuration.controlParams);
         }
 
@@ -158,7 +172,8 @@ namespace mq
         
         for (xmlNode nextNode = modifierListNode.child("modifier");
              nextNode;
-             nextNode = nextNode.next_sibling("modifier")) {
+             nextNode = nextNode.next_sibling("modifier"))
+        {
             mqModifier modifier;
             parseModifier(modifier, nextNode);
             mapping.modifiers.push_back(modifier);
@@ -199,7 +214,8 @@ namespace mq
         
         for (xmlNode nextNode = mappingNode.child("mapping");
              nextNode;
-             nextNode = nextNode.next_sibling("mapping")) {
+             nextNode = nextNode.next_sibling("mapping"))
+        {
             parseMapping(sound.mappings[i], configuration, nextNode);
             ++i;
         }
@@ -211,7 +227,8 @@ namespace mq
     {            
         xmlDocument doc;
     
-        if (doc.load_file(filename.c_str()).status != 0) {
+        if (doc.load_file(filename.c_str()).status != 0)
+        {
             MQ_LOG_ERROR("Could not load config file.")
             
             return false;
@@ -219,7 +236,8 @@ namespace mq
         
         xmlNode rootNode = doc.child("configuration");
 
-        if (rootNode == NULL) {
+        if (rootNode == NULL)
+        {
             MQ_LOG_ERROR("Config file is invalid or malformed.")
             
             return false;
@@ -238,7 +256,8 @@ namespace mq
         
         for (xmlNode nextNode = controlParamListNode.child("control_param");
              nextNode;
-             nextNode = nextNode.next_sibling("control_param")) {
+             nextNode = nextNode.next_sibling("control_param"))
+        {
             parseControlParam(configuration, nextNode);
         }
         
@@ -249,7 +268,8 @@ namespace mq
              xmlNode nextNode = soundListNode.child("sound");
              nextNode;
              nextNode = nextNode.next_sibling("sound")
-             ) {
+             )
+        {
             parseSound(configuration, nextNode);
         }
         
@@ -273,7 +293,8 @@ namespace mq
         xmlNode tableSegmentsNode = parentNode.append_child("segment_list");
         USize numSegments = table.segments.size();
         
-        for (USize i = 0; i < numSegments; i++) {
+        for (USize i = 0; i < numSegments; i++)
+        {
             xmlNode segment = tableSegmentsNode.append_child("segment");
             
             value = toString(table.segments[i].value);
@@ -301,7 +322,8 @@ namespace mq
         xmlNode numberListNode = parentNode.append_child("table_number_list");
         USize numTables = table.tableNums.size();
         
-        for (USize i = 0; i < numTables; i++) {
+        for (USize i = 0; i < numTables; i++)
+        {
             value = toString(table.tableNums[i]);
             xmlNode numberNode = numberListNode.append_child("table_number");
             numberNode.append_child(xmlValue).set_value(value.c_str());
@@ -328,9 +350,12 @@ namespace mq
         
         node.append_child("control_param");
         
-        if (mapping.controlParam == NULL) {
+        if (mapping.controlParam == NULL)
+        {
             value = UNDEFINED_STR;
-        } else {
+        }
+        else
+        {
             value = mapping.controlParam->name.c_str();
         }
         
@@ -357,7 +382,8 @@ namespace mq
         xmlNode modlinkListNode = node.append_child("modifier_list");
         USize numModLinks = mapping.modifiers.size();
         
-        for (USize i = 0; i < numModLinks; i++) {
+        for (USize i = 0; i < numModLinks; i++)
+        {
             xmlNode modifierNode = modlinkListNode.append_child("modifier");
             serializeModifier(mapping.modifiers[i], modifierNode);
         }
@@ -423,7 +449,8 @@ namespace mq
         xmlNode paramListNode = parentNode.append_child("mapping_list");
         USize numParams = sound.mappings.size();
         
-        for (USize i = 0; i < numParams; i++) {
+        for (USize i = 0; i < numParams; i++)
+        {
             xmlNode paramNode = paramListNode.append_child("mapping");
             serializeMapping(sound.mappings[i], paramNode);
         }
@@ -446,7 +473,8 @@ namespace mq
         xmlNode soundListNode = rootNode.append_child("sound_list");
         mqSoundMap::const_iterator soundIt = config.sounds.begin();
         
-        while (config.sounds.end() != soundIt) {
+        while (config.sounds.end() != soundIt)
+        {
             xmlNode nextNode = soundListNode.append_child("sound");
             serializeSound(soundIt->second, nextNode);
             ++soundIt;
@@ -456,7 +484,8 @@ namespace mq
         xmlNode paramListNode = rootNode.append_child("control_param_list");
         mqControlParamMap::const_iterator controlParamIt = config.controlParams.begin();
         
-        while (config.controlParams.end() != controlParamIt) {
+        while (config.controlParams.end() != controlParamIt)
+        {
             xmlNode paramNode = paramListNode.append_child("control_param");
             serializeControlParam(controlParamIt->second, paramNode);
             ++controlParamIt;
@@ -467,10 +496,14 @@ namespace mq
     
     class RedirectOutputs
     {
+        
     private:
+        
         std::ostream& _myStream;
         std::streambuf *const _myBuffer;
+        
     public:
+        
         RedirectOutputs(std::ostream& lhs, std::ostream& rhs = std::cout) :
         _myStream(rhs),
         _myBuffer(_myStream.rdbuf())
@@ -482,16 +515,20 @@ namespace mq
         {
             _myStream.rdbuf(_myBuffer);
         }
+        
     };
 
     // redirect output stream to a string.
     class CaptureOutputs
     {
+        
     private:
+        
         std::ostringstream _myContents;
         const RedirectOutputs _redirect;
         
     public:
+        
         CaptureOutputs(std::ostream& stream = std::cout) :
         _myContents(),
         _redirect(_myContents, stream) {}
@@ -500,6 +537,7 @@ namespace mq
         {
             return(_myContents.str());
         }
+        
     };
 }
 #endif //__MQ_IO_H__

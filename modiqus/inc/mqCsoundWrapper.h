@@ -36,7 +36,9 @@ namespace mq
     
     class mqCsoundWrapper
     {
-    public:        
+        
+    public:
+        
         bool Start();
         void Stop();
         void GetChannelControlOutput(MYFLT& value, const char *name) const;
@@ -58,10 +60,13 @@ namespace mq
         const F32 GetControlPeriodDuration() const;
         bool IsPerformanceThreadRunning() const;
         void IsPerformanceThreadRunning(bool running);
+        
     private:
+        
         CsoundState _state;
         volatile bool _performanceThreadRunning;
         F32 _ksmpsDuration;
+        
     };
 }
 #endif //__MQ_CSOUND_WRAPPER_H__

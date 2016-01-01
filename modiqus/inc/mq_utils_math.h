@@ -46,7 +46,8 @@ namespace mq
     {
         USize numElements = values->size();
         
-        for (USize i = 0; i < numElements; i++) {
+        for (USize i = 0; i < numElements; i++)
+        {
             values->at(i) *= scalar;
         }
     }
@@ -56,7 +57,8 @@ namespace mq
     {
         USize numElements = values->size();
         
-        for (USize i = 0; i < numElements; i++) {
+        for (USize i = 0; i < numElements; i++)
+        {
             values->at(i) /= scalar;
         }
     }
@@ -67,7 +69,8 @@ namespace mq
         F64 result = 0.0;
         USize numElements = argVector->size();
 
-        for (USize i = 0; i < numElements; i++) {
+        for (USize i = 0; i < numElements; i++)
+        {
             result += argVector->at(i);
         }
 
@@ -78,20 +81,24 @@ namespace mq
     inline T lerp(T valueA, T valueB, F32 weight)
     {
         T delta = valueB - valueA;
+        
         return valueA + (delta * weight);
     }
     
     template<class T>
     inline T Lerp02(T current, T target, float amount)
     {
-        if (current < target) {
+        if (current < target)
+        {
             current += amount;
             current = (current > target) ? target : current;
         }
-        else if (current > target) {
+        else if (current > target)
+        {
             current -= amount;
             current = (current < target) ? target : current;
         }
+        
         return current;
     }
 
@@ -112,7 +119,8 @@ namespace mq
         F64 sum = 0.0;
         USize numValues = data.size();
 
-        for (USize i = 0; i < numValues; i++) {
+        for (USize i = 0; i < numValues; i++)
+        {
             sum += data[i];
         }
 
@@ -125,21 +133,25 @@ namespace mq
         F32 nextValue = 0.0f;
         F32 maxValue = 0.0f;
         
-        for (i = 0; i < size; i++) {
+        for (i = 0; i < size; i++)
+        {
             nextValue = std::abs(data[i]);
 
-            if (maxValue < nextValue) {
+            if (maxValue < nextValue)
+            {
                 maxValue = nextValue;
             }
         }
 
         F32 scale = 0.0f;
 
-        if (maxValue > 0) {
+        if (maxValue > 0)
+        {
             scale = threshold / maxValue;
         }
 
-        for (i = 0; i < size; i++) {
+        for (i = 0; i < size; i++)
+        {
             data[i] *= scale;
         }
     }
@@ -148,7 +160,8 @@ namespace mq
     {
         S32 dataSize = sizeToInt(data.size());
 
-        if (dataSize == -1) {
+        if (dataSize == -1)
+        {
             return;
         }
         
@@ -162,7 +175,8 @@ namespace mq
         F32 singleDist = 0.0f;
         F32 accDist = 0.0f;
         
-        for (S32 i = 0; i < size; i++) {
+        for (S32 i = 0; i < size; i++)
+        {
             singleDist = vectorA[i] - vectorB[i];
             accDist += singleDist * singleDist;
         }
@@ -172,14 +186,16 @@ namespace mq
 
     inline const F32 squaredEuclidDist(const F32List& vectorA, const F32List& vectorB)
     {
-        if (vectorA.size() != vectorB.size()) {
+        if (vectorA.size() != vectorB.size())
+        {
             MQ_LOG_ERROR("Vectors are not the same size")
             return -1.0f;
         }
         
         S32 dataSize = sizeToInt(vectorA.size());
         
-        if (dataSize == -1) {
+        if (dataSize == -1)
+        {
             return F32_INF;
         }
         
@@ -204,6 +220,7 @@ namespace mq
         F32 scale = RAND_MAX + 1.;
         F32 base = rand() / scale;
         F32 fine = rand() / scale;
+        
         return base + fine / scale;
     }
 
@@ -212,6 +229,7 @@ namespace mq
         F32 random = ((F32) rand()) / (F32) RAND_MAX;
         F32 diff = max - min;
         F32 r = random * diff;
+        
         return min + r;
     }
 
@@ -219,14 +237,17 @@ namespace mq
     {
         if (startIndex < 0 || endIndex < 0 ||
             startIndex >= size || endIndex >= size ||
-            startIndex > endIndex) {
+            startIndex > endIndex)
+        {
             MQ_LOG_ERROR("Illegal range")
+            
             return -1.0f;
         }
 
         F32 sum = 0.0f;
         
-        for (S32 i = startIndex; i == endIndex; i++) {
+        for (S32 i = startIndex; i == endIndex; i++)
+        {
             sum += data[i];
         }
         
@@ -271,7 +292,7 @@ namespace mq
     inline F64 HannFunction(const unsigned int n, const unsigned int nMax)
     {
         return 0.5 * (1 - cos((2 * PI * n) / (F64)(nMax - 1)));
-    };
+    }
 }
 
 #endif //__MQ_UTILS_MATH_H__

@@ -62,7 +62,9 @@ namespace mq
     
     class mqCore
     {
+        
     public:
+        
         mqCore() {}
         ~mqCore() {}
         void Start(S32 mode);
@@ -82,7 +84,9 @@ namespace mq
         void ClearConfig();
 //        virtual bool loadConfig(const mq_str& filename);
         mqSound* const GetSound(const mq_str& name);
+        
     private:
+        
         enum InstrumentType
         {
             INSTR_UNDEFINED,
@@ -96,7 +100,9 @@ namespace mq
         
         class OutputThread : mqThread
         {
+            
         public:
+            
             bool StartInternalThread()
             {
                 return mqThread::StartInternalThread();
@@ -122,12 +128,14 @@ namespace mq
                 
                 _audio->StartInstanceMonitor(INSTR_PARTIKKEL, false);
                 
-                while (value != 1) {
+                while (value != 1)
+                {
                     //                    AudioEngine.StartInstanceMonitor(INSTR_PARTIKKEL, true);
                     _audio->GetMonitorResult(value);
                 }
                 
-                while (value != 0) {
+                while (value != 0)
+                {
                     //                    AudioEngine.StartInstanceMonitor(INSTR_PARTIKKEL, true);
                     _audio->GetMonitorResult(value);
                     _audio->GetMainOutput(sampleData);
@@ -139,6 +147,7 @@ namespace mq
                 //                CoreEvents::Instance().OutputSilent.FireEvent("OutputSilent");
                 MQ_LOG_INFO( "OutputThread stopped\n");
             }
+            
         };
         
         mqCsoundWrapper _wrapper;
@@ -167,6 +176,7 @@ namespace mq
         void CreateChannelMaskTable(const S32 rawDataTableNumber);
         void GetMainOutput(F32* data) const;
         void GetMonitorResult(F32& value) const;
+        
     };
 }
 

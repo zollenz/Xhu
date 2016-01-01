@@ -28,7 +28,9 @@ namespace mq
     
     class CoreEvents
     {
+        
     public:
+        
         Event<void, const F32* const> OutputDataReady;
         Event<void, const mq_str&> OutputSilent;
         
@@ -42,14 +44,11 @@ namespace mq
         
         CoreEvents() :
         OutputDataReady(this),
-        OutputSilent(this)
-        {}
-        
+        OutputSilent(this) {}
         ~CoreEvents() {};
-        
         CoreEvents(const CoreEvents&);              // Prevent copy-construction
+        CoreEvents& operator=(const CoreEvents&);   // Prevent assignment
         
-        CoreEvents& operator=(const CoreEvents&);   // Prevent assignment        
     };
 }
 #endif //__MQ_CORE_EVENTS_H__

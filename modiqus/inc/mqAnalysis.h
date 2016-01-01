@@ -24,7 +24,6 @@
 #include <map>
 #include "mq_types.h"
 
-//using namespace mq;
 using std::pair;
 
 namespace mq
@@ -40,21 +39,27 @@ namespace mq
 
     class mqAnalysis
     {
+        
     public:
+        
         mqAnalysis()
         {
             _audio_vector = NULL;
         };
+        
         ~mqAnalysis();
         void Clear();
         void SetAudio(F32List* audio_vector);
         void ComputeSpectralFlux(float* result);
         void DoAmplitudeAnalysis(F32List* amplitudeDelta, F32List* amplitudeMean);
         AnalysisData Analyze(int tablenum, float spectralDelta, float amplitudeDelta, int minLength, int maxLength);
+        
     private:
+        
         pair<float, pair<int, int> > FindSequenceIteratively(F32List* v, int startIndex, int endIndex, int minLength, int maxLength);
         float _threshold;
         F32List* _audio_vector;
+        
     };
 }
 #endif // __MQ_ANALYSIS__

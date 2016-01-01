@@ -73,7 +73,8 @@ namespace mq
     
     inline U32 sizeToUnsignedInt(USize value)
     {
-        if(value > UINT_MAX) {
+        if(value > UINT_MAX)
+        {
             MQ_LOG_ERROR("Value is bigger than UINT_MAX. Return value will not be correct.")
         }
         
@@ -82,8 +83,9 @@ namespace mq
     
     inline const S32 sizeToInt(const USize value)
     {
-        if (value > std::numeric_limits<S32>::max()) {
-            MQ_LOG_ERROR("Size is bigger than INT_MAX. Return value will not be correct.");
+        if (value > std::numeric_limits<S32>::max())
+        {
+            MQ_LOG_ERROR("Size is bigger than INT_MAX. Return value will not be correct.")
         }
         
         return static_cast<S32>(value);
@@ -91,10 +93,14 @@ namespace mq
     
     inline const S32 longToInt(const S64 value)
     {
-        if (value < std::numeric_limits<S32>::max()) {
+        if (value < std::numeric_limits<S32>::max())
+        {
             return static_cast<S32>(value);
-        } else {
+        }
+        else
+        {
             MQ_LOG_ERROR("Size is bigger than INT_MAX")
+            
             return -1;
         }
     }
@@ -117,9 +123,12 @@ namespace mq
     {
         T2* elmPtr = NULL;
         
-        try {
+        try
+        {
             elmPtr = &map.at(key);
-        } catch (const std::out_of_range& oor) {
+        }
+        catch (const std::out_of_range& oor)
+        {
             MQ_LOG_ERROR("Out of Range error: " + mq_str(oor.what()) + ", key: " + toString(key))
             MQ_LOG_ERROR("Returning NULL pointer")
         }
@@ -132,8 +141,10 @@ namespace mq
     {
         std::pair<typename std::map<T1,T2>::iterator, bool> retVal = map.insert(mapPair);
         
-        if (!retVal.second) {
+        if (!retVal.second)
+        {
             MQ_LOG_WARN("Element with key " + toString<T1>(mapPair.first) + " already exists.")
+            
             return &retVal.first->second;
         }
         
@@ -145,9 +156,12 @@ namespace mq
 #ifdef __APPLE__
         char path[PATH_MAX];
         uint32_t size = sizeof(path);
-        if (_NSGetExecutablePath(path, &size) == 0) {
+        if (_NSGetExecutablePath(path, &size) == 0)
+        {
 //            MQ_LOG_DEBUG("Executable path is " + mq_str(path))   
-        } else {
+        }
+        else
+        {
             MQ_LOG_ERROR("Buffer too small; need size " + toString<S32>(size))
         }
 
@@ -166,19 +180,22 @@ namespace mq
         USize slashIdx = contentsPath.rfind("/");
         contentsPath = contentsPath.substr(0, slashIdx - 1);
         slashIdx = contentsPath.rfind("/");
-        contentsPath = contentsPath.substr(0, slashIdx - 1);        
+        contentsPath = contentsPath.substr(0, slashIdx - 1);
+        
         return contentsPath;
     }
 
     inline mq_str getBundleFrameworksPath()
     {
         mq_str contentsPath = getBundleContentsPath();
+        
         return contentsPath + "/Frameworks";
     }
 
     inline mq_str getBundleResourcesPath()
     {
         mq_str contentsPath = getBundleContentsPath();
+        
         return contentsPath + "/Resources";
     }
     
@@ -187,6 +204,7 @@ namespace mq
         mq_str configPath = "";
         mq_str contentsPath = getBundleContentsPath();
         USize slashIdx = contentsPath.rfind("/");
+        
         configPath = contentsPath.substr(0, slashIdx - 1);
         slashIdx = configPath.rfind("/");
         configPath = configPath.substr(0, slashIdx);
@@ -212,15 +230,18 @@ namespace mq
     {
         S32 index = -1;
         
-        for (S32 i = 0; i < size; i++) {
-            if (str.compare(strList[i]) == 0) {
+        for (S32 i = 0; i < size; i++)
+        {
+            if (str.compare(strList[i]) == 0)
+            {
                 index = i;
                 break;
             }
         }
         
-        if (index == -1) {
-            MQ_LOG_ERROR("Index of string '" + str + "' not found");
+        if (index == -1)
+        {
+            MQ_LOG_ERROR("Index of string '" + str + "' not found")
         }
         
         return index;
@@ -230,15 +251,19 @@ namespace mq
     {
         S32 index = -1;
         
-        for (S32 i = 0; i < size; i++) {
-            if (str.compare(strList[i]) == 0) {
+        for (S32 i = 0; i < size; i++)
+        {
+            if (str.compare(strList[i]) == 0)
+            {
                 index = i;
+                
                 break;
             }
         }
         
-        if (index == -1) {
-            MQ_LOG_ERROR("Index of string '" + str + "' not found");
+        if (index == -1)
+        {
+            MQ_LOG_ERROR("Index of string '" + str + "' not found")
         }
         
         return index;
@@ -249,15 +274,18 @@ namespace mq
         S32 index = -1;
         USize numElements = strList.size();
         
-        for (S32 i = 0; i < numElements; i++) {
-            if (str.compare(strList[i]) == 0) {
+        for (S32 i = 0; i < numElements; i++)
+        {
+            if (str.compare(strList[i]) == 0)
+            {
                 index = i;
                 break;
             }
         }
         
-        if (index == -1) {
-            MQ_LOG_ERROR("Index of string '" + str + "' not found");
+        if (index == -1)
+        {
+            MQ_LOG_ERROR("Index of string '" + str + "' not found")
         }
         
         return index;
@@ -275,7 +303,7 @@ namespace mq
         clock_t timestamp = clock() * CLK_TCK;
         
         return (long)(timestamp / 1000);
-    };
+    }
 }
 
 #endif //__MQ_UTILS_SYSTEM_H__

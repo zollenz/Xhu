@@ -142,7 +142,8 @@ void mqSound::Reset()
     grainDuration = -1;
     grainWaveTable.Reset();
     
-    for (S32 i = 0; i < SOUND_PARAM_COUNT; i++) {
+    for (S32 i = 0; i < SOUND_PARAM_COUNT; i++)
+    {
         mappings[i].Reset();
     }
 }
