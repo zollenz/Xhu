@@ -31,8 +31,8 @@ namespace mq
         
     public:
         
-        Event<void, const F32* const> OutputDataReady;
-        Event<void, const mq_str&> OutputSilent;
+        Event<void, const F32* const> outputDataReady;
+        Event<void, const mq_str&> outputSilent;
         
         static CoreEvents& Instance()
         {
@@ -43,8 +43,8 @@ namespace mq
     protected:
         
         CoreEvents() :
-        OutputDataReady(this),
-        OutputSilent(this) {}
+        outputDataReady(this),
+        outputSilent(this) {}
         ~CoreEvents() {};
         CoreEvents(const CoreEvents&);              // Prevent copy-construction
         CoreEvents& operator=(const CoreEvents&);   // Prevent assignment

@@ -24,12 +24,12 @@ using namespace mq;
 
 mqFFT::mqFFT()
 {
-    SetWindowSize(1024);
+    setWindowSize(1024);
 }
 
 mqFFT::~mqFFT()
 {
-    Cleanup();
+    cleanup();
 }
 
 /*
@@ -39,7 +39,7 @@ mqFFT::~mqFFT()
  If you need more resolution then you will have to increase N.
  */
 
-void mqFFT::DoTransform(const unsigned int dataSize, const float* const data)
+void mqFFT::computeTransform(const unsigned int dataSize, const float* const data)
 {
     int max = 0;
     
@@ -50,7 +50,7 @@ void mqFFT::DoTransform(const unsigned int dataSize, const float* const data)
     
         if (i < dataSize)
         {
-            _realDataForward[i] = (double)data[i] * HannFunction(i, max);
+            _realDataForward[i] = (double)data[i] * hannFunction(i, max);
         }
         else
         {
@@ -60,7 +60,7 @@ void mqFFT::DoTransform(const unsigned int dataSize, const float* const data)
     
     fftw_execute(_FFTPlan);
     
-    const unsigned int numberOfBins = GetBinCount();
+    const unsigned int numberOfBins = getBinCount();
     
     for (unsigned int i = 0; i < numberOfBins; i++)
     {
@@ -70,12 +70,12 @@ void mqFFT::DoTransform(const unsigned int dataSize, const float* const data)
     }
 }
 
-const unsigned int mqFFT::GetWindowSize() const
+const unsigned int mqFFT::getWindowSize() const
 {
     return _windowSize;
 }
 
-void mqFFT::SetWindowSize(const unsigned int windowSize)
+void mqFFT::setWindowSize(const unsigned int windowSize)
 {
     if (windowSize == _windowSize)
     {
@@ -84,7 +84,7 @@ void mqFFT::SetWindowSize(const unsigned int windowSize)
     
     _windowSize = windowSize;
     
-    Cleanup();
+    cleanup();
     
     _realDataForward = (double*)fftw_malloc(sizeof(double) * _windowSize);
     _realDataInverse = (double*)fftw_malloc(sizeof(double) * _windowSize);
@@ -94,12 +94,12 @@ void mqFFT::SetWindowSize(const unsigned int windowSize)
     _FFTPlanInverse = fftw_plan_dft_c2r_1d(_windowSize, _complexDataInverse, _realDataInverse, FFTW_MEASURE);
 }
 
-const unsigned int mqFFT::GetBinCount() const
+const unsigned int mqFFT::getBinCount() const
 {
     return (_windowSize / 2) + 1;
 }
 
-void mqFFT::Cleanup()
+void mqFFT::cleanup()
 {
     delete _magnitudes;
     

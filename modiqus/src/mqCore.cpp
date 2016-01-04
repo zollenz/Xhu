@@ -34,7 +34,7 @@ mqSoundParam::mqSoundParam() :
 
 void mqCore::Start(S32 mode)
 {
-    if (!_wrapper.Start())
+    if (!_wrapper.start())
     {
         MQ_LOG_FATAL("Modiqus engine failed initialization")
         Stop();
@@ -80,24 +80,24 @@ void mqCore::Start(S32 mode)
 
 void mqCore::Stop()
 {
-    if (IsRunning())
+    if (isRunning())
     {
-        _wrapper.Stop();
-        while(IsRunning());
+        _wrapper.stop();
+        while(isRunning());
         MQ_LOG_INFO( "Modiqus engine terminated")
     }
 }
 
-const bool mqCore::IsRunning() const
+const bool mqCore::isRunning() const
 {
-    return _wrapper.IsPerformanceThreadRunning();
+    return _wrapper.isPerformanceThreadRunning();
 }
 
-void mqCore::PlaySound(mqSoundInfo* const info)
+void mqCore::playSound(mqSoundInfo* const info)
 {
-    info->soundInstance = GetNewInstanceNumber();
+    info->soundInstance = getNewInstanceNumber();
     mq_str soundName = info->sourceName + "." + info->sourceEvent;
-    mqSound* sound = GetSound(soundName);
+    mqSound* sound = getSound(soundName);
     
     if (sound == NULL)
     {
@@ -111,38 +111,38 @@ void mqCore::PlaySound(mqSoundInfo* const info)
         return;
     }
     
-    info->soundInstanceString = GetInstanceString(INSTR_PARTIKKEL, info->soundInstance);
+    info->soundInstanceString = getInstanceString(INSTR_PARTIKKEL, info->soundInstance);
     info->soundCompleteName = soundName + "." + info->soundInstanceString;
     // Send score event
     F32 value = 0.0f;
     mq_str message = "i ";
     message += info->soundInstanceString + " 0 ";
-    value = GetMappedValue(sound, NOTE_DURATION);
+    value = getMappedValue(sound, NOTE_DURATION);
     message += toString(value) + " ";
     message += toString(sound->grainWaveTable.number) + " ";
     message += "\"" + info->soundCompleteName + "\"";
-    value = GetMappedValue(sound, NOTE_AMPLITUDE);
+    value = getMappedValue(sound, NOTE_AMPLITUDE);
     message += " " + toString(value);
-    value = GetMappedValue(sound, GRAIN_DENSITY);
+    value = getMappedValue(sound, GRAIN_DENSITY);
     message += " " + toString(value);
     message += " " + toString<F32>(sound->grainStart);
     message += " " + toString<S32>(sound->grainDuration);
-    value = GetMappedValue(sound, GRAIN_SPATIAL_POSITION);
+    value = getMappedValue(sound, GRAIN_SPATIAL_POSITION);
     message += " " + toString(value);
-    _wrapper.SendMessage(message.c_str());
+    _wrapper.sendMessage(message.c_str());
 }
 
-void mqCore::StopSound(mqSoundInfo* const info)
+void mqCore::stopSound(mqSoundInfo* const info)
 {
-    mq_str message = "i 1 0 " + toString(_wrapper.GetControlPeriodDuration());
+    mq_str message = "i 1 0 " + toString(_wrapper.getControlPeriodDuration());
     message += " " + info->soundInstanceString;
-    _wrapper.SendMessage(message.c_str());
+    _wrapper.sendMessage(message.c_str());
     info->soundInstance = UNDEFINED_INT;
     info->soundInstanceString = UNDEFINED_STR;
     info->soundCompleteName = UNDEFINED_STR;
 }
 
-void mqCore::UpdateControlParam(const mqParamUpdate& update)
+void mqCore::updateControlParam(const mqParamUpdate& update)
 {
     mqControlParam* controlParam = mapGet(update.name, _config.controlParams);
     
@@ -157,24 +157,24 @@ void mqCore::UpdateControlParam(const mqParamUpdate& update)
     }
 }
 
-void mqCore::UpdateControlParams(const std::vector<mqParamUpdate>& updates)
+void mqCore::updateControlParams(const std::vector<mqParamUpdate>& updates)
 {
     USize numParams = updates.size();
     
     for (USize i = 0; i < numParams; i++)
     {
-        UpdateControlParam(updates[i]);
+        updateControlParam(updates[i]);
     }
 }
 
-void mqCore::SetSoundParam(const SoundParamType param, F32 value, const mqSoundInfo& info)
+void mqCore::setSoundParam(const SoundParamType param, F32 value, const mqSoundInfo& info)
 {
     mq_str channelName = info.soundCompleteName + "." + SoundParamNames[soundParams[param].type];
     value = clamp(value, soundParams[param].min, soundParams[param].max);
-    _wrapper.SetChannelControlInput(value, channelName.c_str());
+    _wrapper.setChannelControlInput(value, channelName.c_str());
 }
 
-void mqCore::ClearConfig()
+void mqCore::clearConfig()
 {
     mqSoundMap::iterator soundIt = _config.sounds.begin();
     
@@ -182,20 +182,20 @@ void mqCore::ClearConfig()
     {
         if (soundIt->second.grainWaveTable.number != TABLE_UNDEFINED)
         {
-            _wrapper.DeleteTable(soundIt->second.grainWaveTable.number);
+            _wrapper.deleteTable(soundIt->second.grainWaveTable.number);
         }
         
         for (S32 i = 0; i < SOUND_PARAM_UNDEFINED; i++)
         {
             mqMapping* mapping = &soundIt->second.mappings[i];
-            ResetMapping(mapping);
+            resetMapping(mapping);
         }
         
-        soundIt->second.Reset();
+        soundIt->second.reset();
         ++soundIt;
     }
     
-    _config.Reset();
+    _config.reset();
     _nextInstance = INDEX_INVALID;
     _config.baseTableNumber = TABLE_BASE_OFFSET;
     _nextTableNumber = TABLE_BASE_OFFSET;
@@ -287,7 +287,7 @@ void mqCore::ClearConfig()
 //    return false;
 //}
 
-mqSound* const mqCore::GetSound(const mq_str& name)
+mqSound* const mqCore::getSound(const mq_str& name)
 {
     mqSound* sound = mapGet(name, _config.sounds);
     
@@ -299,9 +299,9 @@ mqSound* const mqCore::GetSound(const mq_str& name)
     return sound;
 }
 
-void mqCore::CreateSampleTable(mqSampleTable* const table, F32List* const samples)
+void mqCore::createSampleTable(mqSampleTable* const table, F32List* const samples)
 {
-    if (_wrapper.DoesTableExist(table->number))
+    if (_wrapper.doesTableExist(table->number))
     {
         MQ_LOG_WARN("Table " + toString(table->number) + " already exists.")
         
@@ -310,47 +310,47 @@ void mqCore::CreateSampleTable(mqSampleTable* const table, F32List* const sample
     
     if (table->number == TABLE_UNDEFINED)
     {
-        table->number = GetNewTableNumber();
+        table->number = getNewTableNumber();
     }
     
-    _wrapper.CreateSampleTable(table);
-    table->size = _wrapper.GetTableData(table->number, samples);
-    UpdateBaseTableNumber(table->number);
+    _wrapper.createSampleTable(table);
+    table->size = _wrapper.getTableData(table->number, samples);
+    updateBaseTableNumber(table->number);
 }
 
-void mqCore::CreateImmediateTable(mqImmediateTable* const table)
+void mqCore::createImmediateTable(mqImmediateTable* const table)
 {
     if (table->number == TABLE_UNDEFINED)
     {
-        table->number = GetNewTableNumber();
+        table->number = getNewTableNumber();
     }
     
-    _wrapper.CreateImmediateTable(table);
-    UpdateBaseTableNumber(table->number);
+    _wrapper.createImmediateTable(table);
+    updateBaseTableNumber(table->number);
 }
 
-void mqCore::CreateSegmentTable(mqSegmentTable* const table)
+void mqCore::createSegmentTable(mqSegmentTable* const table)
 {
     if (table->number == TABLE_UNDEFINED)
     {
-        table->number = GetNewTableNumber();
+        table->number = getNewTableNumber();
     }
     
-    _wrapper.CreateSegmentTable(table);
-    UpdateBaseTableNumber(table->number);
+    _wrapper.createSegmentTable(table);
+    updateBaseTableNumber(table->number);
 }
 
-void mqCore::GetSampleTableData(mqSampleTable& table, F32List* data)
+void mqCore::getSampleTableData(mqSampleTable& table, F32List* data)
 {
-    table.size = _wrapper.GetTableData(table.number, data);
+    table.size = _wrapper.getTableData(table.number, data);
 }
 
-void mqCore::GetLinSegTableData(const mqSegmentTable& table, F32List* data)
+void mqCore::getLinSegTableData(const mqSegmentTable& table, F32List* data)
 {
-    _wrapper.GetTableData(table.number, data);
+    _wrapper.getTableData(table.number, data);
 }
 
-void mqCore::StartInstanceMonitor(InstrumentType instr, bool oneshot) const
+void mqCore::startInstanceMonitor(InstrumentType instr, bool oneshot) const
 {
     mq_str playInstr = toString<S32>(instr);
     mq_str monInstr = "";
@@ -359,17 +359,17 @@ void mqCore::StartInstanceMonitor(InstrumentType instr, bool oneshot) const
     {
         monInstr = toString<S32>(INSTR_MONITOR_I);
         mq_str msg = mq_str("i ") + monInstr + mq_str(" 0 0 ") + playInstr;
-        _wrapper.SendMessage(msg.c_str());
+        _wrapper.sendMessage(msg.c_str());
     }
     else
     {
         monInstr = toString<S32>(INSTR_MONITOR_K);
         mq_str msg = mq_str("i ") + monInstr + mq_str(" 0 -1 ") + playInstr;
-        _wrapper.SendMessage(msg.c_str());
+        _wrapper.sendMessage(msg.c_str());
     }
 }
 
-void mqCore::StopInstanceMonitor(InstrumentType instr, bool oneshot) const
+void mqCore::stopInstanceMonitor(InstrumentType instr, bool oneshot) const
 {
     S32 playInstr = instr;
     S32 monInstr = INSTR_UNDEFINED;
@@ -384,25 +384,25 @@ void mqCore::StopInstanceMonitor(InstrumentType instr, bool oneshot) const
     }
     
     mq_str message = mq_str("i -") + toString<S32>(monInstr) + mq_str(" 0 0 ") + toString<S32>(playInstr);
-    _wrapper.SendMessage(message.c_str());
+    _wrapper.sendMessage(message.c_str());
 }
 
-void mqCore::ResetMapping(mqMapping* const mapping)
+void mqCore::resetMapping(mqMapping* const mapping)
 {
     if (mapping != NULL)
     {
         if (mapping->type < mqMapping::UNDEFINED)
         {
-            _wrapper.DeleteTable(mapping->morphMinTable.number);
-            _wrapper.DeleteTable(mapping->morphMinTableTable.number);
+            _wrapper.deleteTable(mapping->morphMinTable.number);
+            _wrapper.deleteTable(mapping->morphMinTableTable.number);
         }
         
         if (mapping->type > mqMapping::SEGMENT)
         {
-            _wrapper.DeleteTable(mapping->morphMaxTable.number);
-            _wrapper.DeleteTable(mapping->morphMaxTableTable.number);
-            _wrapper.DeleteTable(mapping->morphIntraTable.number);
-            _wrapper.DeleteTable(mapping->morphIntraTableTable.number);
+            _wrapper.deleteTable(mapping->morphMaxTable.number);
+            _wrapper.deleteTable(mapping->morphMaxTableTable.number);
+            _wrapper.deleteTable(mapping->morphIntraTable.number);
+            _wrapper.deleteTable(mapping->morphIntraTableTable.number);
         }
         
         USize numModifiers = mapping->modifiers.size();
@@ -411,16 +411,16 @@ void mqCore::ResetMapping(mqMapping* const mapping)
         {
             if (mapping->type < mqMapping::UNDEFINED)
             {
-                _wrapper.DeleteTable(mapping->modifiers[i].minTable.number);
+                _wrapper.deleteTable(mapping->modifiers[i].minTable.number);
             }
             
             if (mapping->type > mqMapping::SEGMENT)
             {
-                _wrapper.DeleteTable(mapping->modifiers[i].maxTable.number);
+                _wrapper.deleteTable(mapping->modifiers[i].maxTable.number);
             }
         }
         
-        mapping->Reset();
+        mapping->reset();
     }
     else
     {
@@ -428,14 +428,14 @@ void mqCore::ResetMapping(mqMapping* const mapping)
     }
 }
 
-const F32 mqCore::GetMappedValue(mqSound* const sound, const SoundParamType soundParamType)
+const F32 mqCore::getMappedValue(mqSound* const sound, const SoundParamType soundParamType)
 {
     F32 value = soundParams[soundParamType].defaultVal;
     mqMapping& mapping = sound->mappings[soundParamType];
     
     if (mapping.controlParam != NULL)
     {
-        MorphTables(mapping);
+        morphTables(mapping);
         mqMapping::Type type = mapping.type;
         
         if (type == mqMapping::CONSTANT || type == mqMapping::SEGMENT)
@@ -450,7 +450,7 @@ const F32 mqCore::GetMappedValue(mqSound* const sound, const SoundParamType soun
         if (soundParamType == NOTE_DURATION)
         {
             F32List inData(TABLE_SIZE_MEDIUM, 0.0f);
-            _wrapper.GetTableData((S32)value, &inData);
+            _wrapper.getTableData((S32)value, &inData);
             value = inData.at(0);
         }        
     }
@@ -458,9 +458,9 @@ const F32 mqCore::GetMappedValue(mqSound* const sound, const SoundParamType soun
     return value;
 }
 
-void mqCore::MorphTables(const mqMapping& mapping)
+void mqCore::morphTables(const mqMapping& mapping)
 {
-    const F32 morphIndex = GetMorphTableListIndex(mapping);
+    const F32 morphIndex = getMorphTableListIndex(mapping);
     
     if (mapping.type < mqMapping::UNDEFINED)
     {
@@ -468,21 +468,21 @@ void mqCore::MorphTables(const mqMapping& mapping)
         const S32 morphMinTableTable = mapping.morphMinTableTable.number;
 
 #ifdef DEBUG
-        if (morphMinTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphMinTable))
+        if (morphMinTable == TABLE_UNDEFINED || !_wrapper.doesTableExist(morphMinTable))
         {
             MQ_LOG_ERROR("Morph min table undefined or does not exist.")
             
             return;
         }
         
-        if (morphMinTableTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphMinTableTable))
+        if (morphMinTableTable == TABLE_UNDEFINED || !_wrapper.doesTableExist(morphMinTableTable))
         {
             MQ_LOG_ERROR("Morph min table table undefined or does not exist.")
             
             return;
         }
 #endif
-        MorphTable(morphIndex, morphMinTable, morphMinTableTable);
+        morphTable(morphIndex, morphMinTable, morphMinTableTable);
     }
     
     if (mapping.type > mqMapping::SEGMENT)
@@ -491,33 +491,33 @@ void mqCore::MorphTables(const mqMapping& mapping)
         const S32 morphMaxTableTable = mapping.morphMaxTableTable.number;
         
 #ifdef DEBUG
-        if (morphMaxTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphMaxTable))
+        if (morphMaxTable == TABLE_UNDEFINED || !_wrapper.doesTableExist(morphMaxTable))
         {
             MQ_LOG_ERROR("Morph max table undefined or does not exist.")
             return;
         }
         
-        if (morphMaxTableTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphMaxTableTable))
+        if (morphMaxTableTable == TABLE_UNDEFINED || !_wrapper.doesTableExist(morphMaxTableTable))
         {
             MQ_LOG_ERROR("Morph max table table undefined or does not exist.")
             
             return;
         }
 #endif
-        MorphTable(morphIndex, morphMaxTable, morphMaxTableTable);
+        morphTable(morphIndex, morphMaxTable, morphMaxTableTable);
         
         const S32 morphIntraTable = mapping.morphIntraTable.number;
         const S32 morphIntraTableTable = mapping.morphIntraTableTable.number;
         
 #ifdef DEBUG
-        if (morphIntraTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphIntraTable))
+        if (morphIntraTable == TABLE_UNDEFINED || !_wrapper.doesTableExist(morphIntraTable))
         {
             MQ_LOG_ERROR("Morph intra table undefined or does not exist.")
             
             return;
         }
         
-        if (morphIntraTableTable == TABLE_UNDEFINED || !_wrapper.DoesTableExist(morphIntraTableTable))
+        if (morphIntraTableTable == TABLE_UNDEFINED || !_wrapper.doesTableExist(morphIntraTableTable))
         {
             MQ_LOG_ERROR("Morph intra table table undefined or does not exist.")
             
@@ -525,21 +525,21 @@ void mqCore::MorphTables(const mqMapping& mapping)
         }
 #endif
         const F32 morphIntraIndex = random01();
-        MorphTable(morphIntraIndex, morphIntraTable, morphIntraTableTable);
+        morphTable(morphIntraIndex, morphIntraTable, morphIntraTableTable);
     }
 }
 
-void mqCore::MorphTable(const F32 morphIndex, const S32 morphTable, const S32 morphTableTable) const
+void mqCore::morphTable(const F32 morphIndex, const S32 morphTable, const S32 morphTableTable) const
 {
     mq_str message = "i " + toString<InstrumentType>(INSTR_TABLE_MORPH);
-    message += " 0 " + toString(_wrapper.GetControlPeriodDuration()) + " ";
+    message += " 0 " + toString(_wrapper.getControlPeriodDuration()) + " ";
     message += toString<F32>(morphIndex) + " ";
     message += toString<S32>(morphTableTable) + " ";
     message += toString<S32>(morphTable);
-    _wrapper.SendMessage(message.c_str());
+    _wrapper.sendMessage(message.c_str());
 }
 
-const F32 mqCore::GetMorphTableListIndex(const mqMapping& mapping) const
+const F32 mqCore::getMorphTableListIndex(const mqMapping& mapping) const
 {
     USize numLinks = mapping.modifiers.size();
     S32 index = INDEX_INVALID;
@@ -570,7 +570,7 @@ const F32 mqCore::GetMorphTableListIndex(const mqMapping& mapping) const
     return lerpValue;
 }
 
-const F32 mqCore::InterpolateSoundParam(const mqSoundParam& soundParam, const mqMapping& mapping) const
+const F32 mqCore::interpolateSoundParam(const mqSoundParam& soundParam, const mqMapping& mapping) const
 {
     if (mapping.controlParam == NULL)
     {
@@ -613,7 +613,7 @@ const F32 mqCore::InterpolateSoundParam(const mqSoundParam& soundParam, const mq
     return lerp(lowerX, lowerY, upperX, upperY, controlParam->value);
 }
 
-const mq_str mqCore::GetInstanceString(InstrumentType instrument, const S32 instance)
+const mq_str mqCore::getInstanceString(InstrumentType instrument, const S32 instance)
 {
     std::ostringstream stream;
     stream << std::setfill('0') << std::setw(6) << instance;
@@ -621,7 +621,7 @@ const mq_str mqCore::GetInstanceString(InstrumentType instrument, const S32 inst
     return toString<S32>(instrument) + "." + stream.str();
 }
 
-const U32 mqCore::GetNewInstanceNumber()
+const U32 mqCore::getNewInstanceNumber()
 {
     _nextInstance++;
     
@@ -633,12 +633,12 @@ const U32 mqCore::GetNewInstanceNumber()
     return _nextInstance;
 }
 
-void mqCore::GetMonitorResult(F32& value) const
+void mqCore::getMonitorResult(F32& value) const
 {
-    _wrapper.GetChannelControlOutput(value, "InstanceMonitor");
+    _wrapper.getChannelControlOutput(value, "InstanceMonitor");
 }
 
-const U32 mqCore::GetNewTableNumber()
+const U32 mqCore::getNewTableNumber()
 {
     _nextTableNumber++;
     
@@ -650,7 +650,7 @@ const U32 mqCore::GetNewTableNumber()
     return _nextTableNumber;
 }
 
-void mqCore::UpdateBaseTableNumber(const U32 number)
+void mqCore::updateBaseTableNumber(const U32 number)
 {
     if (number <= _nextTableNumber)
     {
@@ -663,12 +663,12 @@ void mqCore::UpdateBaseTableNumber(const U32 number)
     }
 }
 
-void mqCore::SendMessage(const mq_str& msg) const
+void mqCore::sendMessage(const mq_str& msg) const
 {
-    _wrapper.SendMessage(msg.c_str());
+    _wrapper.sendMessage(msg.c_str());
 }
 
-mqCsoundWrapper* const mqCore::GetCsoundWrapper()
+mqCsoundWrapper* const mqCore::getCsoundWrapper()
 {
     return &_wrapper;
 }

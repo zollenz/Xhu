@@ -40,7 +40,7 @@ size(0),
 GENRoutine(0)
 {}
 
-void mqTable::Reset()
+void mqTable::reset()
 {
     number = TABLE_UNDEFINED;
     start = 0;
@@ -57,9 +57,9 @@ channel(0)
     GENRoutine = 1;
 }
 
-void mqSampleTable::Reset()
+void mqSampleTable::reset()
 {
-    mqTable::Reset();
+    mqTable::reset();
     GENRoutine = 1;
     filcod = "";
     skiptime = 0.0f;
@@ -72,9 +72,9 @@ mqImmediateTable::mqImmediateTable()
     GENRoutine = -2;
 }
 
-void mqImmediateTable::Reset()
+void mqImmediateTable::reset()
 {
-    mqTable::Reset();
+    mqTable::reset();
     GENRoutine = -2;
     tableNums.clear();
 }
@@ -86,9 +86,9 @@ mqSegmentTable::mqSegmentTable()
     segments.reserve(MAX_SEGMENTS);
 }
 
-void mqSegmentTable::Reset()
+void mqSegmentTable::reset()
 {
-    mqTable::Reset();
+    mqTable::reset();
     size = TABLE_SIZE_MEDIUM;
     GENRoutine = -7;
     segments.clear();
@@ -96,11 +96,11 @@ void mqSegmentTable::Reset()
 
 mqModifier::mqModifier() : controlValue(0.0f) {}
 
-void mqModifier::Reset()
+void mqModifier::reset()
 {
     controlValue = 0.0f;
-    minTable.Reset();
-    maxTable.Reset();
+    minTable.reset();
+    maxTable.reset();
 }
 
 mqMapping::mqMapping() :
@@ -113,16 +113,16 @@ controlParam(NULL)
     modifiers.reserve(MAX_MAPPINGS);
 }
 
-void mqMapping::Reset()
+void mqMapping::reset()
 {
     type = UNDEFINED;
     controlParam = NULL;
-    morphMinTable.Reset();
-    morphMaxTable.Reset();
-    morphIntraTable.Reset();
-    morphMinTableTable.Reset();
-    morphMaxTableTable.Reset();
-    morphIntraTableTable.Reset();
+    morphMinTable.reset();
+    morphMaxTable.reset();
+    morphIntraTable.reset();
+    morphMinTableTable.reset();
+    morphMaxTableTable.reset();
+    morphIntraTableTable.reset();
     morphMinTableTable.size = MAX_MAPPINGS;
     morphMaxTableTable.size = MAX_MAPPINGS;
     morphIntraTableTable.size = 2;
@@ -134,17 +134,17 @@ mqSound::mqSound() : name(UNDEFINED_STR), grainStart(-1.0f), grainEnd(-1.0f), gr
     mappings.resize(SOUND_PARAM_COUNT);
 }
 
-void mqSound::Reset()
+void mqSound::reset()
 {
     name = UNDEFINED_STR;
     grainStart = -1.0f;
     grainEnd = -1.0f;
     grainDuration = -1;
-    grainWaveTable.Reset();
+    grainWaveTable.reset();
     
     for (S32 i = 0; i < SOUND_PARAM_COUNT; i++)
     {
-        mappings[i].Reset();
+        mappings[i].reset();
     }
 }
 
@@ -155,7 +155,7 @@ max(1.0f),
 value(0.5f)
 {}
 
-void mqControlParam::Reset()
+void mqControlParam::reset()
 {
     min = 0.0f;
     max = 1.0f;
@@ -168,7 +168,7 @@ mqConfiguration::mqConfiguration()
     baseTableNumber = TABLE_UNDEFINED;
 }
 
-void mqConfiguration::Reset()
+void mqConfiguration::reset()
 {
     name = UNDEFINED_STR;
     sounds.clear();

@@ -108,7 +108,7 @@ uintptr_t performanceRoutine(void* data)
 
     if (state->compileResult == CSOUND_SUCCESS)
     {
-        core->IsPerformanceThreadRunning(true);
+        core->isPerformanceThreadRunning(true);
         MQ_LOG_DEBUG("Csound performance thread created")
         
         while (true)
@@ -130,7 +130,7 @@ uintptr_t performanceRoutine(void* data)
             }
         }
         
-        core->IsPerformanceThreadRunning(false);
+        core->isPerformanceThreadRunning(false);
         MQ_LOG_DEBUG("Csound performance loop stopped")
         csoundDestroy(state->csound);
         MQ_LOG_DEBUG("Csound instance destroyed")
@@ -142,28 +142,28 @@ uintptr_t performanceRoutine(void* data)
 void onCreateSampleTable(void*, const S32 tableNumber, void* context)
 {
     mqCsoundWrapper* wrapper = static_cast<mqCsoundWrapper*>(context);
-    wrapper->DeleteTable(tableNumber);
+    wrapper->deleteTable(tableNumber);
 }
 
 void onCreateImmediateTable(void*, const S32 tableNumber, void* context)
 {
     mqCsoundWrapper* wrapper = static_cast<mqCsoundWrapper*>(context);
-    wrapper->DeleteTable(tableNumber);
+    wrapper->deleteTable(tableNumber);
 }
 
 void onCreateSegmentTable(void*, const S32 tableNumber, void* context)
 {
     mqCsoundWrapper* wrapper = static_cast<mqCsoundWrapper*>(context);
-    wrapper->DeleteTable(tableNumber);
+    wrapper->deleteTable(tableNumber);
 }
 
 void onDeleteTable(void*, const S32 tableNumber, void* context)
 {
     mqCsoundWrapper* wrapper = static_cast<mqCsoundWrapper*>(context);
-    wrapper->DeleteTable(tableNumber);
+    wrapper->deleteTable(tableNumber);
 }
 
-bool mqCsoundWrapper::Start()
+bool mqCsoundWrapper::start()
 {
     // Set Csound environment variables
     mq_str executablePath = getExecutablePath();
@@ -249,7 +249,7 @@ bool mqCsoundWrapper::Start()
         return false;
     }
     
-    _ksmpsDuration = 1.0f / GetSampleRate() * GetNumberOfControlSamples();
+    _ksmpsDuration = 1.0f / getSampleRate() * getNumberOfControlSamples();
 
     // Start performance thread
     _state.runPerformanceThread = true;
@@ -279,12 +279,12 @@ bool mqCsoundWrapper::Start()
     return true;
 }
 
-void mqCsoundWrapper::Stop()
+void mqCsoundWrapper::stop()
 {
     _state.runPerformanceThread = false;
 }
 
-void mqCsoundWrapper::GetChannelControlOutput(MYFLT& value, const char *name) const
+void mqCsoundWrapper::getChannelControlOutput(MYFLT& value, const char *name) const
 {
     MYFLT* chnPtr = NULL;
     S32 chnType = CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
@@ -301,7 +301,7 @@ void mqCsoundWrapper::GetChannelControlOutput(MYFLT& value, const char *name) co
     }
 }
 
-void mqCsoundWrapper::SetChannelControlInput(MYFLT value, const char *name) const
+void mqCsoundWrapper::setChannelControlInput(MYFLT value, const char *name) const
 {
     MYFLT *chnPtr = NULL;
     S32 chnType = CSOUND_INPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
@@ -318,19 +318,19 @@ void mqCsoundWrapper::SetChannelControlInput(MYFLT value, const char *name) cons
     }
 }
 
-void mqCsoundWrapper::SetControlChannelInput(MYFLT value, const char *name) const
+void mqCsoundWrapper::setControlChannelInput(MYFLT value, const char *name) const
 {
     csoundSetControlChannel(_state.csound, name, value);
     MQ_LOG_DEBUG("Value " + toString(value) + " sent to channel " + name);
 }
 
-void mqCsoundWrapper::SendMessage(const char* message) const
+void mqCsoundWrapper::sendMessage(const char* message) const
 {
     MQ_LOG_DEBUG("Sending message to Csound:\n" + mq_str(message));
 	csoundInputMessage(_state.csound , message);
 }
 
-void mqCsoundWrapper::SendScoreEvent(const char type, MYFLT* parameters, S32 numParameters)
+void mqCsoundWrapper::sendScoreEvent(const char type, MYFLT* parameters, S32 numParameters)
 {
     S32 result = csoundScoreEvent(_state.csound, type, parameters, numParameters);
     
@@ -344,39 +344,39 @@ void mqCsoundWrapper::SendScoreEvent(const char type, MYFLT* parameters, S32 num
     }
 }
 
-const S32 mqCsoundWrapper::GetSampleRate() const
+const S32 mqCsoundWrapper::getSampleRate() const
 {
     return roundToInt(csoundGetSr(_state.csound));
 }
 
-const S32 mqCsoundWrapper::GetControlRate() const
+const S32 mqCsoundWrapper::getControlRate() const
 {
     return csoundGetKr(_state.csound);
 }
 
-const S32 mqCsoundWrapper::GetNumberOfControlSamples() const
+const S32 mqCsoundWrapper::getNumberOfControlSamples() const
 {
     return csoundGetKsmps(_state.csound);
 }
 
-const F32 mqCsoundWrapper::GetControlPeriodDuration() const
+const F32 mqCsoundWrapper::getControlPeriodDuration() const
 {
     return _ksmpsDuration;
 }
 
-void mqCsoundWrapper::CreateSampleTable(mqSampleTable* const table)
+void mqCsoundWrapper::createSampleTable(mqSampleTable* const table)
 {
     mq_str message = "f " + toString<S32>(table->number) + " 0 0 ";
     message += toString<S32>(table->GENRoutine) + " \"" + table->filcod + "\" ";
     message += toString<F32>(table->skiptime) + " ";
     message += toString<S32>(table->format) + " ";
     message += toString<S32>(table->channel);
-	SendMessage(message.c_str());
+	sendMessage(message.c_str());
     
-    while (!DoesTableExist(table->number));
+    while (!doesTableExist(table->number));
 }
 
-void mqCsoundWrapper::CreateImmediateTable(mqImmediateTable* const table)
+void mqCsoundWrapper::createImmediateTable(mqImmediateTable* const table)
 {
     USize numTables = table->tableNums.size();
     mq_str message = "f " + toString<S32>(table->number) + " 0 ";
@@ -387,12 +387,12 @@ void mqCsoundWrapper::CreateImmediateTable(mqImmediateTable* const table)
         message += " " + toString<S32>(table->tableNums[i]);
     }
         
-	SendMessage(message.c_str());
+	sendMessage(message.c_str());
     
-    while (!DoesTableExist(table->number)); // TODO: replace with safer solution
+    while (!doesTableExist(table->number)); // TODO: replace with safer solution
 }
 
-void mqCsoundWrapper::CreateSegmentTable(mqSegmentTable* const table)
+void mqCsoundWrapper::createSegmentTable(mqSegmentTable* const table)
 {    
     USize numSegments = table->segments.size();
 
@@ -424,12 +424,12 @@ void mqCsoundWrapper::CreateSegmentTable(mqSegmentTable* const table)
         message += " " + toString<F32>(table->segments.at(i).length);
     }
 	
-	SendMessage(message.c_str());
+	sendMessage(message.c_str());
     
-    while (!DoesTableExist(table->number));
+    while (!doesTableExist(table->number));
 }
 
-const S32 mqCsoundWrapper::GetTableData(const S32 tableNumber, F32List* const data)
+const S32 mqCsoundWrapper::getTableData(const S32 tableNumber, F32List* const data)
 {
     S32 length = -1;
     
@@ -480,7 +480,7 @@ const S32 mqCsoundWrapper::GetTableData(const S32 tableNumber, F32List* const da
     return length;
 }
 
-void mqCsoundWrapper::SetTableData(const S32 table, const F32List* const data)
+void mqCsoundWrapper::setTableData(const S32 table, const F32List* const data)
 {
     if (table == TABLE_UNDEFINED)
     {
@@ -502,7 +502,7 @@ void mqCsoundWrapper::SetTableData(const S32 table, const F32List* const data)
     _state.yieldPerformance = false;
 }
 
-const F32 mqCsoundWrapper::GetTableValue(const S32 tableNumber, const S32 index)
+const F32 mqCsoundWrapper::getTableValue(const S32 tableNumber, const S32 index)
 {
     F32 value = NAN;
     
@@ -530,7 +530,7 @@ const F32 mqCsoundWrapper::GetTableValue(const S32 tableNumber, const S32 index)
     return value;
 }
 
-bool mqCsoundWrapper::DoesTableExist(S32 tableNumber)
+bool mqCsoundWrapper::doesTableExist(S32 tableNumber)
 {
     bool exists = false;
     
@@ -565,7 +565,7 @@ bool mqCsoundWrapper::DoesTableExist(S32 tableNumber)
     return exists;
 }
 
-void mqCsoundWrapper::DeleteTable(const S32 tableNum)
+void mqCsoundWrapper::deleteTable(const S32 tableNum)
 {
     if (tableNum == TABLE_UNDEFINED)
     {
@@ -574,11 +574,11 @@ void mqCsoundWrapper::DeleteTable(const S32 tableNum)
         return;
     }
     
-    if (DoesTableExist(tableNum)) {
+    if (doesTableExist(tableNum)) {
         MQ_LOG_DEBUG("Deleting table " + toString(tableNum))
         
         mq_str message = "f -" + toString<S32>(tableNum) + " 0";
-        SendMessage(message.c_str());
+        sendMessage(message.c_str());
     }
     else
     {
@@ -586,12 +586,12 @@ void mqCsoundWrapper::DeleteTable(const S32 tableNum)
     }
 }
 
-bool mqCsoundWrapper::IsPerformanceThreadRunning() const
+bool mqCsoundWrapper::isPerformanceThreadRunning() const
 {
     return _performanceThreadRunning;
 }
 
-void mqCsoundWrapper::IsPerformanceThreadRunning(bool running)
+void mqCsoundWrapper::isPerformanceThreadRunning(bool running)
 {
     _performanceThreadRunning = running;
 }

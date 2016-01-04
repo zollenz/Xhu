@@ -39,27 +39,27 @@ namespace mq
         
     public:
         
-        bool Start();
-        void Stop();
-        void GetChannelControlOutput(MYFLT& value, const char *name) const;
-        void SetChannelControlInput(MYFLT value, const char *name) const;
-        void SetControlChannelInput(MYFLT value, const char *name) const;
-        void SendMessage(const char* message) const;
-        void SendScoreEvent(const char type, MYFLT* parameters, S32 numParameters);
-        void CreateSampleTable(mqSampleTable* const table);
-        void CreateImmediateTable(mqImmediateTable* const table);
-        void CreateSegmentTable(mqSegmentTable* const table);
-        const S32 GetTableData(const S32 tableNumber, F32List* const data);
-        void SetTableData(const S32 table, const F32List* const data);
-        const F32 GetTableValue(const S32 table, const S32 index);
-        bool DoesTableExist(const S32 tableNumber);
-        void DeleteTable(const S32 tableNumber);
-        const S32 GetSampleRate() const;
-        const S32 GetControlRate() const;
-        const S32 GetNumberOfControlSamples() const;
-        const F32 GetControlPeriodDuration() const;
-        bool IsPerformanceThreadRunning() const;
-        void IsPerformanceThreadRunning(bool running);
+        bool start();
+        void stop();
+        void getChannelControlOutput(MYFLT& value, const char *name) const;
+        void setChannelControlInput(MYFLT value, const char *name) const;
+        void setControlChannelInput(MYFLT value, const char *name) const;
+        void sendMessage(const char* message) const;
+        void sendScoreEvent(const char type, MYFLT* parameters, S32 numParameters);
+        void createSampleTable(mqSampleTable* const table);
+        void createImmediateTable(mqImmediateTable* const table);
+        void createSegmentTable(mqSegmentTable* const table);
+        const S32 getTableData(const S32 tableNumber, F32List* const data);
+        void setTableData(const S32 table, const F32List* const data);
+        const F32 getTableValue(const S32 table, const S32 index);
+        bool doesTableExist(const S32 tableNumber);
+        void deleteTable(const S32 tableNumber);
+        const S32 getSampleRate() const;
+        const S32 getControlRate() const;
+        const S32 getNumberOfControlSamples() const;
+        const F32 getControlPeriodDuration() const;
+        bool isPerformanceThreadRunning() const;
+        void isPerformanceThreadRunning(bool running);
         
     private:
         

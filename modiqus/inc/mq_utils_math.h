@@ -85,6 +85,11 @@ namespace mq
         return valueA + (delta * weight);
     }
     
+    inline F32 lerp(F32 x1, F32 y1, F32 x2, F32 y2, F32 xValue)
+    {
+        return y1 + (xValue - x1) * ((y2 - y1) / (x2 - x1));
+    }
+    
     template<class T>
     inline T Lerp02(T current, T target, float amount)
     {
@@ -168,7 +173,7 @@ namespace mq
         normalize(&data[0], dataSize, threshold);
     }
     
-    inline const F32 squaredEuclidDist(const F32* const vectorA,
+    inline const F32 euclidianDistanceSquared(const F32* const vectorA,
                                  const F32* const vectorB,
                                  const S32 size)
     {        
@@ -184,7 +189,7 @@ namespace mq
         return accDist;        
     }
 
-    inline const F32 squaredEuclidDist(const F32List& vectorA, const F32List& vectorB)
+    inline const F32 euclidianDistanceSquared(const F32List& vectorA, const F32List& vectorB)
     {
         if (vectorA.size() != vectorB.size())
         {
@@ -199,20 +204,20 @@ namespace mq
             return F32_INF;
         }
         
-        return squaredEuclidDist(&vectorA[0], &vectorB[0], dataSize);
+        return euclidianDistanceSquared(&vectorA[0], &vectorB[0], dataSize);
     }
     
     inline const F32 euclidDist(const F32* const vectorA,
                           const F32* const vectorB,
                           S32 size)
     {
-        return sqrt(squaredEuclidDist(vectorA, vectorB, size));
+        return sqrt(euclidianDistanceSquared(vectorA, vectorB, size));
     }
 
 
     inline const F32 euclidDist(const F32List& vectorA, const F32List& vectorB)
     {
-        return sqrt(squaredEuclidDist(vectorA, vectorB));
+        return sqrt(euclidianDistanceSquared(vectorA, vectorB));
     }
 
     inline F32 random01()
@@ -269,11 +274,6 @@ namespace mq
         return absMean(&data[0], sizeToInt(data.size()), startIndex, endIndex);
     }
 
-    inline F32 lerp(F32 x1, F32 y1, F32 x2, F32 y2, F32 xValue)
-    {
-        return y1 + (xValue - x1) * ((y2 - y1) / (x2 - x1));
-    }
-
     inline F32 clamp(F32 value, F32 minValue, F32 maxValue)
     {
         return max(minValue, min(maxValue, value));
@@ -289,7 +289,7 @@ namespace mq
         return (S32)round(value);
     }
     
-    inline F64 HannFunction(const unsigned int n, const unsigned int nMax)
+    inline F64 hannFunction(const unsigned int n, const unsigned int nMax)
     {
         return 0.5 * (1 - cos((2 * PI * n) / (F64)(nMax - 1)));
     }

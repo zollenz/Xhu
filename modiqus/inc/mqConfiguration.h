@@ -40,7 +40,7 @@ namespace mq
 
         mqTable();
         
-        void Reset();
+        void reset();
     };
     
     struct mqSampleTable : public mqTable
@@ -52,7 +52,7 @@ namespace mq
         
         mqSampleTable();
         
-        void Reset();
+        void reset();
     };
     
     struct mqImmediateTable : public mqTable
@@ -61,7 +61,7 @@ namespace mq
         
         mqImmediateTable();
         
-        void Reset();
+        void reset();
     };
     
     struct mqSegmentTable : public mqTable
@@ -70,7 +70,7 @@ namespace mq
         
         mqSegmentTable();
         
-        void Reset();
+        void reset();
     };
     
     struct mqControlParam
@@ -82,7 +82,7 @@ namespace mq
         
         mqControlParam();
         
-        void Reset();
+        void reset();
     };
     
     struct mqModifier
@@ -93,7 +93,7 @@ namespace mq
 
         mqModifier();
         
-        void Reset();
+        void reset();
     };
     
     struct mqMapping
@@ -123,7 +123,7 @@ namespace mq
         
         mqMapping();
         
-        void Reset();
+        void reset();
     };
     
     struct mqSound
@@ -137,7 +137,7 @@ namespace mq
         
         mqSound();
         
-        void Reset();
+        void reset();
     };
         
     typedef std::map<mq_str, mqSound> mqSoundMap;
@@ -154,7 +154,7 @@ namespace mq
         
         mqConfiguration();
         
-        void Reset();
+        void reset();
     };
 }
 #endif //__MQ_CONFIGURATION_H__

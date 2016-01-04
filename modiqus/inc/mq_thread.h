@@ -33,27 +33,27 @@ namespace mq
         
         virtual ~mqThread() {}
         
-        bool StartInternalThread()
+        bool startInternalThread()
         {
-            return (pthread_create(&_thread, NULL, InternalThreadEntryFunc, this) == 0);
+            return (pthread_create(&_thread, NULL, internalThreadEntryFunc, this) == 0);
         }
         
-        void JoinInternalThread()
+        void joinInternalThread()
         {
             (void) pthread_join(_thread, NULL);
         }
         
     protected:
         
-        virtual void InternalThreadEntry() = 0;
+        virtual void internalThreadEntry() = 0;
         
     private:
         
         pthread_t _thread;
         
-        static void* InternalThreadEntryFunc(void* This)
+        static void* internalThreadEntryFunc(void* This)
         {
-            ((mqThread*)This)->InternalThreadEntry();
+            ((mqThread*)This)->internalThreadEntry();
             
             return NULL;
         }

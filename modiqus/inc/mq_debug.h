@@ -34,7 +34,7 @@ namespace mq
 {
     extern S32 dbgLevel;
     
-    inline const char* const LogLevelName(S32 logLevel)
+    inline const char* const logLevelName(S32 logLevel)
     {
         switch (logLevel)
         {
@@ -66,7 +66,7 @@ namespace mq
     }
 
     template<class T>
-    inline void Trace(T input, S32 level, const char* file, S32 line, const char* func)
+    inline void log(T input, S32 level, const char* file, S32 line, const char* func)
     {
         mq_str shortFile = mq_str(file);
         USize lastDot = shortFile.rfind(".");
@@ -74,9 +74,8 @@ namespace mq
         
         if (level <= dbgLevel)
         {
-            std::cout << "[" << LogLevelName(level) << "][" << shortFile << "(" << line << ")]"
-            << "[" << func << "] "
-            << (input) << std::endl;
+            std::cout << "[" << logLevelName(level) << "][" << shortFile << "(" << line << ")]"
+                      << "[" << func << "] " << (input) << std::endl;
         }
     }
 }
@@ -85,7 +84,7 @@ namespace mq
 
 #ifdef DEBUG
 #define MQ_LOG(level, input) \
-do { mq::Trace(input, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
+do { mq::log(input, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
 #else
 #define MQ_LOG(level, input) do {} while (0);
 #endif

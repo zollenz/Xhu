@@ -69,21 +69,21 @@ namespace mq
         ~mqCore() {}
         void Start(S32 mode);
         void Stop();
-        const bool IsRunning() const;
-        mqCsoundWrapper* const GetCsoundWrapper();
-        void SendMessage(const mq_str& msg) const;
-        void CreateSampleTable(mqSampleTable* const table, F32List* const samples = NULL);
-        void CreateImmediateTable(mqImmediateTable* const table);
-        void CreateSegmentTable(mqSegmentTable* const table);
+        const bool isRunning() const;
+        mqCsoundWrapper* const getCsoundWrapper();
+        void sendMessage(const mq_str& msg) const;
+        void createSampleTable(mqSampleTable* const table, F32List* const samples = NULL);
+        void createImmediateTable(mqImmediateTable* const table);
+        void createSegmentTable(mqSegmentTable* const table);
         // TODO FUNCS
-        void PlaySound(mqSoundInfo* const info);
-        void StopSound(mqSoundInfo* const info);
-        void UpdateControlParam(const mqParamUpdate& update);
-        void UpdateControlParams(const std::vector<mqParamUpdate>& update);
-        void SetSoundParam(const SoundParamType channel, const F32 value, const mqSoundInfo& info);
-        void ClearConfig();
+        void playSound(mqSoundInfo* const info);
+        void stopSound(mqSoundInfo* const info);
+        void updateControlParam(const mqParamUpdate& update);
+        void updateControlParams(const std::vector<mqParamUpdate>& update);
+        void setSoundParam(const SoundParamType channel, const F32 value, const mqSoundInfo& info);
+        void clearConfig();
 //        virtual bool loadConfig(const mq_str& filename);
-        mqSound* const GetSound(const mq_str& name);
+        mqSound* const getSound(const mq_str& name);
         
     private:
         
@@ -103,79 +103,72 @@ namespace mq
             
         public:
             
-            bool StartInternalThread()
-            {
-                return mqThread::StartInternalThread();
-            }
-            
-            void JoinInternalThread()
-            {
-                mqThread::JoinInternalThread();
-            }
-            
             void injectAudio(const mqCore* const audio) { _audio = audio; };
             
         private:
             
             const mqCore* _audio;
             
-            void InternalThreadEntry()
+            void internalThreadEntry()
             {
                 F32 sampleData[KSMPS];
                 F32 value = -1;
                 
                 MQ_LOG_INFO( "OutputThread started\n");
                 
-                _audio->StartInstanceMonitor(INSTR_PARTIKKEL, false);
+                _audio->startInstanceMonitor(INSTR_PARTIKKEL, false);
                 
                 while (value != 1)
                 {
                     //                    AudioEngine.StartInstanceMonitor(INSTR_PARTIKKEL, true);
-                    _audio->GetMonitorResult(value);
+                    _audio->getMonitorResult(value);
                 }
                 
                 while (value != 0)
                 {
                     //                    AudioEngine.StartInstanceMonitor(INSTR_PARTIKKEL, true);
-                    _audio->GetMonitorResult(value);
-                    _audio->GetMainOutput(sampleData);
+                    _audio->getMonitorResult(value);
+                    _audio->getMainOutput(sampleData);
                     
-                    AudioEvents.OutputDataReady.FireEvent(&sampleData[0]);
+                    AudioEvents.outputDataReady.FireEvent(&sampleData[0]);
                 }
                 
-                _audio->StopInstanceMonitor(INSTR_PARTIKKEL, false);
+                _audio->stopInstanceMonitor(INSTR_PARTIKKEL, false);
                 //                CoreEvents::Instance().OutputSilent.FireEvent("OutputSilent");
                 MQ_LOG_INFO( "OutputThread stopped\n");
             }
             
         };
         
+        F32 _channelValues[MAX_INSTANCES][SOUND_PARAM_UNDEFINED];
+        S32 _mode;
+        
+        U32 _nextInstance;
+        U32 _nextTableNumber;
+        
         mqCsoundWrapper _wrapper;
         mqConfiguration _config;
         mqSoundParam soundParams[SOUND_PARAM_UNDEFINED];
-        F32 _channelValues[MAX_INSTANCES][SOUND_PARAM_UNDEFINED];
-        S32 _mode;
-        U32 _nextInstance;
-        U32 _nextTableNumber;
+
         OutputThread* _outputThread;
         
-        void GetSampleTableData(mqSampleTable& table, F32List* data);
-        void GetLinSegTableData(const mqSegmentTable& table, F32List* data);
-        void StartInstanceMonitor(InstrumentType instr, bool oneshot = true) const;
-        void StopInstanceMonitor(InstrumentType instr, bool oneshot = true) const;
-        void ResetMapping(mqMapping* const mapping);
-        const F32 GetMappedValue(mqSound* const sound, const SoundParamType soundParamType);
-        void MorphTables(const mqMapping& mapping);
-        void MorphTable(const F32 morphIndex, const S32 morphTable, const S32 morphTableTable) const;
-        const F32 GetMorphTableListIndex(const mqMapping& mapping) const;
-        const F32 InterpolateSoundParam(const mqSoundParam& soundParam, const mqMapping& mapping) const;
-        const mq_str GetInstanceString(InstrumentType instrument, const S32 instance);
-        const U32 GetNewInstanceNumber();
-        const U32 GetNewTableNumber();
-        void UpdateBaseTableNumber(const U32 number);
-        void CreateChannelMaskTable(const S32 rawDataTableNumber);
-        void GetMainOutput(F32* data) const;
-        void GetMonitorResult(F32& value) const;
+        void getSampleTableData(mqSampleTable& table, F32List* data);
+        void getLinSegTableData(const mqSegmentTable& table, F32List* data);
+        void startInstanceMonitor(InstrumentType instr, bool oneshot = true) const;
+        void stopInstanceMonitor(InstrumentType instr, bool oneshot = true) const;
+        void resetMapping(mqMapping* const mapping);
+        const F32 getMappedValue(mqSound* const sound, const SoundParamType soundParamType);
+        void morphTables(const mqMapping& mapping);
+        void morphTable(const F32 morphIndex, const S32 morphTable, const S32 morphTableTable) const;
+        const F32 getMorphTableListIndex(const mqMapping& mapping) const;
+        const F32 interpolateSoundParam(const mqSoundParam& soundParam, const mqMapping& mapping) const;
+        const mq_str getInstanceString(InstrumentType instrument, const S32 instance);
+        const U32 getNewInstanceNumber();
+        const U32 getNewTableNumber();
+        void updateBaseTableNumber(const U32 number);
+        void createChannelMaskTable(const S32 rawDataTableNumber);
+        void getMainOutput(F32* data) const;
+        void getMonitorResult(F32& value) const;
         
     };
 }

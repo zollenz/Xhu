@@ -48,15 +48,15 @@ namespace mq
         };
         
         ~mqAnalysis();
-        void Clear();
-        void SetAudio(F32List* audio_vector);
-        void ComputeSpectralFlux(float* result);
-        void DoAmplitudeAnalysis(F32List* amplitudeDelta, F32List* amplitudeMean);
-        AnalysisData Analyze(int tablenum, float spectralDelta, float amplitudeDelta, int minLength, int maxLength);
+        void clear();
+        void setAudio(F32List* audio_vector);
+        void computeSpectralFlux(float* result);
+        void doAmplitudeAnalysis(F32List* amplitudeDelta, F32List* amplitudeMean);
+        AnalysisData analyze(int tablenum, float spectralDelta, float amplitudeDelta, int minLength, int maxLength);
         
     private:
         
-        pair<float, pair<int, int> > FindSequenceIteratively(F32List* v, int startIndex, int endIndex, int minLength, int maxLength);
+        pair<float, pair<int, int> > findSequenceIteratively(F32List* v, int startIndex, int endIndex, int minLength, int maxLength);
         float _threshold;
         F32List* _audio_vector;
         

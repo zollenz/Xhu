@@ -31,22 +31,26 @@ namespace mq
         
         mqFFT();
         ~mqFFT();
-        const unsigned int GetWindowSize() const;
-        void SetWindowSize(const unsigned int size);
-        const unsigned int GetBinCount() const;
-        void DoTransform(const unsigned int dataSize, const float* const data);
+        
+        const unsigned int getWindowSize() const;
+        void setWindowSize(const unsigned int size);
+        const unsigned int getBinCount() const;
+        void computeTransform(const unsigned int dataSize, const float* const data);
         
     private:
         
-        void Cleanup();
         unsigned int _windowSize;
+        
         double* _realDataForward;
         double* _realDataInverse;
         double* _magnitudes;
+        
         fftw_complex* _complexDataForward;
         fftw_complex* _complexDataInverse;
         fftw_plan _FFTPlan;
         fftw_plan _FFTPlanInverse;
+        
+        void cleanup();
         
     };
 }
