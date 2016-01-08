@@ -25,9 +25,9 @@
 
 # Executables
 
-*.exe
-*.out
-*.app
+#*.exe
+#*.out
+#*.app
 
 # OSX
 
@@ -59,6 +59,7 @@ Temporary Items
 # Xcode
 
 ## Build generated
+*.build/
 build/
 DerivedData
 
