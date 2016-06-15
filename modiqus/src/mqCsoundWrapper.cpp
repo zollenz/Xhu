@@ -182,7 +182,7 @@ bool mqCsoundWrapper::start()
     mq_str executableDirectoryPath = executablePath.substr(0, lastSlashIndex);
     //////////////////////////////////////////////////////////////////////////
     
-    mq_str opcodePath = executableDirectoryPath + "/Frameworks/CsoundLib.framework/Versions/Current/Resources";
+    mq_str opcodePath = executableDirectoryPath + "/lib/CsoundLib.framework/Versions/Current/Resources";
     mq_str audioPath = executableDirectoryPath + "/Resources/audio";
     mq_str csdPath = executableDirectoryPath + "/Resources/csound/modiqus.csd";
     

@@ -49,6 +49,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BF0723B71D11F81F009BFE61 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
 		BF1680CC1AE9846100FB1755 /* api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = api.h; path = ext/fftw/inc/api.h; sourceTree = "<group>"; };
 		BF1680CD1AE9846100FB1755 /* f77funcs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = f77funcs.h; path = ext/fftw/inc/f77funcs.h; sourceTree = "<group>"; };
 		BF1680CE1AE9846100FB1755 /* fftw3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fftw3.h; path = ext/fftw/inc/fftw3.h; sourceTree = "<group>"; };
@@ -195,6 +196,7 @@
 				BFFCF3E218B6A61A001BE6C9 /* ext */,
 				BF92230918BA2CFF00EFD7E8 /* test_modiqus */,
 				BF2C5E4A1868565100DF51F5 /* Products */,
+				BF0723B71D11F81F009BFE61 /* resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -377,7 +379,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/Release\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/Frameworks ]\nthen\nmkdir ${TARGET_BUILD_DIR}/Frameworks\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/Resources ]\nthen\nmkdir ${TARGET_BUILD_DIR}/Resources\nfi\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/debug/CsoundLib.framework ${TARGET_BUILD_DIR}/Frameworks\n#cp -R $PROJECT_DIR/ext/csound/debug/librtauhal.dylib ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/CsoundLib.framework ${TARGET_BUILD_DIR}/Frameworks\n#cp -R $PROJECT_DIR/ext/csound/release/librtauhal.dylib ${TARGET_BUILD_DIR}/lib\nfi\n\n#cp -R $PROJECT_DIR/ext/libsndfile.1.dylib ${TARGET_BUILD_DIR}/lib\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/Resources";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/Release\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/lib ]\nthen\nmkdir ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/Resources ]\nthen\nmkdir ${TARGET_BUILD_DIR}/Resources\nfi\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/debug/CsoundLib.framework ${TARGET_BUILD_DIR}/lib\n#cp -R $PROJECT_DIR/ext/csound/debug/librtauhal.dylib ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/CsoundLib.framework ${TARGET_BUILD_DIR}/lib\nfi\n\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/Resources";
 		};
 /* End PBXShellScriptBuildPhase section */
 

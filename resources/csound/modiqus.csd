@@ -5,7 +5,7 @@
 /***********/
 
 <CsOptions>
--o dac -+rtaudio=auhal -b 512 -B 1024
+-o dac -+rtaudio=auhal
 </CsOptions>
 <CsInstruments>
 
@@ -19,9 +19,11 @@ ksmps = 10
 nchnls = 2
 0dbfs = 1
 
+giSine          ftgen 1, 0, 4096, 10, 1
+
 instr 1
-	asound oscili 15000, 440, 1
-	out asound
+asound oscili 0.5, 440, 1
+outs asound,asound
 endin
 
 </CsInstruments>
