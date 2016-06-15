@@ -182,9 +182,9 @@ bool mqCsoundWrapper::start()
     mq_str executableDirectoryPath = executablePath.substr(0, lastSlashIndex);
     //////////////////////////////////////////////////////////////////////////
     
-    mq_str opcodePath = executableDirectoryPath + "/../Frameworks/CsoundLib.framework/Versions/Current/Resources";
-    mq_str audioPath = executableDirectoryPath + "/../Resources/audio";
-    mq_str csdPath = executableDirectoryPath + "/../Resources/csound/modiqus.csd";
+    mq_str opcodePath = executableDirectoryPath + "/Frameworks/CsoundLib.framework/Versions/Current/Resources";
+    mq_str audioPath = executableDirectoryPath + "/Resources/audio";
+    mq_str csdPath = executableDirectoryPath + "/Resources/csound/modiqus.csd";
     
     MQ_LOG_DEBUG("Csound opcode directory: " + opcodePath)
     MQ_LOG_DEBUG("Csound audio directory: " + audioPath)
@@ -235,11 +235,9 @@ bool mqCsoundWrapper::start()
     char* cSoundArgs[cSoundArgsCount];
     cSoundArgs[0] = const_cast<char *>("csound");
     char temp[csdPath.size() + 1];
-//    char* temp = new char[_csdPath.size() + 1];
     strcpy(temp, csdPath.c_str());
     cSoundArgs[1] = temp;
     _state.compileResult = csoundCompile(_state.csound, cSoundArgsCount, cSoundArgs);
-//    delete temp;
     sanityCheck("cSoundCompile", _state.compileResult);
     
     if (_state.compileResult != CSOUND_SUCCESS)
@@ -248,8 +246,7 @@ bool mqCsoundWrapper::start()
         
         return false;
     }
-    
-    _ksmpsDuration = 1.0f / getSampleRate() * getNumberOfControlSamples();
+
 
     // Start performance thread
     _state.runPerformanceThread = true;
@@ -359,9 +356,9 @@ const S32 mqCsoundWrapper::getNumberOfControlSamples() const
     return csoundGetKsmps(_state.csound);
 }
 
-const F32 mqCsoundWrapper::getControlPeriodDuration() const
+const F32 mqCsoundWrapper::getControlPeriod() const
 {
-    return _ksmpsDuration;
+    return 1.0f / getSampleRate() * getNumberOfControlSamples(); // ksmps duration
 }
 
 void mqCsoundWrapper::createSampleTable(mqSampleTable* const table)

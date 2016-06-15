@@ -158,7 +158,7 @@ namespace mq
         uint32_t size = sizeof(path);
         if (_NSGetExecutablePath(path, &size) == 0)
         {
-//            MQ_LOG_DEBUG("Executable path is " + mq_str(path))   
+            MQ_LOG_DEBUG("Executable path is " + mq_str(path))   
         }
         else
         {

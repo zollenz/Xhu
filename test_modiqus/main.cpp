@@ -10,19 +10,14 @@
 #include "modiqus.h"
 #include "pugixml.hpp"
 
-mq::S32 mq::dbgLevel = MQ_LOG_MUTE;
+mq::S32 mq::dbgLevel = MQ_LOG_LEVEL_DEBUG;
 
 int main(int argc, const char * argv[])
-{
-//    pugi::xml_document doc;
-//    std::string str = doc.path();
-//    modiqus::CsoundWrapper wrapper;
-//    wrapper.start();
-    
-    mq::mqCore* test = new mq::mqCore();
-    test->Start(mq::ENGINE_MODE_GAME);
-    // insert code here...
+{    
+    mq::mqCsoundWrapper* csound = new mq::mqCsoundWrapper();
+    csound->start();
     std::cout << "Hello, World!\n";
+    csound->stop();
     return 0;
 }
 

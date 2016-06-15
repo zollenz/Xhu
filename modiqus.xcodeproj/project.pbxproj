@@ -24,8 +24,6 @@
 		BF5DA3BF18BD23560053453C /* libmodiqus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5DA3A718BD1A550053453C /* libmodiqus.a */; };
 		BF5DA3C318BD26E40053453C /* mqConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6E18685BF000DF51F5 /* mqConfiguration.cpp */; };
 		BF92230B18BA2CFF00EFD7E8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF92230A18BA2CFF00EFD7E8 /* main.cpp */; };
-		BFD7996D1AF00E5E006AB607 /* mqFFT.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD7996C1AF00E5E006AB607 /* mqFFT.h */; };
-		BFD7996F1AF00E73006AB607 /* mqFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFD7996E1AF00E73006AB607 /* mqFFT.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +49,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BF1680C21AE97AF300FB1755 /* mqAnalysis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mqAnalysis.cpp; sourceTree = "<group>"; };
-		BF1680C51AE97C2300FB1755 /* mqAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mqAnalysis.h; sourceTree = "<group>"; };
 		BF1680CC1AE9846100FB1755 /* api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = api.h; path = ext/fftw/inc/api.h; sourceTree = "<group>"; };
 		BF1680CD1AE9846100FB1755 /* f77funcs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = f77funcs.h; path = ext/fftw/inc/f77funcs.h; sourceTree = "<group>"; };
 		BF1680CE1AE9846100FB1755 /* fftw3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fftw3.h; path = ext/fftw/inc/fftw3.h; sourceTree = "<group>"; };
@@ -115,8 +111,7 @@
 		BF5DA3A718BD1A550053453C /* libmodiqus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmodiqus.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF92230818BA2CFF00EFD7E8 /* test_modiqus */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test_modiqus; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF92230A18BA2CFF00EFD7E8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		BFD7996C1AF00E5E006AB607 /* mqFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mqFFT.h; sourceTree = "<group>"; };
-		BFD7996E1AF00E73006AB607 /* mqFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mqFFT.cpp; sourceTree = "<group>"; };
+		BFB2570A1D11E59200DE8149 /* mq_structs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mq_structs.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,11 +219,10 @@
 				BF2C5E5718685BE500DF51F5 /* mq_types.h */,
 				BF2C5E5518685BE500DF51F5 /* mq_utils_math.h */,
 				BF2C5E5818685BE500DF51F5 /* mq_utils_system.h */,
-				BF1680C51AE97C2300FB1755 /* mqAnalysis.h */,
 				BF2C5E5B18685BE500DF51F5 /* mqConfiguration.h */,
 				BF2C5E5A18685BE500DF51F5 /* mqCore.h */,
 				BF2C5E5C18685BE500DF51F5 /* mqCsoundWrapper.h */,
-				BFD7996C1AF00E5E006AB607 /* mqFFT.h */,
+				BFB2570A1D11E59200DE8149 /* mq_structs.h */,
 			);
 			name = inc;
 			path = modiqus/inc;
@@ -237,11 +231,9 @@
 		BF2C5E6B18685BF000DF51F5 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				BF1680C21AE97AF300FB1755 /* mqAnalysis.cpp */,
 				BF2C5E6E18685BF000DF51F5 /* mqConfiguration.cpp */,
 				BF2C5E6D18685BF000DF51F5 /* mqCore.cpp */,
 				BF2C5E6F18685BF000DF51F5 /* mqCsoundWrapper.cpp */,
-				BFD7996E1AF00E73006AB607 /* mqFFT.cpp */,
 			);
 			name = src;
 			path = modiqus/src;
@@ -304,7 +296,6 @@
 				BF16811A1AE9850600FB1755 /* mqConfiguration.h in Headers */,
 				BF16811B1AE9850900FB1755 /* mqCore.h in Headers */,
 				BF16811C1AE9850E00FB1755 /* mqCsoundWrapper.h in Headers */,
-				BFD7996D1AF00E5E006AB607 /* mqFFT.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,7 +377,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/modiqus/Build/Products/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/modiqus/Build/Products/Release\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/lib ]\nthen\nmkdir ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/resources ]\nthen\nmkdir ${TARGET_BUILD_DIR}/resources\nfi\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/debug/CsoundLib.framework ${TARGET_BUILD_DIR}/lib\n#cp -R $PROJECT_DIR/ext/csound/debug/librtauhal.dylib ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/CsoundLib.framework ${TARGET_BUILD_DIR}/lib\n#cp -R $PROJECT_DIR/ext/csound/release/librtauhal.dylib ${TARGET_BUILD_DIR}/lib\nfi\n\n#cp -R $PROJECT_DIR/ext/libsndfile.1.dylib ${TARGET_BUILD_DIR}/lib\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/resources\n";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\nTARGET_BUILD_DIR=$PROJECT_DIR/build/Release\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/Frameworks ]\nthen\nmkdir ${TARGET_BUILD_DIR}/Frameworks\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/Resources ]\nthen\nmkdir ${TARGET_BUILD_DIR}/Resources\nfi\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/debug/CsoundLib.framework ${TARGET_BUILD_DIR}/Frameworks\n#cp -R $PROJECT_DIR/ext/csound/debug/librtauhal.dylib ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/CsoundLib.framework ${TARGET_BUILD_DIR}/Frameworks\n#cp -R $PROJECT_DIR/ext/csound/release/librtauhal.dylib ${TARGET_BUILD_DIR}/lib\nfi\n\n#cp -R $PROJECT_DIR/ext/libsndfile.1.dylib ${TARGET_BUILD_DIR}/lib\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/Resources";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -397,7 +388,6 @@
 			files = (
 				BF28E5C718BD42810037D98E /* mqCore.cpp in Sources */,
 				BF5DA3C318BD26E40053453C /* mqConfiguration.cpp in Sources */,
-				BFD7996F1AF00E73006AB607 /* mqFFT.cpp in Sources */,
 				BF5DA3BD18BD22260053453C /* mqCsoundWrapper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,7 +448,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -494,7 +484,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -530,7 +520,7 @@
 					CsoundLib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				SYMROOT = build;
 			};
 			name = Debug;
@@ -562,7 +552,7 @@
 					CsoundLib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				SYMROOT = build;
 			};
 			name = Release;
@@ -587,7 +577,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/ext/csound/debug/CsoundLib.framework/Headers",
 				);
-				LIBRARY_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/lib";
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -616,7 +606,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/ext/csound/release/CsoundLib.framework/Headers",
 				);
-				LIBRARY_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/lib";
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
