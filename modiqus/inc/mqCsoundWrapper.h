@@ -81,8 +81,11 @@ namespace mq
         
     public:
         
-        bool start();
+        bool start(bool bundle);
         void stop();
+        void setOpcodePath(mq_str path);
+        void setAudioPath(mq_str path);
+        void setCsdPath(mq_str path);
         void getChannelControlOutput(MYFLT& value, const char *name) const;
         void setChannelControlInput(MYFLT value, const char *name) const;
         void setControlChannelInput(MYFLT value, const char *name) const;

@@ -6,9 +6,7 @@
 //  Copyright (c) 2014 Modicus. All rights reserved.
 //
 
-#include <iostream>
 #include "modiqus.h"
-#include "pugixml.hpp"
 
 mq::S32 mq::dbgLevel = MQ_LOG_LEVEL_DEBUG;
 
@@ -16,7 +14,7 @@ int main(int argc, const char * argv[])
 {    
     mq::mqCsoundWrapper* csound = new mq::mqCsoundWrapper();
     
-    if (!csound->start())
+    if (!csound->start(false))
     {
         MQ_LOG_FATAL("Modiqus engine failed initialization")
         csound->stop();

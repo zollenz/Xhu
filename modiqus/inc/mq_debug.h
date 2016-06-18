@@ -78,6 +78,12 @@ namespace mq
                       << "[" << func << "] " << (input) << std::endl;
         }
     }
+    
+    inline void log_csound(const char* format, va_list args)
+    {
+        printf("[Csound] ");
+        vprintf (format, args);
+    }
 }
 
 #define __TRUNC_FILE__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)

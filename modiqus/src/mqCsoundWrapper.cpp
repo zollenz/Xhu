@@ -32,6 +32,7 @@ static void noMsg_CB(
                     va_list args
                     )
 {
+    log_csound(format, args);
     return;
 }
 
@@ -163,28 +164,24 @@ void onDeleteTable(void*, const S32 tableNumber, void* context)
     wrapper->deleteTable(tableNumber);
 }
 
-bool mqCsoundWrapper::start()
+bool mqCsoundWrapper::start(bool bundle)
 {
     // Set Csound environment variables
-    mq_str executablePath = getExecutablePath();
-    USize lastSlashIndex = executablePath.rfind("/");
+    mq_str path = getExecutablePath();
+    USize lastSlashIndex = path.rfind("/");
     
-    // For application bundle ////////////////////////////////////////////////
-//    USize lastSlashIndex = executablePath.rfind("/");
-//    mq_str executableDirectoryPath = executablePath.substr(0, lastSlashIndex - 1);
-//    lastSlashIndex = executableDirectoryPath.rfind("/");
-//    executableDirectoryPath = executableDirectoryPath.substr(0, lastSlashIndex);
-//    mq_str relativeOpcodePath = "/Frameworks/CsoundLib.framework/Resources/Opcodes";
-//    mq_str relativeCSDPath = "/Resources/csound/modiqus.csd";
-    //////////////////////////////////////////////////////////////////////////
+    path = path.substr(0, lastSlashIndex);
     
-    // For command-line tool /////////////////////////////////////////////////
-    mq_str executableDirectoryPath = executablePath.substr(0, lastSlashIndex);
-    //////////////////////////////////////////////////////////////////////////
+    if (bundle)
+    {
+        path += "/..";
+    }
     
-    mq_str opcodePath = executableDirectoryPath + "/lib/CsoundLib.framework/Versions/Current/Resources";
-    mq_str audioPath = executableDirectoryPath + "/Resources/audio";
-    mq_str csdPath = executableDirectoryPath + "/Resources/csound/modiqus.csd";
+    mq_str opcodePath = path;
+    
+    opcodePath += "/Frameworks/CsoundLib.framework/Versions/Current/Resources";
+    mq_str audioPath = path + "/Resources/audio";
+    mq_str csdPath = path + "/Resources/csound/modiqus.csd";
     
     MQ_LOG_DEBUG("Csound opcode directory: " + opcodePath)
     MQ_LOG_DEBUG("Csound audio directory: " + audioPath)
@@ -222,13 +219,11 @@ bool mqCsoundWrapper::start()
     }
     
     _performanceThreadRunning = false;
+    
     _state.compileResult = CSOUND_ERROR;
     _state.runPerformanceThread = false;
     
-    if (dbgLevel < MQ_LOG_LEVEL_INFO)
-    {
-        csoundSetMessageCallback(_state.csound, noMsg_CB);
-    }
+    csoundSetMessageCallback(_state.csound, noMsg_CB);
     
     // Compile orchestra file
     S32 cSoundArgsCount = 2;
@@ -281,6 +276,23 @@ void mqCsoundWrapper::stop()
     _state.runPerformanceThread = false;
 }
 
+void mqCsoundWrapper::setOpcodePath(mq_str path)
+{
+    
+}
+
+void mqCsoundWrapper::setAudioPath(mq_str path)
+{
+    
+}
+
+void mqCsoundWrapper::setCsdPath(mq_str path)
+{
+    
+}
+
+
+
 void mqCsoundWrapper::getChannelControlOutput(MYFLT& value, const char *name) const
 {
     MYFLT* chnPtr = NULL;
@@ -324,7 +336,7 @@ void mqCsoundWrapper::setControlChannelInput(MYFLT value, const char *name) cons
 void mqCsoundWrapper::sendMessage(const char* message) const
 {
     MQ_LOG_DEBUG("Sending message to Csound:\n" + mq_str(message));
-	csoundInputMessage(_state.csound , message);
+	csoundInputMessage(_state.csound, message);
 }
 
 void mqCsoundWrapper::sendScoreEvent(const char type, MYFLT* parameters, S32 numParameters)
