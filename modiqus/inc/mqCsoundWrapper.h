@@ -81,6 +81,7 @@ namespace mq
         
     public:
         
+        void set_debug_level();
         bool start(bool bundle);
         void stop();
         void setOpcodePath(mq_str path);

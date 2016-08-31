@@ -8,10 +8,9 @@
 
 #include "modiqus.h"
 
-mq::S32 mq::dbgLevel = MQ_LOG_LEVEL_DEBUG;
-
 int main(int argc, const char * argv[])
-{    
+{
+    mq::set_log_level(MQ_LOG_LEVEL_WARN);
     mq::mqCsoundWrapper* csound = new mq::mqCsoundWrapper();
     
     if (!csound->start(false))
@@ -22,10 +21,10 @@ int main(int argc, const char * argv[])
     }
     else
     {
-        MQ_LOG_INFO( "Modiqus engine initialized")
+        MQ_LOG_INFO("Modiqus engine initialized")
     }
 
-    std::cout << "Hello, World!\n";
+    MQ_LOG_INFO("Hello, World!\n")
     csound->sendMessage("i1 0 1");
     while(1);
     csound->stop();

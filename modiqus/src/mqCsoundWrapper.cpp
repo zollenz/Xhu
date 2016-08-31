@@ -25,7 +25,7 @@
 using namespace mq;
 
 // Non-member functions
-static void noMsg_CB(
+static void message_callback(
                     CSOUND *csound,
                     S32 attr,
                     const char *format,
@@ -102,7 +102,7 @@ S32 sanityCheck(const char *name, S32 errorCode)
     return errorCode;
 }
 
-uintptr_t performanceRoutine(void* data)
+uintptr_t performance_routine(void* data)
 {
     CsoundState* state = static_cast<CsoundState*>(data);
     mqCsoundWrapper* core = static_cast<mqCsoundWrapper*>(csoundGetHostData(state->csound));
@@ -179,7 +179,7 @@ bool mqCsoundWrapper::start(bool bundle)
     
     mq_str opcodePath = path;
     
-    opcodePath += "/Frameworks/CsoundLib.framework/Versions/Current/Resources";
+    opcodePath += "/lib";
     mq_str audioPath = path + "/Resources/audio";
     mq_str csdPath = path + "/Resources/csound/modiqus.csd";
     
@@ -188,7 +188,7 @@ bool mqCsoundWrapper::start(bool bundle)
     MQ_LOG_DEBUG("Csound orchestra file path: " + csdPath)
     
     S32 callResult = CSOUND_ERROR;
-    callResult = csoundSetGlobalEnv("OPCODE6DIR", opcodePath.c_str());
+    callResult = csoundSetGlobalEnv("OPCODE6DIR64", opcodePath.c_str());
     sanityCheck("csoundSetGlobalEnv", callResult);
     
     if (callResult != CSOUND_SUCCESS)
@@ -223,7 +223,7 @@ bool mqCsoundWrapper::start(bool bundle)
     _state.compileResult = CSOUND_ERROR;
     _state.runPerformanceThread = false;
     
-    csoundSetMessageCallback(_state.csound, noMsg_CB);
+    csoundSetMessageCallback(_state.csound, message_callback);
     
     // Compile orchestra file
     S32 cSoundArgsCount = 2;
@@ -248,7 +248,7 @@ bool mqCsoundWrapper::start(bool bundle)
     _state.yieldPerformance = false;
     _state.performanceThreadYield = false;
     
-    if (csoundCreateThread(performanceRoutine, (void *)&_state) == NULL)
+    if (csoundCreateThread(performance_routine, (void *)&_state) == NULL)
     {
         MQ_LOG_FATAL( "Csound performance thread creation failed")
         

@@ -20,6 +20,9 @@
 #ifndef __MQ_DEBUG_H__
 #define __MQ_DEBUG_H__
 
+#include <iostream>
+#include "mq_types.h"
+
 #define MQ_LOG_LEVEL_MUTE     (1)
 #define MQ_LOG_LEVEL_FATAL    (2)
 #define MQ_LOG_LEVEL_ERROR    (3)
@@ -27,14 +30,16 @@
 #define MQ_LOG_LEVEL_INFO     (5)
 #define MQ_LOG_LEVEL_DEBUG    (6)
 
-#include <iostream>
-#include "mq_types.h"
-
 namespace mq
 {
-    extern S32 dbgLevel;
+    static S32 debug_level = MQ_LOG_LEVEL_MUTE;
     
-    inline const char* const logLevelName(S32 logLevel)
+    static void set_log_level(S32 level)
+    {
+        debug_level = level;
+    }
+    
+    inline const char* const get_log_level_name(S32 logLevel)
     {
         switch (logLevel)
         {
@@ -72,17 +77,20 @@ namespace mq
         USize lastDot = shortFile.rfind(".");
         shortFile = shortFile.substr(0, lastDot);
         
-        if (level <= dbgLevel)
+        if (debug_level >= level)
         {
-            std::cout << "[" << logLevelName(level) << "][" << shortFile << "(" << line << ")]"
-                      << "[" << func << "] " << (input) << std::endl;
+            std::cout << "[" << get_log_level_name(level) << "." << shortFile << "." << func
+                      << "." << line << "] " << (input) << std::endl;
         }
     }
     
     inline void log_csound(const char* format, va_list args)
     {
-        printf("[Csound] ");
-        vprintf (format, args);
+//        if (debug_level > MQ_LOG_LEVEL_ERROR)
+//        {
+            printf("[Csound] ");
+            vprintf (format, args);
+//        }
     }
 }
 
