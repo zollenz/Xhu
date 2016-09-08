@@ -32,12 +32,7 @@
 
 namespace mq
 {
-    static S32 debug_level = MQ_LOG_LEVEL_MUTE;
-    
-    static void set_log_level(S32 level)
-    {
-        debug_level = level;
-    }
+    extern S32 log_level;
     
     inline const char* const get_log_level_name(S32 logLevel)
     {
@@ -77,7 +72,7 @@ namespace mq
         USize lastDot = shortFile.rfind(".");
         shortFile = shortFile.substr(0, lastDot);
         
-        if (debug_level >= level)
+        if (log_level >= level)
         {
             std::cout << "[" << get_log_level_name(level) << "." << shortFile << "." << func
                       << "." << line << "] " << (input) << std::endl;
@@ -86,11 +81,16 @@ namespace mq
     
     inline void log_csound(const char* format, va_list args)
     {
-//        if (debug_level > MQ_LOG_LEVEL_ERROR)
-//        {
+        if (log_level > MQ_LOG_LEVEL_MUTE)
+        {
             printf("[Csound] ");
             vprintf (format, args);
-//        }
+            
+            if (strchr(format, '\n') == 0)
+            {
+                printf("\n");
+            }
+        }
     }
 }
 

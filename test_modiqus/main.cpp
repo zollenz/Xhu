@@ -10,8 +10,9 @@
 
 int main(int argc, const char * argv[])
 {
-    mq::set_log_level(MQ_LOG_LEVEL_WARN);
+    
     mq::mqCsoundWrapper* csound = new mq::mqCsoundWrapper();
+//    csound->set_log_level(MQ_LOG_LEVEL_DEBUG);
     
     if (!csound->start(false))
     {

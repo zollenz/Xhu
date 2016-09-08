@@ -24,6 +24,8 @@
 
 using namespace mq;
 
+mq::S32 mq::log_level = MQ_LOG_LEVEL_MUTE;
+
 // Non-member functions
 static void message_callback(
                     CSOUND *csound,
@@ -276,6 +278,11 @@ void mqCsoundWrapper::stop()
     _state.runPerformanceThread = false;
 }
 
+void mqCsoundWrapper::set_log_level(S32 level) const
+{
+    log_level = level;
+}
+
 void mqCsoundWrapper::setOpcodePath(mq_str path)
 {
     
@@ -290,8 +297,6 @@ void mqCsoundWrapper::setCsdPath(mq_str path)
 {
     
 }
-
-
 
 void mqCsoundWrapper::getChannelControlOutput(MYFLT& value, const char *name) const
 {

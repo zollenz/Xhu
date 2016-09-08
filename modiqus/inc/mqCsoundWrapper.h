@@ -81,7 +81,7 @@ namespace mq
         
     public:
         
-        void set_debug_level();
+        void set_log_level(S32 level) const;
         bool start(bool bundle);
         void stop();
         void setOpcodePath(mq_str path);

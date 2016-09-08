@@ -22,12 +22,12 @@
 
 #include "mq_types.h"
 #include "mq_debug.h"
-#include "mq_thread.h"
-#include "mq_event.h"
+//#include "mq_thread.h"
+//#include "mq_event.h"
 #include "mq_utils_math.h"
 #include "mq_utils_system.h"
-#include "mqCore.h"
-#include "mqConfiguration.h"
+//#include "mqCore.h"
+//#include "mqConfiguration.h"
 #include "mqCSoundWrapper.h"
 
 #endif //__MODIQUS_H__
