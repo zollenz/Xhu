@@ -172,16 +172,18 @@ bool mqCsoundWrapper::start(bool bundle)
     mq_str path = getExecutablePath();
     USize lastSlashIndex = path.rfind("/");
     
-    path = path.substr(0, lastSlashIndex);
+    path = path.substr(0, lastSlashIndex);    
+    mq_str opcodePath = path;
     
     if (bundle)
     {
-        path += "/..";
+        opcodePath += "/../Frameworks";
+    }
+    else
+    {
+        opcodePath += "/lib";
     }
     
-    mq_str opcodePath = path;
-    
-    opcodePath += "/lib";
     mq_str audioPath = path + "/Resources/audio";
     mq_str csdPath = path + "/Resources/csound/modiqus.csd";
     
