@@ -172,12 +172,18 @@ bool mqCsoundWrapper::start(bool bundle)
     mq_str path = getExecutablePath();
     USize lastSlashIndex = path.rfind("/");
     
-    path = path.substr(0, lastSlashIndex);    
+    path = path.substr(0, lastSlashIndex);
+    
+    if (bundle)
+    {
+        path += "/..";
+    }
+    
     mq_str opcodePath = path;
     
     if (bundle)
     {
-        opcodePath += "/../Frameworks";
+        opcodePath += "/Frameworks";
     }
     else
     {
