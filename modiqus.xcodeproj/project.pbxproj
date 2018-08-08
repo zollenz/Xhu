@@ -21,7 +21,6 @@
 		BF16811C1AE9850E00FB1755 /* mqCsoundWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5C18685BE500DF51F5 /* mqCsoundWrapper.h */; };
 		BF281D161D775ECB00EA0E86 /* CsoundLib64 in Frameworks */ = {isa = PBXBuildFile; fileRef = BF39851F1D775D3B00FF3F89 /* CsoundLib64 */; };
 		BF28E5C718BD42810037D98E /* mqCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6D18685BF000DF51F5 /* mqCore.cpp */; };
-		BF3985201D775D3B00FF3F89 /* CsoundLib64 in Frameworks */ = {isa = PBXBuildFile; fileRef = BF39851F1D775D3B00FF3F89 /* CsoundLib64 */; };
 		BF5DA3BD18BD22260053453C /* mqCsoundWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6F18685BF000DF51F5 /* mqCsoundWrapper.cpp */; };
 		BF5DA3BF18BD23560053453C /* libmodiqus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5DA3A718BD1A550053453C /* libmodiqus.a */; };
 		BF5DA3C318BD26E40053453C /* mqConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6E18685BF000DF51F5 /* mqConfiguration.cpp */; };
@@ -80,7 +79,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF3985201D775D3B00FF3F89 /* CsoundLib64 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +264,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Set variables\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Release\nfi\n\n# Delete/recreate lib and resource folders\n\nif [ ! -d ${TARGET_BUILD_DIR}/lib ]; then\n    mkdir ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/Resources ]; then\n    mkdir ${TARGET_BUILD_DIR}/Resources\nfi\n\n# Copy dependencies\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\ncp $PROJECT_DIR/ext/libsndfile.1.dylib ${TARGET_BUILD_DIR}/lib/\n#mv ${TARGET_BUILD_DIR}/libmodiqus.a ${TARGET_BUILD_DIR}/lib/\n\n# Update lib install names\n/bin/bash \\\n/Users/dejean/Developer/thirdparty/repository/csound/scripts/update_install_names.sh \\\n${TARGET_BUILD_DIR}/lib\n\n# Copy resources\n\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/Resources";
+			shellScript = "# Set variables\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Release\nfi\n\n# Delete/recreate lib and resource folders\n\nif [ ! -d ${TARGET_BUILD_DIR}/lib ]; then\n    mkdir ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/Resources ]; then\n    mkdir ${TARGET_BUILD_DIR}/Resources\nfi\n\n# Copy dependencies\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\ncp $PROJECT_DIR/ext/libsndfile.1.dylib ${TARGET_BUILD_DIR}/lib/\n#mv ${TARGET_BUILD_DIR}/libmodiqus.a ${TARGET_BUILD_DIR}/lib/\n\n# Update lib install names\n/bin/bash \\\n$PROJECT_DIR/tools/update_install_names.sh \\\n${TARGET_BUILD_DIR}/lib\n\n# Copy resources\n\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/Resources";
 		};
 /* End PBXShellScriptBuildPhase section */
 
