@@ -1,5 +1,5 @@
 ///*
-// * Copyright (C) 2015 by Martin Dejean
+// * Copyright (C) 2018 by Martin Dejean
 // *
 // * This file is part of Modiqus.
 // * Modiqus is free software: you can redistribute it and/or modify

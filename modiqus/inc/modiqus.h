@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 by Martin Dejean
+ * Copyright (C) 2018 by Martin Dejean
  *
  * This file is part of Modiqus.
  * Modiqus is free software: you can redistribute it and/or modify
@@ -22,12 +22,8 @@
 
 #include "mq_types.h"
 #include "mq_debug.h"
-//#include "mq_thread.h"
-//#include "mq_event.h"
 #include "mq_utils_math.h"
 #include "mq_utils_system.h"
-//#include "mqCore.h"
-//#include "mqConfiguration.h"
-#include "mqCSoundWrapper.h"
+#include "mqCsoundWrapper.h"
 
 #endif //__MODIQUS_H__

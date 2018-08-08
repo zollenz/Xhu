@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 by Martin Dejean
+ * Copyright (C) 2018 by Martin Dejean
  *
  * This file is part of Modiqus.
  * Modiqus is free software: you can redistribute it and/or modify
@@ -24,15 +24,10 @@
 
 using namespace mq;
 
-mq::S32 mq::log_level = MQ_LOG_LEVEL_MUTE;
+mq::S32 mq::log_level = MQ_LOG_LEVEL_DEBUG;
 
 // Non-member functions
-static void message_callback(
-                    CSOUND *csound,
-                    S32 attr,
-                    const char *format,
-                    va_list args
-                    )
+static void message_callback(CSOUND *csound, S32 attr, const char *format, va_list args)
 {
     log_csound(format, args);
     return;
