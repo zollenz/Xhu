@@ -17,38 +17,47 @@
  *
  */
 
-#ifndef __MQ_CORE_EVENTS_H__
-#define __MQ_CORE_EVENTS_H__
+#ifndef __THREAD_H__
+#define __THREAD_H__
 
-#include "mq_event.h"
+#include <pthread.h>
 
 namespace mq
 {
-    #define AudioEvents CoreEvents::Instance()
-    
-    class CoreEvents
+    class Thread
     {
         
     public:
         
-        Event<void, const F32* const> outputDataReady;
-        Event<void, const mq_str&> outputSilent;
+        Thread() {}
         
-        static CoreEvents& Instance()
+        virtual ~Thread() {}
+        
+        bool startInternalThread()
         {
-            static CoreEvents singleton;
-            return singleton;
+            return (pthread_create(&_thread, NULL, internalThreadEntryFunc, this) == 0);
+        }
+        
+        void joinInternalThread()
+        {
+            (void) pthread_join(_thread, NULL);
         }
         
     protected:
         
-        CoreEvents() :
-        outputDataReady(this),
-        outputSilent(this) {}
-        ~CoreEvents() {};
-        CoreEvents(const CoreEvents&);              // Prevent copy-construction
-        CoreEvents& operator=(const CoreEvents&);   // Prevent assignment
+        virtual void internalThreadEntry() = 0;
+        
+    private:
+        
+        pthread_t _thread;
+        
+        static void* internalThreadEntryFunc(void* This)
+        {
+            ((Thread*)This)->internalThreadEntry();
+            
+            return NULL;
+        }
         
     };
 }
-#endif //__MQ_CORE_EVENTS_H__
+#endif //__THREAD_H__

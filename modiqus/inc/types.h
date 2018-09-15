@@ -17,16 +17,15 @@
  *
  */
 
-#ifndef __MQ_TYPES_H__
-#define __MQ_TYPES_H__
+#ifndef __TYPES_H__
+#define __TYPES_H__
 
+#include <limits>
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
-#include <limits>
 
-namespace mq
-{    
+namespace mq {
 #ifdef __LP64__
     typedef unsigned long USize;
 #else
@@ -64,28 +63,25 @@ namespace mq
 #define F32_INF std::numeric_limits<F32>::infinity()
 #define F64_INF std::numeric_limits<F64>::infinity()
     
-    struct mqVector
-    {
+    struct Vector2 {
         S32 x;
         S32 y;
-
-        mqVector(S32 _x = 0, S32 _y = 0) : x(_x), y(_y) {}
+        
+        Vector2(S32 _x = 0, S32 _y = 0) : x(_x), y(_y) {}
     };
     
-    struct mqSegment
-    {
+    struct Segment {
         F32 value;
         F32 length;
         
-        mqSegment(F32 _value = 0.0f, F32 _length = 0.0f) :
-        value(_value), length(_length) {}
+        Segment(F32 _value = 0.0f, F32 _length = 0.0f)
+        : value(_value), length(_length) {}
     };
     
-    typedef std::vector<mqVector> VectorList;
-    typedef std::vector<mqSegment> SegmentList;
+    typedef std::vector<Vector2> Vector2List;
+    typedef std::vector<Segment> SegmentList;
     
-    struct mqSoundInfo
-    {
+    struct mqSoundInfo {
         mq_str sourceType;
         mq_str sourceName;
         mq_str sourceEvent;
@@ -93,23 +89,18 @@ namespace mq
         mq_str soundInstanceString;
         mq_str soundCompleteName;
         
-        mqSoundInfo(
-                        const mq_str& _sourcetype = UNDEFINED_STR,
-                        const mq_str& _sourceName = UNDEFINED_STR,
-                        const mq_str& _sourceEvent = UNDEFINED_STR,
-                        const S32 _soundInstance = UNDEFINED_INT,
-                        const mq_str& _soundInstanceString = UNDEFINED_STR,
-                        const mq_str& _soundCompleteName = UNDEFINED_STR
-                        ) :
-        sourceType(_sourcetype),
-        sourceName(_sourceName),
-        sourceEvent(_sourceEvent),
-        soundInstance(_soundInstance),
+        mqSoundInfo(const mq_str &_sourcetype = UNDEFINED_STR,
+                    const mq_str &_sourceName = UNDEFINED_STR,
+                    const mq_str &_sourceEvent = UNDEFINED_STR,
+                    const S32 _soundInstance = UNDEFINED_INT,
+                    const mq_str &_soundInstanceString = UNDEFINED_STR,
+                    const mq_str &_soundCompleteName = UNDEFINED_STR)
+        : sourceType(_sourcetype), sourceName(_sourceName),
+        sourceEvent(_sourceEvent), soundInstance(_soundInstance),
         soundInstanceString(_soundInstanceString),
         soundCompleteName(_soundCompleteName) {}
         
-        void reset()
-        {
+        void reset() {
             sourceType = UNDEFINED_STR;
             sourceName = UNDEFINED_STR;
             sourceEvent = UNDEFINED_STR;
@@ -119,51 +110,44 @@ namespace mq
         }
     };
     
-    struct mqParamUpdate
-    {
+    struct ParamUpdate {
         mq_str name;
         F32 value;
         
-        mqParamUpdate(const mq_str& n = UNDEFINED_STR, const F32 v = 0.0f) :
-        name(n), value(v) {}
+        ParamUpdate(const mq_str &n = UNDEFINED_STR, const F32 v = 0.0f)
+        : name(n), value(v) {}
     };
-        
+    
     // Tuple templates
-    template<typename T1, typename T2>
-    struct Tuple2 {
+    template <typename T1, typename T2> struct Tuple2 {
         T1 value1;
         T2 value2;
         
-        Tuple2(T1 v1 = NULL, T2 v2 = NULL)
-        {
+        Tuple2(T1 v1 = NULL, T2 v2 = NULL) {
             value1 = v1;
             value2 = v2;
         }
     };
     
-    template<typename T1, typename T2, typename T3>
-    struct Tuple3 {
+    template <typename T1, typename T2, typename T3> struct Tuple3 {
         T1 value1;
         T2 value2;
         T3 value3;
         
-        Tuple3(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL)
-        {
+        Tuple3(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL) {
             value1 = v1;
             value2 = v2;
             value3 = v3;
         }
     };
     
-    template<typename T1, typename T2, typename T3, typename T4>
-    struct Tuple4 {
+    template <typename T1, typename T2, typename T3, typename T4> struct Tuple4 {
         T1 value1;
         T2 value2;
         T3 value3;
         T4 value4;
         
-        Tuple4(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL, T4 v4 = NULL)
-        {
+        Tuple4(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL, T4 v4 = NULL) {
             value1 = v1;
             value2 = v2;
             value3 = v3;
@@ -171,7 +155,7 @@ namespace mq
         }
     };
     
-    template<typename T1, typename T2, typename T3, typename T4, typename T5>
+    template <typename T1, typename T2, typename T3, typename T4, typename T5>
     struct Tuple5 {
         T1 value1;
         T2 value2;
@@ -179,8 +163,7 @@ namespace mq
         T4 value4;
         T5 value5;
         
-        Tuple5(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL, T4 v4 = NULL, T5 v5 = NULL)
-        {
+        Tuple5(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL, T4 v4 = NULL, T5 v5 = NULL) {
             value1 = v1;
             value2 = v2;
             value3 = v3;
@@ -189,7 +172,8 @@ namespace mq
         }
     };
     
-    template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
+    template <typename T1, typename T2, typename T3, typename T4, typename T5,
+    typename T6>
     struct Tuple6 {
         T1 value1;
         T2 value2;
@@ -198,8 +182,8 @@ namespace mq
         T5 value5;
         T6 value6;
         
-        Tuple6(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL, T4 v4 = NULL, T5 v5 = NULL, T6 v6 = NULL)
-        {
+        Tuple6(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL, T4 v4 = NULL, T5 v5 = NULL,
+               T6 v6 = NULL) {
             value1 = v1;
             value2 = v2;
             value3 = v3;
@@ -209,7 +193,8 @@ namespace mq
         }
     };
     
-    template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
+    template <typename T1, typename T2, typename T3, typename T4, typename T5,
+    typename T6, typename T7>
     struct Tuple7 {
         T1 value1;
         T2 value2;
@@ -219,8 +204,8 @@ namespace mq
         T6 value6;
         T7 value7;
         
-        Tuple7(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL, T4 v4 = NULL, T5 v5 = NULL, T6 v6 = NULL, T7 v7 = NULL)
-        {
+        Tuple7(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL, T4 v4 = NULL, T5 v5 = NULL,
+               T6 v6 = NULL, T7 v7 = NULL) {
             value1 = v1;
             value2 = v2;
             value3 = v3;
@@ -231,7 +216,8 @@ namespace mq
         }
     };
     
-    template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
+    template <typename T1, typename T2, typename T3, typename T4, typename T5,
+    typename T6, typename T7, typename T8>
     struct Tuple8 {
         T1 value1;
         T2 value2;
@@ -242,8 +228,8 @@ namespace mq
         T7 value7;
         T8 value8;
         
-        Tuple8(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL, T4 v4 = NULL, T5 v5 = NULL, T6 v6 = NULL, T7 v7 = NULL, T8 v8 = NULL)
-        {
+        Tuple8(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL, T4 v4 = NULL, T5 v5 = NULL,
+               T6 v6 = NULL, T7 v7 = NULL, T8 v8 = NULL) {
             value1 = v1;
             value2 = v2;
             value3 = v3;
@@ -255,8 +241,8 @@ namespace mq
         }
     };
     
-    template<typename T1, typename T2, typename T3, typename T4, typename T5,
-             typename T6, typename T7, typename T8, typename T9>
+    template <typename T1, typename T2, typename T3, typename T4, typename T5,
+    typename T6, typename T7, typename T8, typename T9>
     struct Tuple9 {
         T1 value1;
         T2 value2;
@@ -269,8 +255,7 @@ namespace mq
         T9 value9;
         
         Tuple9(T1 v1 = NULL, T2 v2 = NULL, T3 v3 = NULL, T4 v4 = NULL, T5 v5 = NULL,
-               T6 v6 = NULL, T7 v7 = NULL, T8 v8 = NULL, T9 v9 = NULL)
-        {
+               T6 v6 = NULL, T7 v7 = NULL, T8 v8 = NULL, T9 v9 = NULL) {
             value1 = v1;
             value2 = v2;
             value3 = v3;
@@ -282,6 +267,6 @@ namespace mq
             value9 = v9;
         }
     };
-}
+} // namespace mq
 
-#endif //__MQ_TYPES_H__
+#endif //__TYPES_H__

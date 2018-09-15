@@ -17,11 +17,10 @@
  *
  */
 
-#ifndef __MQ_CSOUND_WRAPPER_H__
-#define __MQ_CSOUND_WRAPPER_H__
+#ifndef __CSOUND_WRAPPER_H__
+#define __CSOUND_WRAPPER_H__
 
 #include "csound.h"
-#include "mqConfiguration.h"
 
 namespace mq
 {
@@ -115,4 +114,4 @@ namespace mq
         
     };
 }
-#endif //__MQ_CSOUND_WRAPPER_H__
+#endif //__CSOUND_WRAPPER_H__

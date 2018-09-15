@@ -8,22 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		BF1681111AE984DA00FB1755 /* modiqus.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5D18685BE500DF51F5 /* modiqus.h */; };
-		BF1681121AE984DD00FB1755 /* mq_core_events.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5118685BE500DF51F5 /* mq_core_events.h */; };
-		BF1681131AE984E000FB1755 /* mq_debug.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5218685BE500DF51F5 /* mq_debug.h */; };
-		BF1681141AE984E300FB1755 /* mq_event.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5318685BE500DF51F5 /* mq_event.h */; };
-		BF1681151AE984E700FB1755 /* mq_io.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5418685BE500DF51F5 /* mq_io.h */; };
-		BF1681161AE984E900FB1755 /* mq_utils_math.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5518685BE500DF51F5 /* mq_utils_math.h */; };
-		BF1681171AE984ED00FB1755 /* mq_thread.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5618685BE500DF51F5 /* mq_thread.h */; };
-		BF1681181AE984F000FB1755 /* mq_types.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5718685BE500DF51F5 /* mq_types.h */; };
-		BF1681191AE984F500FB1755 /* mq_utils_system.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5818685BE500DF51F5 /* mq_utils_system.h */; };
-		BF16811A1AE9850600FB1755 /* mqConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5B18685BE500DF51F5 /* mqConfiguration.h */; };
-		BF16811B1AE9850900FB1755 /* mqCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5A18685BE500DF51F5 /* mqCore.h */; };
-		BF16811C1AE9850E00FB1755 /* mqCsoundWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5C18685BE500DF51F5 /* mqCsoundWrapper.h */; };
+		BF1681131AE984E000FB1755 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5218685BE500DF51F5 /* debug.h */; };
+		BF1681141AE984E300FB1755 /* event.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5318685BE500DF51F5 /* event.h */; };
+		BF1681161AE984E900FB1755 /* utils_math.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5518685BE500DF51F5 /* utils_math.h */; };
+		BF1681171AE984ED00FB1755 /* thread.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5618685BE500DF51F5 /* thread.h */; };
+		BF1681181AE984F000FB1755 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5718685BE500DF51F5 /* types.h */; };
+		BF1681191AE984F500FB1755 /* utils_system.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5818685BE500DF51F5 /* utils_system.h */; };
+		BF16811C1AE9850E00FB1755 /* csound_wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5C18685BE500DF51F5 /* csound_wrapper.h */; };
 		BF281D161D775ECB00EA0E86 /* CsoundLib64 in Frameworks */ = {isa = PBXBuildFile; fileRef = BF39851F1D775D3B00FF3F89 /* CsoundLib64 */; };
-		BF28E5C718BD42810037D98E /* mqCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6D18685BF000DF51F5 /* mqCore.cpp */; };
-		BF5DA3BD18BD22260053453C /* mqCsoundWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6F18685BF000DF51F5 /* mqCsoundWrapper.cpp */; };
+		BF5DA3BD18BD22260053453C /* csound_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6F18685BF000DF51F5 /* csound_wrapper.cpp */; };
 		BF5DA3BF18BD23560053453C /* libmodiqus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5DA3A718BD1A550053453C /* libmodiqus.a */; };
-		BF5DA3C318BD26E40053453C /* mqConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6E18685BF000DF51F5 /* mqConfiguration.cpp */; };
 		BF92230B18BA2CFF00EFD7E8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF92230A18BA2CFF00EFD7E8 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -51,27 +45,20 @@
 
 /* Begin PBXFileReference section */
 		BF0723B71D11F81F009BFE61 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
-		BF2C5E5118685BE500DF51F5 /* mq_core_events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_core_events.h; sourceTree = "<group>"; };
-		BF2C5E5218685BE500DF51F5 /* mq_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_debug.h; sourceTree = "<group>"; };
-		BF2C5E5318685BE500DF51F5 /* mq_event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_event.h; sourceTree = "<group>"; };
-		BF2C5E5418685BE500DF51F5 /* mq_io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_io.h; sourceTree = "<group>"; };
-		BF2C5E5518685BE500DF51F5 /* mq_utils_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_utils_math.h; sourceTree = "<group>"; };
-		BF2C5E5618685BE500DF51F5 /* mq_thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_thread.h; sourceTree = "<group>"; };
-		BF2C5E5718685BE500DF51F5 /* mq_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_types.h; sourceTree = "<group>"; };
-		BF2C5E5818685BE500DF51F5 /* mq_utils_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_utils_system.h; sourceTree = "<group>"; };
-		BF2C5E5A18685BE500DF51F5 /* mqCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mqCore.h; sourceTree = "<group>"; };
-		BF2C5E5B18685BE500DF51F5 /* mqConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mqConfiguration.h; sourceTree = "<group>"; };
-		BF2C5E5C18685BE500DF51F5 /* mqCsoundWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mqCsoundWrapper.h; sourceTree = "<group>"; };
+		BF2C5E5218685BE500DF51F5 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
+		BF2C5E5318685BE500DF51F5 /* event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = event.h; sourceTree = "<group>"; };
+		BF2C5E5518685BE500DF51F5 /* utils_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils_math.h; sourceTree = "<group>"; };
+		BF2C5E5618685BE500DF51F5 /* thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread.h; sourceTree = "<group>"; };
+		BF2C5E5718685BE500DF51F5 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		BF2C5E5818685BE500DF51F5 /* utils_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils_system.h; sourceTree = "<group>"; };
+		BF2C5E5C18685BE500DF51F5 /* csound_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_wrapper.h; sourceTree = "<group>"; };
 		BF2C5E5D18685BE500DF51F5 /* modiqus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modiqus.h; sourceTree = "<group>"; };
-		BF2C5E6D18685BF000DF51F5 /* mqCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mqCore.cpp; sourceTree = "<group>"; };
-		BF2C5E6E18685BF000DF51F5 /* mqConfiguration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mqConfiguration.cpp; sourceTree = "<group>"; };
-		BF2C5E6F18685BF000DF51F5 /* mqCsoundWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mqCsoundWrapper.cpp; sourceTree = "<group>"; };
+		BF2C5E6F18685BF000DF51F5 /* csound_wrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csound_wrapper.cpp; sourceTree = "<group>"; };
 		BF39851E1D775D2900FF3F89 /* ext */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ext; sourceTree = "<group>"; };
 		BF39851F1D775D3B00FF3F89 /* CsoundLib64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = CsoundLib64; path = ext/csound/release/lib/CsoundLib64; sourceTree = "<group>"; };
 		BF5DA3A718BD1A550053453C /* libmodiqus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmodiqus.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF92230818BA2CFF00EFD7E8 /* test_modiqus */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test_modiqus; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF92230A18BA2CFF00EFD7E8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		BFB2570A1D11E59200DE8149 /* mq_structs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mq_structs.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,18 +106,13 @@
 			isa = PBXGroup;
 			children = (
 				BF2C5E5D18685BE500DF51F5 /* modiqus.h */,
-				BF2C5E5118685BE500DF51F5 /* mq_core_events.h */,
-				BF2C5E5218685BE500DF51F5 /* mq_debug.h */,
-				BF2C5E5318685BE500DF51F5 /* mq_event.h */,
-				BF2C5E5418685BE500DF51F5 /* mq_io.h */,
-				BF2C5E5618685BE500DF51F5 /* mq_thread.h */,
-				BF2C5E5718685BE500DF51F5 /* mq_types.h */,
-				BF2C5E5518685BE500DF51F5 /* mq_utils_math.h */,
-				BF2C5E5818685BE500DF51F5 /* mq_utils_system.h */,
-				BF2C5E5B18685BE500DF51F5 /* mqConfiguration.h */,
-				BF2C5E5A18685BE500DF51F5 /* mqCore.h */,
-				BF2C5E5C18685BE500DF51F5 /* mqCsoundWrapper.h */,
-				BFB2570A1D11E59200DE8149 /* mq_structs.h */,
+				BF2C5E5218685BE500DF51F5 /* debug.h */,
+				BF2C5E5318685BE500DF51F5 /* event.h */,
+				BF2C5E5618685BE500DF51F5 /* thread.h */,
+				BF2C5E5718685BE500DF51F5 /* types.h */,
+				BF2C5E5518685BE500DF51F5 /* utils_math.h */,
+				BF2C5E5818685BE500DF51F5 /* utils_system.h */,
+				BF2C5E5C18685BE500DF51F5 /* csound_wrapper.h */,
 			);
 			name = inc;
 			path = modiqus/inc;
@@ -139,9 +121,7 @@
 		BF2C5E6B18685BF000DF51F5 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				BF2C5E6E18685BF000DF51F5 /* mqConfiguration.cpp */,
-				BF2C5E6D18685BF000DF51F5 /* mqCore.cpp */,
-				BF2C5E6F18685BF000DF51F5 /* mqCsoundWrapper.cpp */,
+				BF2C5E6F18685BF000DF51F5 /* csound_wrapper.cpp */,
 			);
 			name = src;
 			path = modiqus/src;
@@ -172,17 +152,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF1681111AE984DA00FB1755 /* modiqus.h in Headers */,
-				BF1681121AE984DD00FB1755 /* mq_core_events.h in Headers */,
-				BF1681131AE984E000FB1755 /* mq_debug.h in Headers */,
-				BF1681141AE984E300FB1755 /* mq_event.h in Headers */,
-				BF1681151AE984E700FB1755 /* mq_io.h in Headers */,
-				BF1681161AE984E900FB1755 /* mq_utils_math.h in Headers */,
-				BF1681171AE984ED00FB1755 /* mq_thread.h in Headers */,
-				BF1681181AE984F000FB1755 /* mq_types.h in Headers */,
-				BF1681191AE984F500FB1755 /* mq_utils_system.h in Headers */,
-				BF16811A1AE9850600FB1755 /* mqConfiguration.h in Headers */,
-				BF16811B1AE9850900FB1755 /* mqCore.h in Headers */,
-				BF16811C1AE9850E00FB1755 /* mqCsoundWrapper.h in Headers */,
+				BF1681131AE984E000FB1755 /* debug.h in Headers */,
+				BF1681141AE984E300FB1755 /* event.h in Headers */,
+				BF1681161AE984E900FB1755 /* utils_math.h in Headers */,
+				BF1681171AE984ED00FB1755 /* thread.h in Headers */,
+				BF1681181AE984F000FB1755 /* types.h in Headers */,
+				BF1681191AE984F500FB1755 /* utils_system.h in Headers */,
+				BF16811C1AE9850E00FB1755 /* csound_wrapper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,7 +207,7 @@
 		BF2C5E411868565000DF51F5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Modicus;
 			};
 			buildConfigurationList = BF2C5E441868565000DF51F5 /* Build configuration list for PBXProject "modiqus" */;
@@ -273,9 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF28E5C718BD42810037D98E /* mqCore.cpp in Sources */,
-				BF5DA3C318BD26E40053453C /* mqConfiguration.cpp in Sources */,
-				BF5DA3BD18BD22260053453C /* mqCsoundWrapper.cpp in Sources */,
+				BF5DA3BD18BD22260053453C /* csound_wrapper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,22 +276,35 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -331,8 +318,8 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
@@ -343,23 +330,35 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -367,7 +366,7 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -379,7 +378,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -403,7 +402,7 @@
 					"$(PROJECT_DIR)/ext/fftw/lib",
 					"$(PROJECT_DIR)/ext/csound/release/lib",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -416,7 +415,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
@@ -435,7 +434,7 @@
 					"$(PROJECT_DIR)/ext/fftw/lib",
 					"$(PROJECT_DIR)/ext/csound/release/lib",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -448,7 +447,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -465,7 +464,7 @@
 					"$(PROJECT_DIR)/ext/csound/release/inc",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ext/csound/release/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = test_modiqus;
@@ -477,7 +476,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -490,7 +489,7 @@
 					"$(PROJECT_DIR)/ext/csound/release/inc",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ext/csound/release/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = test_modiqus;

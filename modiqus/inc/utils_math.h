@@ -17,11 +17,11 @@
  *
  */
 
-#ifndef __MQ_UTILS_MATH_H__
-#define __MQ_UTILS_MATH_H__
+#ifndef __UTILS_MATH_H__
+#define __UTILS_MATH_H__
 
 #include <cmath>
-#include "mq_utils_system.h"
+#include "utils_system.h"
 
 namespace mq
 {
@@ -295,4 +295,4 @@ namespace mq
     }
 }
 
-#endif //__MQ_UTILS_MATH_H__
+#endif //__UTILS_MATH_H__

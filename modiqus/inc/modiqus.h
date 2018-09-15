@@ -20,10 +20,11 @@
 #ifndef __MODIQUS_H__
 #define __MODIQUS_H__
 
-#include "mq_types.h"
-#include "mq_debug.h"
-#include "mq_utils_math.h"
-#include "mq_utils_system.h"
-#include "mqCsoundWrapper.h"
+#include "types.h"
+#include "debug.h"
+#include "thread.h"
+#include "utils_math.h"
+#include "utils_system.h"
+#include "csound_wrapper.h"
 
 #endif //__MODIQUS_H__

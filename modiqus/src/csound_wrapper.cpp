@@ -17,10 +17,10 @@
  *
  */
 
-#include "mq_utils_math.h"
-#include "mq_utils_system.h"
-#include "mq_types.h"
-#include "mqCsoundWrapper.h"
+#include "utils_math.h"
+#include "utils_system.h"
+#include "types.h"
+#include "csound_wrapper.h"
 
 using namespace mq;
 
