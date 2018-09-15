@@ -17,11 +17,11 @@
  *
  */
 
-#ifndef __DEBUG_H__
-#define __DEBUG_H__
+#ifndef DEBUG_HPP
+#define DEBUG_HPP
 
 #include <iostream>
-#include "types.h"
+#include "types.hpp"
 
 #define MQ_LOG_LEVEL_MUTE     (1)
 #define MQ_LOG_LEVEL_FATAL    (2)
@@ -109,4 +109,4 @@ do { mq::log(input, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
 #define MQ_LOG_INFO(input) MQ_LOG(MQ_LOG_LEVEL_INFO, input)
 #define MQ_LOG_DEBUG(input) MQ_LOG(MQ_LOG_LEVEL_DEBUG, input)
 
-#endif //__DEBUG_H__
+#endif //DEBUG_HPP

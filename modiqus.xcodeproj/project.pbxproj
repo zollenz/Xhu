@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BF1681111AE984DA00FB1755 /* modiqus.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5D18685BE500DF51F5 /* modiqus.h */; };
-		BF1681131AE984E000FB1755 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5218685BE500DF51F5 /* debug.h */; };
-		BF1681141AE984E300FB1755 /* event.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5318685BE500DF51F5 /* event.h */; };
-		BF1681161AE984E900FB1755 /* utils_math.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5518685BE500DF51F5 /* utils_math.h */; };
-		BF1681171AE984ED00FB1755 /* thread.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5618685BE500DF51F5 /* thread.h */; };
-		BF1681181AE984F000FB1755 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5718685BE500DF51F5 /* types.h */; };
-		BF1681191AE984F500FB1755 /* utils_system.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5818685BE500DF51F5 /* utils_system.h */; };
-		BF16811C1AE9850E00FB1755 /* csound_wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5C18685BE500DF51F5 /* csound_wrapper.h */; };
+		BF1681111AE984DA00FB1755 /* modiqus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5D18685BE500DF51F5 /* modiqus.hpp */; };
+		BF1681131AE984E000FB1755 /* debug.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5218685BE500DF51F5 /* debug.hpp */; };
+		BF1681141AE984E300FB1755 /* event.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5318685BE500DF51F5 /* event.hpp */; };
+		BF1681161AE984E900FB1755 /* math_utilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5518685BE500DF51F5 /* math_utilities.hpp */; };
+		BF1681171AE984ED00FB1755 /* thread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5618685BE500DF51F5 /* thread.hpp */; };
+		BF1681181AE984F000FB1755 /* types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5718685BE500DF51F5 /* types.hpp */; };
+		BF1681191AE984F500FB1755 /* system_utilities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5818685BE500DF51F5 /* system_utilities.hpp */; };
+		BF16811C1AE9850E00FB1755 /* csound_wrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BF2C5E5C18685BE500DF51F5 /* csound_wrapper.hpp */; };
 		BF281D161D775ECB00EA0E86 /* CsoundLib64 in Frameworks */ = {isa = PBXBuildFile; fileRef = BF39851F1D775D3B00FF3F89 /* CsoundLib64 */; };
 		BF5DA3BD18BD22260053453C /* csound_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6F18685BF000DF51F5 /* csound_wrapper.cpp */; };
 		BF5DA3BF18BD23560053453C /* libmodiqus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5DA3A718BD1A550053453C /* libmodiqus.a */; };
@@ -45,14 +45,14 @@
 
 /* Begin PBXFileReference section */
 		BF0723B71D11F81F009BFE61 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
-		BF2C5E5218685BE500DF51F5 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
-		BF2C5E5318685BE500DF51F5 /* event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = event.h; sourceTree = "<group>"; };
-		BF2C5E5518685BE500DF51F5 /* utils_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils_math.h; sourceTree = "<group>"; };
-		BF2C5E5618685BE500DF51F5 /* thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread.h; sourceTree = "<group>"; };
-		BF2C5E5718685BE500DF51F5 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
-		BF2C5E5818685BE500DF51F5 /* utils_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils_system.h; sourceTree = "<group>"; };
-		BF2C5E5C18685BE500DF51F5 /* csound_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_wrapper.h; sourceTree = "<group>"; };
-		BF2C5E5D18685BE500DF51F5 /* modiqus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modiqus.h; sourceTree = "<group>"; };
+		BF2C5E5218685BE500DF51F5 /* debug.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = debug.hpp; sourceTree = "<group>"; };
+		BF2C5E5318685BE500DF51F5 /* event.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = event.hpp; sourceTree = "<group>"; };
+		BF2C5E5518685BE500DF51F5 /* math_utilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = math_utilities.hpp; sourceTree = "<group>"; };
+		BF2C5E5618685BE500DF51F5 /* thread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = thread.hpp; sourceTree = "<group>"; };
+		BF2C5E5718685BE500DF51F5 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
+		BF2C5E5818685BE500DF51F5 /* system_utilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = system_utilities.hpp; sourceTree = "<group>"; };
+		BF2C5E5C18685BE500DF51F5 /* csound_wrapper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csound_wrapper.hpp; sourceTree = "<group>"; };
+		BF2C5E5D18685BE500DF51F5 /* modiqus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = modiqus.hpp; sourceTree = "<group>"; };
 		BF2C5E6F18685BF000DF51F5 /* csound_wrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csound_wrapper.cpp; sourceTree = "<group>"; };
 		BF39851E1D775D2900FF3F89 /* ext */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ext; sourceTree = "<group>"; };
 		BF39851F1D775D3B00FF3F89 /* CsoundLib64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = CsoundLib64; path = ext/csound/release/lib/CsoundLib64; sourceTree = "<group>"; };
@@ -105,14 +105,14 @@
 		BF2C5E5018685BE500DF51F5 /* inc */ = {
 			isa = PBXGroup;
 			children = (
-				BF2C5E5D18685BE500DF51F5 /* modiqus.h */,
-				BF2C5E5218685BE500DF51F5 /* debug.h */,
-				BF2C5E5318685BE500DF51F5 /* event.h */,
-				BF2C5E5618685BE500DF51F5 /* thread.h */,
-				BF2C5E5718685BE500DF51F5 /* types.h */,
-				BF2C5E5518685BE500DF51F5 /* utils_math.h */,
-				BF2C5E5818685BE500DF51F5 /* utils_system.h */,
-				BF2C5E5C18685BE500DF51F5 /* csound_wrapper.h */,
+				BF2C5E5D18685BE500DF51F5 /* modiqus.hpp */,
+				BF2C5E5218685BE500DF51F5 /* debug.hpp */,
+				BF2C5E5318685BE500DF51F5 /* event.hpp */,
+				BF2C5E5618685BE500DF51F5 /* thread.hpp */,
+				BF2C5E5718685BE500DF51F5 /* types.hpp */,
+				BF2C5E5518685BE500DF51F5 /* math_utilities.hpp */,
+				BF2C5E5818685BE500DF51F5 /* system_utilities.hpp */,
+				BF2C5E5C18685BE500DF51F5 /* csound_wrapper.hpp */,
 			);
 			name = inc;
 			path = modiqus/inc;
@@ -151,14 +151,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF1681111AE984DA00FB1755 /* modiqus.h in Headers */,
-				BF1681131AE984E000FB1755 /* debug.h in Headers */,
-				BF1681141AE984E300FB1755 /* event.h in Headers */,
-				BF1681161AE984E900FB1755 /* utils_math.h in Headers */,
-				BF1681171AE984ED00FB1755 /* thread.h in Headers */,
-				BF1681181AE984F000FB1755 /* types.h in Headers */,
-				BF1681191AE984F500FB1755 /* utils_system.h in Headers */,
-				BF16811C1AE9850E00FB1755 /* csound_wrapper.h in Headers */,
+				BF1681111AE984DA00FB1755 /* modiqus.hpp in Headers */,
+				BF1681131AE984E000FB1755 /* debug.hpp in Headers */,
+				BF1681141AE984E300FB1755 /* event.hpp in Headers */,
+				BF1681161AE984E900FB1755 /* math_utilities.hpp in Headers */,
+				BF1681171AE984ED00FB1755 /* thread.hpp in Headers */,
+				BF1681181AE984F000FB1755 /* types.hpp in Headers */,
+				BF1681191AE984F500FB1755 /* system_utilities.hpp in Headers */,
+				BF16811C1AE9850E00FB1755 /* csound_wrapper.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

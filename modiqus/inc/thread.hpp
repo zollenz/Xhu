@@ -17,8 +17,8 @@
  *
  */
 
-#ifndef __THREAD_H__
-#define __THREAD_H__
+#ifndef THREAD_HPP
+#define THREAD_HPP
 
 #include <pthread.h>
 
@@ -60,4 +60,4 @@ namespace mq
         
     };
 }
-#endif //__THREAD_H__
+#endif //THREAD_HPP

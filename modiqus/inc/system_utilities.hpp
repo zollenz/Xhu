@@ -17,14 +17,14 @@
  *
  */
 
-#ifndef __UTILS_SYSTEM_H__
-#define __UTILS_SYSTEM_H__
+#ifndef SYSTEM_UTILITIES_HPP
+#define SYSTEM_UTILITIES_HPP
 
 #include <mach-o/dyld.h>
 #include <sstream>
 #include <stdexcept>
 #include <sys/time.h>
-#include "debug.h"
+#include "debug.hpp"
 
 namespace mq
 {
@@ -306,4 +306,4 @@ namespace mq
     }
 }
 
-#endif //__UTILS_SYSTEM_H__
+#endif //SYSTEM_UTILITIES_HPP

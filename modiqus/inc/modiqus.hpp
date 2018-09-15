@@ -17,14 +17,14 @@
  *
  */
 
-#ifndef __MODIQUS_H__
-#define __MODIQUS_H__
+#ifndef MODIQUS_HPP
+#define MODIQUS_HPP
 
-#include "types.h"
-#include "debug.h"
-#include "thread.h"
-#include "utils_math.h"
-#include "utils_system.h"
-#include "csound_wrapper.h"
+#include "types.hpp"
+#include "debug.hpp"
+#include "thread.hpp"
+#include "math_utilities.hpp"
+#include "system_utilities.hpp"
+#include "csound_wrapper.hpp"
 
-#endif //__MODIQUS_H__
+#endif //MODIQUS_HPP

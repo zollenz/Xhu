@@ -17,11 +17,11 @@
  *
  */
 
-#ifndef __UTILS_MATH_H__
-#define __UTILS_MATH_H__
+#ifndef MATH_UTILITIES_HPP
+#define MATH_UTILITIES_HPP
 
 #include <cmath>
-#include "utils_system.h"
+#include "system_utilities.hpp"
 
 namespace mq
 {
@@ -295,4 +295,4 @@ namespace mq
     }
 }
 
-#endif //__UTILS_MATH_H__
+#endif //MATH_UTILITIES_HPP

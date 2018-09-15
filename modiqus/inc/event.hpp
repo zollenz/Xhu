@@ -17,8 +17,8 @@
  *
  */
 
-#ifndef __EVENT_H__
-#define __EVENT_H__
+#ifndef EVENT_HPP
+#define EVENT_HPP
 
 #include "mq_types.h"
 
@@ -135,4 +135,4 @@ namespace mq
     };
 }
 
-#endif //__EVENT_H__
+#endif //EVENT_HPP

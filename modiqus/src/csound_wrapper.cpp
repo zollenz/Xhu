@@ -17,10 +17,10 @@
  *
  */
 
-#include "utils_math.h"
-#include "utils_system.h"
-#include "types.h"
-#include "csound_wrapper.h"
+#include "math_utilities.hpp"
+#include "system_utilities.hpp"
+#include "types.hpp"
+#include "csound_wrapper.hpp"
 
 using namespace mq;
 

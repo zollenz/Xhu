@@ -17,8 +17,8 @@
  *
  */
 
-#ifndef __TYPES_H__
-#define __TYPES_H__
+#ifndef TYPES_HPP
+#define TYPES_HPP
 
 #include <limits>
 #include <map>
@@ -269,4 +269,4 @@ namespace mq {
     };
 } // namespace mq
 
-#endif //__TYPES_H__
+#endif //TYPES_HPP

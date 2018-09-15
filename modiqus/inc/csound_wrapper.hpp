@@ -17,8 +17,8 @@
  *
  */
 
-#ifndef __CSOUND_WRAPPER_H__
-#define __CSOUND_WRAPPER_H__
+#ifndef CSOUND_WRAPPER_HPP
+#define CSOUND_WRAPPER_HPP
 
 #include "csound.h"
 
@@ -114,4 +114,4 @@ namespace mq
         
     };
 }
-#endif //__CSOUND_WRAPPER_H__
+#endif //CSOUND_WRAPPER_HPP

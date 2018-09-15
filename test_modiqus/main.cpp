@@ -17,7 +17,7 @@
  *
  */
 
-#include "modiqus.h"
+#include "modiqus.hpp"
 
 int main(int argc, const char * argv[])
 {
