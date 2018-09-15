@@ -26,10 +26,10 @@
 #include <sys/time.h>
 #include "debug.hpp"
 
-namespace mq
+namespace modiqus
 {
     template<class T>
-    inline mq_str toString(const T& input)
+    inline String toString(const T& input)
     {
         std::ostringstream stream;
         stream << input;
@@ -52,7 +52,7 @@ namespace mq
     }
     
     template<class T>
-    inline T fromString(const mq_str& input)
+    inline T fromString(const String& input)
     {
         std::istringstream stream(input);
         T output;
@@ -129,7 +129,7 @@ namespace mq
         }
         catch (const std::out_of_range& oor)
         {
-            MQ_LOG_ERROR("Out of Range error: " + mq_str(oor.what()) + ", key: " + toString(key))
+            MQ_LOG_ERROR("Out of Range error: " + String(oor.what()) + ", key: " + toString(key))
             MQ_LOG_ERROR("Returning NULL pointer")
         }
         
@@ -151,21 +151,21 @@ namespace mq
         return mapGet(mapPair.first, map);
     }
 
-    inline mq_str getExecutablePath()
+    inline String getExecutablePath()
     {
 #ifdef __APPLE__
         char path[PATH_MAX];
         uint32_t size = sizeof(path);
         if (_NSGetExecutablePath(path, &size) == 0)
         {
-            MQ_LOG_DEBUG("Executable path is " + mq_str(path))   
+            MQ_LOG_DEBUG("Executable path is " + String(path))   
         }
         else
         {
             MQ_LOG_ERROR("Buffer too small; need size " + toString<S32>(size))
         }
 
-        return mq_str(path);
+        return String(path);
 #else
     //    char temp[PATH_MAX];
     //    return (getcwd(temp, PATH_MAX) ? mq_str(temp) : mq_str(""));
@@ -173,10 +173,10 @@ namespace mq
 #endif
     }
     
-    inline mq_str getBundleContentsPath()
+    inline String getBundleContentsPath()
     {
-        mq_str path = getExecutablePath();
-        mq_str contentsPath = mq_str(path);
+        String path = getExecutablePath();
+        String contentsPath = String(path);
         USize slashIdx = contentsPath.rfind("/");
         contentsPath = contentsPath.substr(0, slashIdx - 1);
         slashIdx = contentsPath.rfind("/");
@@ -185,24 +185,24 @@ namespace mq
         return contentsPath;
     }
 
-    inline mq_str getBundleFrameworksPath()
+    inline String getBundleFrameworksPath()
     {
-        mq_str contentsPath = getBundleContentsPath();
+        String contentsPath = getBundleContentsPath();
         
         return contentsPath + "/Frameworks";
     }
 
-    inline mq_str getBundleResourcesPath()
+    inline String getBundleResourcesPath()
     {
-        mq_str contentsPath = getBundleContentsPath();
+        String contentsPath = getBundleContentsPath();
         
         return contentsPath + "/Resources";
     }
     
-    inline mq_str getConfigPath()
+    inline String getConfigPath()
     {
-        mq_str configPath = "";
-        mq_str contentsPath = getBundleContentsPath();
+        String configPath = "";
+        String contentsPath = getBundleContentsPath();
         USize slashIdx = contentsPath.rfind("/");
         
         configPath = contentsPath.substr(0, slashIdx - 1);
@@ -226,7 +226,7 @@ namespace mq
 //        return audioPath;
 //    }
     
-    inline S32 findListIndex(mq_str str, const mq_str* strList, S32 size)
+    inline S32 findListIndex(String str, const String* strList, S32 size)
     {
         S32 index = -1;
         
@@ -247,7 +247,7 @@ namespace mq
         return index;
     }
 
-    inline S32 findListIndex(mq_str str, const char** strList, S32 size)
+    inline S32 findListIndex(String str, const char** strList, S32 size)
     {
         S32 index = -1;
         
@@ -269,7 +269,7 @@ namespace mq
         return index;
     }
 
-    inline S32 findListIndex(const mq_str& str, const StringList& strList)
+    inline S32 findListIndex(const String& str, const StringList& strList)
     {
         S32 index = -1;
         USize numElements = strList.size();

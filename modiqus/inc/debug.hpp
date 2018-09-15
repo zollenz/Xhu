@@ -30,7 +30,7 @@
 #define MQ_LOG_LEVEL_INFO     (5)
 #define MQ_LOG_LEVEL_DEBUG    (6)
 
-namespace mq
+namespace modiqus
 {
     extern S32 log_level;
     
@@ -68,7 +68,7 @@ namespace mq
     template<class T>
     inline void log(T input, S32 level, const char* file, S32 line, const char* func)
     {
-        mq_str shortFile = mq_str(file);
+        String shortFile = String(file);
         USize lastDot = shortFile.rfind(".");
         shortFile = shortFile.substr(0, lastDot);
         
@@ -98,7 +98,7 @@ namespace mq
 
 #ifdef DEBUG
 #define MQ_LOG(level, input) \
-do { mq::log(input, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
+do { modiqus::log(input, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
 #else
 #define MQ_LOG(level, input) do {} while (0);
 #endif

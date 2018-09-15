@@ -22,8 +22,8 @@
 int main(int argc, const char * argv[])
 {
     
-    mq::mqCsoundWrapper* csound = new mq::mqCsoundWrapper();
-//    csound->set_log_level(MQ_LOG_LEVEL_DEBUG);
+    modiqus::CsoundWrapper* csound = new modiqus::CsoundWrapper();
+//    csound->setLogLevel(MQ_LOG_LEVEL_DEBUG);
     
     if (!csound->start(false))
     {

@@ -23,7 +23,7 @@
 #include <cmath>
 #include "system_utilities.hpp"
 
-namespace mq
+namespace modiqus
 {
     static const F64 PI = atan(1) * 4;
 

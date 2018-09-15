@@ -24,7 +24,7 @@
 
 // Implementation taken from: http://www.codeproject.com/Articles/35230/Observer-Pattern-as-C-Component
 
-namespace mq
+namespace modiqus
 {
     template<typename SourceType, typename EventArgType>
     class Event

@@ -22,7 +22,7 @@
 
 #include <pthread.h>
 
-namespace mq
+namespace modiqus
 {
     class Thread
     {

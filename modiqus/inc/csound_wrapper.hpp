@@ -22,46 +22,46 @@
 
 #include "csound.h"
 
-namespace mq
+namespace modiqus
 {
-    struct mqTable
+    struct Table
     {
         S32 number;
         S32 start;
         S32 size;
         S32 GENRoutine;
 
-        mqTable();
+        Table();
 
         void reset();
     };
 
-    struct mqSampleTable : public mqTable
+    struct SampleTable : public Table
     {
-        mq_str filcod;
+        String filcod;
         F32 skiptime;
         S32 format;
         S32 channel;
 
-        mqSampleTable();
+        SampleTable();
 
         void reset();
     };
 
-    struct mqImmediateTable : public mqTable
+    struct ImmediateTable : public Table
     {
         S32List tableNums;
 
-        mqImmediateTable();
+        ImmediateTable();
 
         void reset();
     };
 
-    struct mqSegmentTable : public mqTable
+    struct SegmentTable : public Table
     {
         SegmentList segments;
         
-        mqSegmentTable();
+        SegmentTable();
         
         void reset();
     };
@@ -75,25 +75,25 @@ namespace mq
         bool performanceThreadYield;
     };
     
-    class mqCsoundWrapper
+    class CsoundWrapper
     {
         
     public:
         
-        void set_log_level(S32 level) const;
+        void setlogLevel(S32 level) const;
         bool start(bool bundle);
         void stop();
-        void setOpcodePath(mq_str path);
-        void setAudioPath(mq_str path);
-        void setCsdPath(mq_str path);
+        void setOpcodePath(String path);
+        void setAudioPath(String path);
+        void setCsdPath(String path);
         void getChannelControlOutput(MYFLT& value, const char *name) const;
         void setChannelControlInput(MYFLT value, const char *name) const;
         void setControlChannelInput(MYFLT value, const char *name) const;
         void sendMessage(const char* message) const;
         void sendScoreEvent(const char type, MYFLT* parameters, S32 numParameters);
-        void createSampleTable(mqSampleTable* const table);
-        void createImmediateTable(mqImmediateTable* const table);
-        void createSegmentTable(mqSegmentTable* const table);
+        void createSampleTable(SampleTable* const table);
+        void createImmediateTable(ImmediateTable* const table);
+        void createSegmentTable(SegmentTable* const table);
         const S32 getTableData(const S32 tableNumber, F32List* const data);
         void setTableData(const S32 table, const F32List* const data);
         const F32 getTableValue(const S32 table, const S32 index);

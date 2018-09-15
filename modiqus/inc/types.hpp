@@ -25,7 +25,7 @@
 #include <string>
 #include <vector>
 
-namespace mq {
+namespace modiqus {
 #ifdef __LP64__
     typedef unsigned long USize;
 #else
@@ -44,21 +44,21 @@ namespace mq {
     typedef U8 Byte;
     typedef size_t MemSize;
     typedef wchar_t WChar;
-    typedef std::string mq_str;
-    typedef std::vector<mq_str> StringList, *StringListPtr;
+    typedef std::string String;
+    typedef std::vector<String> StringList;
     typedef std::vector<S32> S32List;
     typedef std::vector<F32> F32List;
+    
     static const S32 SRATE = 44100;
     static const S32 KRATE = 4410;
     static const S32 KSMPS = SRATE / KRATE;
     static const S32 BUFFER_SIZE = 512;
     static const S32 INDEX_INVALID = -1;
     static const S32 TABLE_UNDEFINED = 0;
-    static const mq_str UNDEFINED_STR = "UNDEFINED";
+    static const String UNDEFINED_STR = "UNDEFINED";
     static const S32 UNDEFINED_INT = -1;
     static const S32 HAS_DATA = 1;
     static const F32 F_EPSILON = 0.001f;
-    static const mq_str DEFAULT_CONFIG_FILENAME = "mq_config.xml";
     
 #define F32_INF std::numeric_limits<F32>::infinity()
 #define F64_INF std::numeric_limits<F64>::infinity()
@@ -81,24 +81,26 @@ namespace mq {
     typedef std::vector<Vector2> Vector2List;
     typedef std::vector<Segment> SegmentList;
     
-    struct mqSoundInfo {
-        mq_str sourceType;
-        mq_str sourceName;
-        mq_str sourceEvent;
+    struct SoundInfo {
+        String sourceType;
+        String sourceName;
+        String sourceEvent;
         S32 soundInstance;
-        mq_str soundInstanceString;
-        mq_str soundCompleteName;
+        String soundInstanceString;
+        String soundCompleteName;
         
-        mqSoundInfo(const mq_str &_sourcetype = UNDEFINED_STR,
-                    const mq_str &_sourceName = UNDEFINED_STR,
-                    const mq_str &_sourceEvent = UNDEFINED_STR,
-                    const S32 _soundInstance = UNDEFINED_INT,
-                    const mq_str &_soundInstanceString = UNDEFINED_STR,
-                    const mq_str &_soundCompleteName = UNDEFINED_STR)
-        : sourceType(_sourcetype), sourceName(_sourceName),
-        sourceEvent(_sourceEvent), soundInstance(_soundInstance),
-        soundInstanceString(_soundInstanceString),
-        soundCompleteName(_soundCompleteName) {}
+        SoundInfo(const String &sourcetype_ = UNDEFINED_STR,
+                    const String &sourceName_ = UNDEFINED_STR,
+                    const String &sourceEvent_ = UNDEFINED_STR,
+                    const S32 soundInstance_ = UNDEFINED_INT,
+                    const String &soundInstanceString_ = UNDEFINED_STR,
+                    const String &soundCompleteName_ = UNDEFINED_STR) :
+        sourceType(sourcetype_),
+        sourceName(sourceName_),
+        sourceEvent(sourceEvent_),
+        soundInstance(soundInstance_),
+        soundInstanceString(soundInstanceString_),
+        soundCompleteName(soundCompleteName_) {}
         
         void reset() {
             sourceType = UNDEFINED_STR;
@@ -111,11 +113,10 @@ namespace mq {
     };
     
     struct ParamUpdate {
-        mq_str name;
+        String name;
         F32 value;
         
-        ParamUpdate(const mq_str &n = UNDEFINED_STR, const F32 v = 0.0f)
-        : name(n), value(v) {}
+        ParamUpdate(const String &n = UNDEFINED_STR, const F32 v = 0.0f) : name(n), value(v) {}
     };
     
     // Tuple templates
@@ -267,6 +268,6 @@ namespace mq {
             value9 = v9;
         }
     };
-} // namespace mq
+} // namespace modiqus
 
 #endif //TYPES_HPP
