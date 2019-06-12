@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 by Martin Dejean
+ * Copyright (C) 2019 by Martin Dejean
  *
  * This file is part of Modiqus.
  * Modiqus is free software: you can redistribute it and/or modify
@@ -17,14 +17,15 @@
  *
  */
 
-#ifndef SYSTEM_UTILITIES_HPP
-#define SYSTEM_UTILITIES_HPP
+#ifndef SYSTEM_UTILITIES_H
+#define SYSTEM_UTILITIES_H
 
+#ifdef __APPLE__
 #include <mach-o/dyld.h>
+#endif
+
 #include <sstream>
-#include <stdexcept>
-#include <sys/time.h>
-#include "debug.hpp"
+#include "debug.h"
 
 namespace modiqus
 {
@@ -70,46 +71,16 @@ namespace modiqus
         
         return output;
     }
-    
-    inline U32 sizeToUnsignedInt(USize value)
-    {
-        if(value > UINT_MAX)
-        {
-            MQ_LOG_ERROR("Value is bigger than UINT_MAX. Return value will not be correct.")
-        }
-        
-        return static_cast<U32>(value);
-    }
-    
+   
     inline const S32 sizeToInt(const USize value)
     {
-        if (value > std::numeric_limits<S32>::max())
-        {
-            MQ_LOG_ERROR("Size is bigger than INT_MAX. Return value will not be correct.")
-        }
-        
-        return static_cast<S32>(value);
-    }
-    
-    inline const S32 longToInt(const S64 value)
-    {
-        if (value < std::numeric_limits<S32>::max())
+        if (value <= INT_MAX)
         {
             return static_cast<S32>(value);
         }
-        else
-        {
-            MQ_LOG_ERROR("Size is bigger than INT_MAX")
-            
-            return -1;
-        }
-    }
 
-    inline void randomSeed()
-    {
-        timeval time;
-        gettimeofday(&time,NULL);
-        srand((U32)(time.tv_sec * 1000) + (time.tv_usec / 1000));
+        LOG_ERROR("Size is bigger than INT_MAX. Returning -1");
+        return -1;
     }
     
     inline void pause(USize seconds)
@@ -129,8 +100,8 @@ namespace modiqus
         }
         catch (const std::out_of_range& oor)
         {
-            MQ_LOG_ERROR("Out of Range error: " + String(oor.what()) + ", key: " + toString(key))
-            MQ_LOG_ERROR("Returning NULL pointer")
+            LOG_ERROR("Out of Range error: " + String(oor.what()) + ", key: " + toString(key))
+            LOG_ERROR("Returning NULL pointer")
         }
         
         return elmPtr;
@@ -143,7 +114,7 @@ namespace modiqus
         
         if (!retVal.second)
         {
-            MQ_LOG_WARN("Element with key " + toString<T1>(mapPair.first) + " already exists.")
+            LOG_WARN("Element with key " + toString<T1>(mapPair.first) + " already exists.")
             
             return &retVal.first->second;
         }
@@ -158,11 +129,11 @@ namespace modiqus
         uint32_t size = sizeof(path);
         if (_NSGetExecutablePath(path, &size) == 0)
         {
-            MQ_LOG_DEBUG("Executable path is " + String(path))   
+            LOG_DEBUG("Executable path is " + String(path))   
         }
         else
         {
-            MQ_LOG_ERROR("Buffer too small; need size " + toString<S32>(size))
+            LOG_ERROR("Buffer too small; need size " + toString<S32>(size))
         }
 
         return String(path);
@@ -241,7 +212,7 @@ namespace modiqus
         
         if (index == -1)
         {
-            MQ_LOG_ERROR("Index of string '" + str + "' not found")
+            LOG_ERROR("Index of string '" + str + "' not found")
         }
         
         return index;
@@ -263,7 +234,7 @@ namespace modiqus
         
         if (index == -1)
         {
-            MQ_LOG_ERROR("Index of string '" + str + "' not found")
+            LOG_ERROR("Index of string '" + str + "' not found")
         }
         
         return index;
@@ -285,7 +256,7 @@ namespace modiqus
         
         if (index == -1)
         {
-            MQ_LOG_ERROR("Index of string '" + str + "' not found")
+            LOG_ERROR("Index of string '" + str + "' not found")
         }
         
         return index;
@@ -306,4 +277,4 @@ namespace modiqus
     }
 }
 
-#endif //SYSTEM_UTILITIES_HPP
+#endif //SYSTEM_UTILITIES_H

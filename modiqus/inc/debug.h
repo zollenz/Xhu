@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 by Martin Dejean
+ * Copyright (C) 2019 by Martin Dejean
  *
  * This file is part of Modiqus.
  * Modiqus is free software: you can redistribute it and/or modify
@@ -17,18 +17,18 @@
  *
  */
 
-#ifndef DEBUG_HPP
-#define DEBUG_HPP
+#ifndef DEBUG_H
+#define DEBUG_H
 
 #include <iostream>
-#include "types.hpp"
+#include "types.h"
 
-#define MQ_LOG_LEVEL_MUTE     (1)
-#define MQ_LOG_LEVEL_FATAL    (2)
-#define MQ_LOG_LEVEL_ERROR    (3)
-#define MQ_LOG_LEVEL_WARN     (4)
-#define MQ_LOG_LEVEL_INFO     (5)
-#define MQ_LOG_LEVEL_DEBUG    (6)
+#define LOG_LEVEL_MUTE     (1)
+#define LOG_LEVEL_FATAL    (2)
+#define LOG_LEVEL_ERROR    (3)
+#define LOG_LEVEL_WARN     (4)
+#define LOG_LEVEL_INFO     (5)
+#define LOG_LEVEL_DEBUG    (6)
 
 namespace modiqus
 {
@@ -38,23 +38,23 @@ namespace modiqus
     {
         switch (logLevel)
         {
-            case MQ_LOG_LEVEL_FATAL:
+            case LOG_LEVEL_FATAL:
             {
                 return "FATAL";
             }
-            case MQ_LOG_LEVEL_ERROR:
+            case LOG_LEVEL_ERROR:
             {
                 return "ERROR";
             }
-            case MQ_LOG_LEVEL_WARN:
+            case LOG_LEVEL_WARN:
             {
                 return "WARN";
             }
-            case MQ_LOG_LEVEL_INFO:
+            case LOG_LEVEL_INFO:
             {
                 return "INFO";
             }
-            case MQ_LOG_LEVEL_DEBUG:
+            case LOG_LEVEL_DEBUG:
             {
                 return "DEBUG";
             }
@@ -74,14 +74,14 @@ namespace modiqus
         
         if (log_level >= level)
         {
-            std::cout << "[" << get_log_level_name(level) << "." << shortFile << "." << func
-                      << "." << line << "] " << (input) << std::endl;
+            std::cout << "[" << get_log_level_name(level) << " | " << shortFile << "." << func
+                      << " | " << line << "] " << (input) << std::endl;
         }
     }
     
     inline void log_csound(const char* format, va_list args)
     {
-        if (log_level > MQ_LOG_LEVEL_MUTE)
+        if (log_level > LOG_LEVEL_MUTE)
         {
             printf("[Csound] ");
             vprintf (format, args);
@@ -97,16 +97,16 @@ namespace modiqus
 #define __TRUNC_FILE__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
 #ifdef DEBUG
-#define MQ_LOG(level, input) \
-do { modiqus::log(input, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
+#define LOG_MESSAGE(level, message) \
+do { modiqus::log(message, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
 #else
-#define MQ_LOG(level, input) do {} while (0);
+#define LOG_MESSAGE(level, message) do {} while (0);
 #endif
 
-#define MQ_LOG_FATAL(input) MQ_LOG(MQ_LOG_LEVEL_FATAL, input)
-#define MQ_LOG_ERROR(input) MQ_LOG(MQ_LOG_LEVEL_ERROR, input)
-#define MQ_LOG_WARN(input) MQ_LOG(MQ_LOG_LEVEL_WARN, input)
-#define MQ_LOG_INFO(input) MQ_LOG(MQ_LOG_LEVEL_INFO, input)
-#define MQ_LOG_DEBUG(input) MQ_LOG(MQ_LOG_LEVEL_DEBUG, input)
+#define LOG_FATAL(message) LOG_MESSAGE(LOG_LEVEL_FATAL, message)
+#define LOG_ERROR(message) LOG_MESSAGE(LOG_LEVEL_ERROR, message)
+#define LOG_WARN(message) LOG_MESSAGE(LOG_LEVEL_WARN, message)
+#define LOG_INFO(message) LOG_MESSAGE(LOG_LEVEL_INFO, message)
+#define LOG_DEBUG(message) LOG_MESSAGE(LOG_LEVEL_DEBUG, message)
 
-#endif //DEBUG_HPP
+#endif //DEBUG_H

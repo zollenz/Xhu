@@ -17,32 +17,8 @@
  *
  */
 
-#include "modiqus.h"
+#ifndef TABLES_H
+#define TABLES_H
 
-int main(int argc, const char * argv[])
-{
-    
-    modiqus::CsoundWrapper* csound = new modiqus::CsoundWrapper();
-//    csound->setLogLevel(LOG_LEVEL_DEBUG);
-    
-    if (!csound->start(false))
-    {
-        LOG_FATAL("Modiqus engine failed initialization")
-        csound->stop();
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        LOG_INFO("Modiqus engine initialized")
-    }
 
-    LOG_INFO("Hello, World!\n")
-    
-    csound->sendMessage("i1 0 1");
-  
-    modiqus::pause(5);
-
-    csound->stop();
-    return 0;
-}
-
+#endif /* tables_h */

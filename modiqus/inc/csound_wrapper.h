@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 by Martin Dejean
+ * Copyright (C) 2019 by Martin Dejean
  *
  * This file is part of Modiqus.
  * Modiqus is free software: you can redistribute it and/or modify
@@ -17,8 +17,8 @@
  *
  */
 
-#ifndef CSOUND_WRAPPER_HPP
-#define CSOUND_WRAPPER_HPP
+#ifndef CSOUND_WRAPPER_H
+#define CSOUND_WRAPPER_H
 
 #include "csound.h"
 
@@ -114,4 +114,4 @@ namespace modiqus
         
     };
 }
-#endif //CSOUND_WRAPPER_HPP
+#endif //CSOUND_WRAPPER_H

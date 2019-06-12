@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 by Martin Dejean
+ * Copyright (C) 2019 by Martin Dejean
  *
  * This file is part of Modiqus.
  * Modiqus is free software: you can redistribute it and/or modify
@@ -17,11 +17,12 @@
  *
  */
 
-#ifndef MATH_UTILITIES_HPP
-#define MATH_UTILITIES_HPP
+#ifndef MATH_UTILITIES_H
+#define MATH_UTILITIES_H
 
 #include <cmath>
-#include "system_utilities.hpp"
+#include <cfloat>
+#include "system_utilities.h"
 
 namespace modiqus
 {
@@ -193,7 +194,7 @@ namespace modiqus
     {
         if (vectorA.size() != vectorB.size())
         {
-            MQ_LOG_ERROR("Vectors are not the same size")
+            LOG_ERROR("Vectors are not the same size")
             return -1.0f;
         }
         
@@ -201,7 +202,7 @@ namespace modiqus
         
         if (dataSize == -1)
         {
-            return F32_INF;
+            return FLT_MAX;
         }
         
         return euclidianDistanceSquared(&vectorA[0], &vectorB[0], dataSize);
@@ -244,7 +245,7 @@ namespace modiqus
             startIndex >= size || endIndex >= size ||
             startIndex > endIndex)
         {
-            MQ_LOG_ERROR("Illegal range")
+            LOG_ERROR("Illegal range")
             
             return -1.0f;
         }
@@ -295,4 +296,4 @@ namespace modiqus
     }
 }
 
-#endif //MATH_UTILITIES_HPP
+#endif //MATH_UTILITIES_H

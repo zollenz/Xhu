@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 by Martin Dejean
+ * Copyright (C) 2019 by Martin Dejean
  *
  * This file is part of Modiqus.
  * Modiqus is free software: you can redistribute it and/or modify
@@ -17,14 +17,13 @@
  *
  */
 
-#ifndef MODIQUS_HPP
-#define MODIQUS_HPP
+#ifndef MODIQUS_H
+#define MODIQUS_H
 
-#include "types.hpp"
-#include "debug.hpp"
-#include "thread.hpp"
-#include "math_utilities.hpp"
-#include "system_utilities.hpp"
-#include "csound_wrapper.hpp"
+#include "types.h"
+#include "debug.h"
+#include "math_utilities.h"
+#include "system_utilities.h"
+#include "csound_wrapper.h"
 
-#endif //MODIQUS_HPP
+#endif //MODIQUS_H
