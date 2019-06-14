@@ -28,7 +28,7 @@ int main(int argc, const char * argv[])
 {
     atexit(cleanup);
     modiqus::CsoundWrapper* csound = new modiqus::CsoundWrapper();
-//    csound->setLogLevel(MQ_LOG_LEVEL_DEBUG);
+    mq_log_level = MQ_LOG_LEVEL_INFO;
     
     if (!csound->start(false))
     {
@@ -45,7 +45,7 @@ int main(int argc, const char * argv[])
     
     csound->sendMessage("i1 0 1");
   
-    modiqus::pause(5);
+    modiqus::mq_pause(5);
 
     csound->stop();
     return 0;

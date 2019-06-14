@@ -30,7 +30,7 @@
 #define MQ_LOG_LEVEL_INFO     (5)
 #define MQ_LOG_LEVEL_DEBUG    (6)
 
-extern modiqus::S32 log_level;
+extern modiqus::S32 mq_log_level;
 
 inline const char* const mq_get_log_level_str(modiqus::S32 log_level_value)
 {
@@ -109,7 +109,7 @@ inline void mq_log(const char *message, modiqus::S32 level, const char *file, mo
 {
     char *filename = mq_get_filename(file, '.', '/');
     
-    if (log_level >= level)
+    if (mq_log_level >= level)
     {
         std::cout << "[" << mq_get_log_level_str(level) << " | " << filename << "." << func
                   << " | " << line << "] " << message << std::endl;
@@ -120,7 +120,7 @@ inline void mq_log(const char *message, modiqus::S32 level, const char *file, mo
 
 inline void log_csound(const char* format, va_list args)
 {
-    if (log_level > MQ_LOG_LEVEL_MUTE)
+    if (mq_log_level > MQ_LOG_LEVEL_WARN)
     {
         printf("[Csound] ");
         vprintf (format, args);

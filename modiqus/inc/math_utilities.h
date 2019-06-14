@@ -164,7 +164,7 @@ namespace modiqus
     
     inline void normalize(F32List& data, const F32 threshold)
     {
-        S32 dataSize = sizeToInt(data.size());
+        S32 dataSize = mq_size_to_int(data.size());
 
         if (dataSize == -1)
         {
@@ -198,7 +198,7 @@ namespace modiqus
             return -1.0f;
         }
         
-        S32 dataSize = sizeToInt(vectorA.size());
+        S32 dataSize = mq_size_to_int(vectorA.size());
         
         if (dataSize == -1)
         {
@@ -272,7 +272,7 @@ namespace modiqus
     
     inline F32 absMean(const F32List& data, const S32 startIndex, const S32 endIndex)
     {
-        return absMean(&data[0], sizeToInt(data.size()), startIndex, endIndex);
+        return absMean(&data[0], mq_size_to_int(data.size()), startIndex, endIndex);
     }
 
     inline F32 clamp(F32 value, F32 minValue, F32 maxValue)

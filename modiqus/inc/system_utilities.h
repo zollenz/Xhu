@@ -30,7 +30,7 @@
 namespace modiqus
 {
     template<class T>
-    inline String toString(const T& input)
+    inline String mq_to_string(const T& input)
     {
         std::ostringstream stream;
         stream << input;
@@ -42,37 +42,8 @@ namespace modiqus
         
         return stream.str();
     }
-    
-    template<class T>
-    inline const char* toCString(const T& input)
-    {
-        std::ostringstream stream;
-        stream << input;
-        
-        return stream.str().c_str();
-    }
-    
-    template<class T>
-    inline T fromString(const String& input)
-    {
-        std::istringstream stream(input);
-        T output;
-        stream >> output;
-        
-        return output;
-    }
-    
-    template<class T>
-    inline T fromString(const char* input)
-    {
-        std::istringstream stream(input);
-        T output;
-        stream >> output;
-        
-        return output;
-    }
    
-    inline const S32 sizeToInt(const USize value)
+    inline const S32 mq_size_to_int(const USize value)
     {
         if (value <= INT_MAX)
         {
@@ -83,46 +54,13 @@ namespace modiqus
         return -1;
     }
     
-    inline void pause(USize seconds)
+    inline void mq_pause(USize seconds)
     {
         clock_t goal = clock() + seconds * CLOCKS_PER_SEC;
         while (goal > clock());
     }
-    
-    template<typename T1, typename T2>
-    inline T2* mapGet(const T1& key, std::map<T1,T2>& map)
-    {
-        T2* elmPtr = NULL;
-        
-        try
-        {
-            elmPtr = &map.at(key);
-        }
-        catch (const std::out_of_range& oor)
-        {
-            MQ_LOG_ERROR("Out of Range error: " + String(oor.what()) + ", key: " + toString(key))
-            MQ_LOG_ERROR("Returning NULL pointer")
-        }
-        
-        return elmPtr;
-    }
-    
-    template<typename T1, typename T2>
-    inline T2* mapInsert(std::map<T1,T2>& map, typename std::pair<T1,T2>& mapPair)
-    {
-        std::pair<typename std::map<T1,T2>::iterator, bool> retVal = map.insert(mapPair);
-        
-        if (!retVal.second)
-        {
-            MQ_LOG_WARN("Element with key " + toString<T1>(mapPair.first) + " already exists.")
-            
-            return &retVal.first->second;
-        }
-        
-        return mapGet(mapPair.first, map);
-    }
 
-    inline String getExecutablePath()
+    inline String mq_get_executable_path()
     {
 #ifdef __APPLE__
         char path[PATH_MAX];
@@ -148,67 +86,26 @@ namespace modiqus
 #endif
     }
     
-    inline String getBundleContentsPath()
+    inline String mq_get_bundle_contents_path()
     {
-        String path = getExecutablePath();
-        String contentsPath = String(path);
-        USize slashIdx = contentsPath.rfind("/");
-        contentsPath = contentsPath.substr(0, slashIdx - 1);
-        slashIdx = contentsPath.rfind("/");
-        contentsPath = contentsPath.substr(0, slashIdx - 1);
+        String executable_path = mq_get_executable_path();
+        String contents_path = String(executable_path);
+        USize slash_index = contents_path.rfind("/");
+        contents_path = contents_path.substr(0, slash_index - 1);
+        slash_index = contents_path.rfind("/");
+        contents_path = contents_path.substr(0, slash_index - 1);
         
-        return contentsPath;
-    }
-
-    inline String getBundleFrameworksPath()
-    {
-        String contentsPath = getBundleContentsPath();
-        
-        return contentsPath + "/Frameworks";
-    }
-
-    inline String getBundleResourcesPath()
-    {
-        String contentsPath = getBundleContentsPath();
-        
-        return contentsPath + "/Resources";
+        return contents_path;
     }
     
-    inline String getConfigPath()
+    inline bool mq_approximately_equals(const F32 value_1, const F32 value_2)
     {
-        String configPath = "";
-        String contentsPath = getBundleContentsPath();
-        USize slashIdx = contentsPath.rfind("/");
-        
-        configPath = contentsPath.substr(0, slashIdx - 1);
-        slashIdx = configPath.rfind("/");
-        configPath = configPath.substr(0, slashIdx);
-        configPath += "/config";
-        
-        return configPath;
-    }
-    
-//    inline mq_str getAudioPath()
-//    {
-//        mq_str audioPath = "";
-//        mq_str contentsPath = getBundleContentsPath();
-//        USize slashIdx = contentsPath.rfind("/");
-//        audioPath = contentsPath.substr(0, slashIdx - 1);
-//        slashIdx = audioPath.rfind("/");
-//        audioPath = audioPath.substr(0, slashIdx);
-//        audioPath += "/audio";
-//        
-//        return audioPath;
-//    }
-    
-    inline bool floatEquality(const F32 value1, const F32 value2)
-    {
-        const F32 difference = std::abs(value1 - value2);
+        const F32 difference = std::abs(value_1 - value_2);
         
         return difference < EPSILON;
     }
     
-    inline long getTimeStampMs()
+    inline long mq_get_timestamp_ms()
     {
         clock_t timestamp = clock() * CLK_TCK;
         

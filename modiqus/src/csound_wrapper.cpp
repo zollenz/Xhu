@@ -24,7 +24,7 @@
 
 using namespace modiqus;
 
-modiqus::S32 log_level = MQ_LOG_LEVEL_DEBUG;
+modiqus::S32 mq_log_level = MQ_LOG_LEVEL_DEBUG;
 
 // Non-member functions
 static void message_callback(CSOUND *csound, S32 attr, const char *format, va_list args)
@@ -33,70 +33,69 @@ static void message_callback(CSOUND *csound, S32 attr, const char *format, va_li
     return;
 }
 
-S32 sanityCheck(const char *name, S32 errorCode)
+void mq_print_csound_return_code(const char *function_name, S32 return_code)
 {
 #ifdef DEBUG
-    String msg = "====== " + String(name);
-    msg += "() returned: " + toString<S32>(errorCode) + " (";
+    const char *return_code_str;
     
-    if (errorCode == CSOUND_EXITJMP_SUCCESS)
+    if (return_code == CSOUND_EXITJMP_SUCCESS)
     {
         /* terminated, but not error (e.g. --help, -U, or exitnow) */
-        msg += "early return";
-        errorCode = 0;
+        return_code_str = "early return";
+        return_code = 0;
     }
-    else if (errorCode > 0 && strncmp(name, "csoundPerform", 13) == 0)
+    else if (return_code > 0 && strncmp(function_name, "csoundPerform", 13) == 0)
     {
         /* for csoundPerformKsmps() and csoundPerformBuffer() only */
-        msg += "end of score or MIDI file";
-        errorCode = 0;
+        return_code_str = "end of score or MIDI file";
+        return_code = 0;
     }
     else
     {
-        switch (errorCode)
+        switch (return_code)
         {
             case CSOUND_SUCCESS:
             {
-                msg += "success";
+                return_code_str = "success";
                 break;
             }
             case CSOUND_ERROR:
             {
-                msg += "error";
+                return_code_str = "error";
                 break;
             }
             case CSOUND_INITIALIZATION:
             {
-                msg += "initialization error";
+                return_code_str = "initialization error";
                 break;
             }
             case CSOUND_PERFORMANCE:
             {
-                msg += "performance error";
+                return_code_str = "performance error";
                 break;
             }
             case CSOUND_MEMORY:
             {
-                msg += "memory allocation error";
+                return_code_str = "memory allocation error";
                 break;
             }
             case CSOUND_SIGNAL:
             {
-                msg += "caught SIGINT or SIGTERM";
+                return_code_str = "caught SIGINT or SIGTERM";
                 break;
             }
             default:
             {
-                msg += "error";
+                return_code_str = "error";
                 break;
             }
         }
     }
     
-    msg += ") ======";
-    MQ_LOG_INFO(msg.c_str());
+    char log_message[100];
+    sprintf(log_message, "Csound function '%s' returned %d (%s)", function_name, return_code, return_code_str);
+    MQ_LOG_INFO(log_message);
 #endif
-    return errorCode;
 }
 
 uintptr_t performance_routine(void* data)
@@ -166,7 +165,7 @@ bool CsoundWrapper::start(bool bundle)
     srand((unsigned)time(NULL));
     
     // Set Csound environment variables
-    String path = getExecutablePath();
+    String path = mq_get_executable_path();
     USize lastSlashIndex = path.rfind("/");
 
     path = path.substr(0, lastSlashIndex);
@@ -202,7 +201,7 @@ bool CsoundWrapper::start(bool bundle)
 
     S32 callResult = CSOUND_ERROR;
     callResult = csoundSetGlobalEnv("OPCODE6DIR64", opcodePath.c_str());
-    sanityCheck("csoundSetGlobalEnv", callResult);
+    mq_print_csound_return_code("csoundSetGlobalEnv", callResult);
 
     if (callResult != CSOUND_SUCCESS)
     {
@@ -212,7 +211,7 @@ bool CsoundWrapper::start(bool bundle)
     }
 
     callResult = csoundSetGlobalEnv("SSDIR", audioPath.c_str());
-    sanityCheck("csoundSetGlobalEnv", callResult);
+    mq_print_csound_return_code("csoundSetGlobalEnv", callResult);
 
     if (callResult != CSOUND_SUCCESS)
     {
@@ -246,7 +245,7 @@ bool CsoundWrapper::start(bool bundle)
     strcpy(temp, csdPath.c_str());
     cSoundArgs[1] = temp;
     _state.compileResult = csoundCompile(_state.csound, cSoundArgsCount, cSoundArgs);
-    sanityCheck("cSoundCompile", _state.compileResult);
+    mq_print_csound_return_code("cSoundCompile", _state.compileResult);
 
     if (_state.compileResult != CSOUND_SUCCESS)
     {
@@ -275,7 +274,7 @@ bool CsoundWrapper::start(bool bundle)
             break;
         }
 
-        pause(1);
+        mq_pause(1);
     }
 
     // Everything is OK...
@@ -291,7 +290,7 @@ void CsoundWrapper::stop()
 
 void CsoundWrapper::setlogLevel(S32 level) const
 {
-    log_level = level;
+    mq_log_level = level;
 }
 
 void CsoundWrapper::setOpcodePath(String path)
@@ -324,7 +323,7 @@ void CsoundWrapper::getChannelControlOutput(MYFLT& value, const char *name) cons
     }
     else
     {
-        sanityCheck("csoundGetChannelPtr", result);
+        mq_print_csound_return_code("csoundGetChannelPtr", result);
     }
 }
 
@@ -343,7 +342,7 @@ void CsoundWrapper::setChannelControlInput(MYFLT value, const char *name) const
     }
     else
     {
-        sanityCheck("csoundGetChannelPtr", result);
+        mq_print_csound_return_code("csoundGetChannelPtr", result);
     }
 }
 
@@ -372,7 +371,7 @@ void CsoundWrapper::sendScoreEvent(const char type, MYFLT* parameters, S32 numPa
     }
     else
     {
-        sanityCheck("csoundScoreEvent", result);
+        mq_print_csound_return_code("csoundScoreEvent", result);
     }
 }
 
@@ -398,11 +397,11 @@ const F32 CsoundWrapper::getControlPeriod() const
 
 void CsoundWrapper::createSampleTable(SampleTable* const table)
 {
-    String message = "f " + toString<S32>(table->number) + " 0 0 ";
-    message += toString<S32>(table->GENRoutine) + " \"" + table->filcod + "\" ";
-    message += toString<F32>(table->skiptime) + " ";
-    message += toString<S32>(table->format) + " ";
-    message += toString<S32>(table->channel);
+    String message = "f " + mq_to_string<S32>(table->number) + " 0 0 ";
+    message += mq_to_string<S32>(table->GENRoutine) + " \"" + table->filcod + "\" ";
+    message += mq_to_string<F32>(table->skiptime) + " ";
+    message += mq_to_string<S32>(table->format) + " ";
+    message += mq_to_string<S32>(table->channel);
 	sendMessage(message.c_str());
     
     while (!doesTableExist(table->number));
@@ -411,12 +410,12 @@ void CsoundWrapper::createSampleTable(SampleTable* const table)
 void CsoundWrapper::createImmediateTable(ImmediateTable* const table)
 {
     USize numTables = table->tableNums.size();
-    String message = "f " + toString<S32>(table->number) + " 0 ";
-    message += toString<S32>(table->size)  + " -2";
+    String message = "f " + mq_to_string<S32>(table->number) + " 0 ";
+    message += mq_to_string<S32>(table->size)  + " -2";
 
     for (USize i = 0; i < numTables; i++)
     {
-        message += " " + toString<S32>(table->tableNums[i]);
+        message += " " + mq_to_string<S32>(table->tableNums[i]);
     }
         
 	sendMessage(message.c_str());
@@ -447,13 +446,13 @@ void CsoundWrapper::createSegmentTable(SegmentTable* const table)
     }
     
 	//Create score event:
-    String message = "f " + toString<S32>(table->number);
-    message += " 0 " + toString<S32>(table->size) + " -7";
+    String message = "f " + mq_to_string<S32>(table->number);
+    message += " 0 " + mq_to_string<S32>(table->size) + " -7";
     
     for (S32 i = 0; i < numSegments; i++)
     {
-        message += " " + toString<F32>(table->segments.at(i).value);
-        message += " " + toString<F32>(table->segments.at(i).length);
+        message += " " + mq_to_string<F32>(table->segments.at(i).value);
+        message += " " + mq_to_string<F32>(table->segments.at(i).length);
     }
 	
 	sendMessage(message.c_str());
@@ -617,7 +616,7 @@ void CsoundWrapper::deleteTable(const S32 tableNum)
         sprintf(log_message, "Deleting table %d", tableNum);
         MQ_LOG_DEBUG(log_message)
         
-        String message = "f -" + toString<S32>(tableNum) + " 0";
+        String message = "f -" + mq_to_string<S32>(tableNum) + " 0";
         sendMessage(message.c_str());
     }
     else
