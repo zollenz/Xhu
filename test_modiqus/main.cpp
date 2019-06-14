@@ -29,6 +29,7 @@ int main(int argc, const char * argv[])
     atexit(cleanup);
     modiqus::CsoundWrapper* csound = new modiqus::CsoundWrapper();
     mq_log_level = MQ_LOG_LEVEL_INFO;
+    mq_log_with_func_info = false;
     
     if (!csound->start(false))
     {

@@ -20,7 +20,6 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include <iostream>
 #include "types.h"
 
 #define MQ_LOG_LEVEL_MUTE     (1)
@@ -31,62 +30,47 @@
 #define MQ_LOG_LEVEL_DEBUG    (6)
 
 extern modiqus::S32 mq_log_level;
+extern bool mq_log_with_func_info;
 
 inline const char* const mq_get_log_level_str(modiqus::S32 log_level_value)
 {
-    switch (log_level_value)
-    {
+    switch (log_level_value) {
         case MQ_LOG_LEVEL_FATAL:
-        {
             return "FATAL";
-        }
         case MQ_LOG_LEVEL_ERROR:
-        {
             return "ERROR";
-        }
         case MQ_LOG_LEVEL_WARN:
-        {
             return "WARN";
-        }
         case MQ_LOG_LEVEL_INFO:
-        {
             return "INFO";
-        }
         case MQ_LOG_LEVEL_DEBUG:
-        {
             return "DEBUG";
-        }
         default:
-        {
-            return "";
-        }
+            return "UNKNOWN";
     }
 }
 
-inline char *mq_get_filename(const char *mystr, char dot, char sep) {
+inline char *mq_get_filename(const char *path, char dot, char sep)
+{
     char *retstr, *lastdot, *lastsep;
     
-    // Error checks and allocate string.
-    
-    if (mystr == NULL) {
+    if (path == NULL) {
         return NULL;
     }
     
-    if ((retstr = (char*)malloc(strlen(mystr) + 1)) == NULL) {
+    const char *filename = strrchr(path, sep) ? strrchr(path, sep) + 1 : path;
+    
+    if ((retstr = (char*)malloc(strlen(filename) + 1)) == NULL) {
         return NULL;
     }
     
-    // Make a copy and find the relevant characters.
-    
-    strcpy (retstr, mystr);
+    strcpy (retstr, filename);
     lastdot = strrchr (retstr, dot);
     lastsep = (sep == 0) ? NULL : strrchr (retstr, sep);
     
     // If it has an extension separator.
-    
     if (lastdot != NULL) {
         // and it's before the extenstion separator.
-        
         if (lastsep != NULL) {
             if (lastsep < lastdot) {
                 // then remove it.
@@ -95,48 +79,45 @@ inline char *mq_get_filename(const char *mystr, char dot, char sep) {
             }
         } else {
             // Has extension separator with no path separator.
-            
             *lastdot = '\0';
         }
     }
     
-    // Return the modified string.
-    
     return retstr;
 }
 
-inline void mq_log(const char *message, modiqus::S32 level, const char *file, modiqus::S32 line, const char *func)
+inline void mq_log(const char *message, modiqus::S32 level,
+                   const char *caller_file_path, const char *caller_func_name, modiqus::S32 line)
 {
-    char *filename = mq_get_filename(file, '.', '/');
-    
-    if (mq_log_level >= level)
-    {
-        std::cout << "[" << mq_get_log_level_str(level) << " | " << filename << "." << func
-                  << " | " << line << "] " << message << std::endl;
+    char *filename = mq_get_filename(caller_file_path, '.', '/');
+    const char *log_level_str = mq_get_log_level_str(level);
+
+    if (mq_log_level >= level) {
+        if (mq_log_with_func_info) {
+            printf("%s - %s.%s:%d - %s\n", log_level_str, filename, caller_func_name, line, message);
+        } else {
+            printf("%s - %s\n", log_level_str, message);
+        }
     }
     
     free(filename);
 }
 
-inline void log_csound(const char* format, va_list args)
+inline void mq_log_csound(const char* format, va_list args)
 {
-    if (mq_log_level > MQ_LOG_LEVEL_WARN)
-    {
+    if (mq_log_level == MQ_LOG_LEVEL_DEBUG) {
         printf("[Csound] ");
         vprintf (format, args);
         
-        if (strchr(format, '\n') == 0)
-        {
+        if (strchr(format, '\n') == 0) {
             printf("\n");
         }
     }
 }
 
-#define __TRUNC_FILE__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
-
 #ifdef DEBUG
 #define MQ_LOG_MESSAGE(level, message) \
-do { mq_log(message, level, __TRUNC_FILE__, __LINE__, __func__); } while (0);
+do { mq_log(message, level, __FILE__, __func__, __LINE__); } while (0);
 #else
 #define MQ_LOG_MESSAGE(level, message) do {} while (0);
 #endif

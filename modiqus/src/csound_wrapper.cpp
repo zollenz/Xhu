@@ -25,11 +25,12 @@
 using namespace modiqus;
 
 modiqus::S32 mq_log_level = MQ_LOG_LEVEL_DEBUG;
+bool mq_log_with_func_info = false;
 
 // Non-member functions
 static void message_callback(CSOUND *csound, S32 attr, const char *format, va_list args)
 {
-    log_csound(format, args);
+    mq_log_csound(format, args);
     return;
 }
 
@@ -46,7 +47,7 @@ void mq_print_csound_return_code(const char *function_name, S32 return_code)
     }
     else if (return_code > 0 && strncmp(function_name, "csoundPerform", 13) == 0)
     {
-        /* for csoundPerformKsmps() and csoundPerformBuffer() only */
+        /* for csoundPerformKsmps and csoundPerformBuffer only */
         return_code_str = "end of score or MIDI file";
         return_code = 0;
     }
@@ -94,7 +95,7 @@ void mq_print_csound_return_code(const char *function_name, S32 return_code)
     
     char log_message[100];
     sprintf(log_message, "Csound function '%s' returned %d (%s)", function_name, return_code, return_code_str);
-    MQ_LOG_INFO(log_message);
+    MQ_LOG_DEBUG(log_message);
 #endif
 }
 
