@@ -194,7 +194,7 @@ namespace modiqus
     {
         if (vectorA.size() != vectorB.size())
         {
-            LOG_ERROR("Vectors are not the same size")
+            MQ_LOG_ERROR("Vectors are not the same size")
             return -1.0f;
         }
         
@@ -245,7 +245,7 @@ namespace modiqus
             startIndex >= size || endIndex >= size ||
             startIndex > endIndex)
         {
-            LOG_ERROR("Illegal range")
+            MQ_LOG_ERROR("Illegal range")
             
             return -1.0f;
         }

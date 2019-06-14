@@ -17,8 +17,15 @@
  *
  */
 
-#ifndef TABLES_H
-#define TABLES_H
+#ifndef TABLE_H
+#define TABLE_H
 
+struct table
+{
+    S32 number;
+    S32 start;
+    S32 size;
+    S32 GENRoutine;
+};
 
 #endif /* tables_h */

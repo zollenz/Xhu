@@ -79,7 +79,7 @@ namespace modiqus
             return static_cast<S32>(value);
         }
 
-        LOG_ERROR("Size is bigger than INT_MAX. Returning -1");
+        MQ_LOG_ERROR("Size is bigger than INT_MAX. Returning -1");
         return -1;
     }
     
@@ -100,8 +100,8 @@ namespace modiqus
         }
         catch (const std::out_of_range& oor)
         {
-            LOG_ERROR("Out of Range error: " + String(oor.what()) + ", key: " + toString(key))
-            LOG_ERROR("Returning NULL pointer")
+            MQ_LOG_ERROR("Out of Range error: " + String(oor.what()) + ", key: " + toString(key))
+            MQ_LOG_ERROR("Returning NULL pointer")
         }
         
         return elmPtr;
@@ -114,7 +114,7 @@ namespace modiqus
         
         if (!retVal.second)
         {
-            LOG_WARN("Element with key " + toString<T1>(mapPair.first) + " already exists.")
+            MQ_LOG_WARN("Element with key " + toString<T1>(mapPair.first) + " already exists.")
             
             return &retVal.first->second;
         }
@@ -127,13 +127,17 @@ namespace modiqus
 #ifdef __APPLE__
         char path[PATH_MAX];
         uint32_t size = sizeof(path);
+        char log_message[100];
+
         if (_NSGetExecutablePath(path, &size) == 0)
         {
-            LOG_DEBUG("Executable path is " + String(path))   
+            sprintf(log_message, "Executable path is %s", path);
+            MQ_LOG_DEBUG(log_message)
         }
         else
         {
-            LOG_ERROR("Buffer too small; need size " + toString<S32>(size))
+            sprintf(log_message, "Buffer too small; need size %u", size);
+            MQ_LOG_ERROR(log_message)
         }
 
         return String(path);
@@ -197,76 +201,11 @@ namespace modiqus
 //        return audioPath;
 //    }
     
-    inline S32 findListIndex(String str, const String* strList, S32 size)
-    {
-        S32 index = -1;
-        
-        for (S32 i = 0; i < size; i++)
-        {
-            if (str.compare(strList[i]) == 0)
-            {
-                index = i;
-                break;
-            }
-        }
-        
-        if (index == -1)
-        {
-            LOG_ERROR("Index of string '" + str + "' not found")
-        }
-        
-        return index;
-    }
-
-    inline S32 findListIndex(String str, const char** strList, S32 size)
-    {
-        S32 index = -1;
-        
-        for (S32 i = 0; i < size; i++)
-        {
-            if (str.compare(strList[i]) == 0)
-            {
-                index = i;
-                
-                break;
-            }
-        }
-        
-        if (index == -1)
-        {
-            LOG_ERROR("Index of string '" + str + "' not found")
-        }
-        
-        return index;
-    }
-
-    inline S32 findListIndex(const String& str, const StringList& strList)
-    {
-        S32 index = -1;
-        USize numElements = strList.size();
-        
-        for (S32 i = 0; i < numElements; i++)
-        {
-            if (str.compare(strList[i]) == 0)
-            {
-                index = i;
-                break;
-            }
-        }
-        
-        if (index == -1)
-        {
-            LOG_ERROR("Index of string '" + str + "' not found")
-        }
-        
-        return index;
-    }
-    
     inline bool floatEquality(const F32 value1, const F32 value2)
     {
         const F32 difference = std::abs(value1 - value2);
         
-        return difference < F_EPSILON;
+        return difference < EPSILON;
     }
     
     inline long getTimeStampMs()
