@@ -22,19 +22,16 @@
 #include "types.h"
 #include "csound_wrapper.h"
 
-using namespace modiqus;
-
-modiqus::S32 mq_log_level = MQ_LOG_LEVEL_DEBUG;
+mq_s32_t mq_log_level = MQ_LOG_LEVEL_DEBUG;
 bool mq_log_with_func_info = false;
 
-// Non-member functions
-static void message_callback(CSOUND *csound, S32 attr, const char *format, va_list args)
+static void mq_msg_callback(CSOUND *csound, mq_s32_t attr, const char *format, va_list args)
 {
     mq_log_csound(format, args);
     return;
 }
 
-void mq_print_csound_return_code(const char *function_name, S32 return_code)
+void mq_print_csound_return_code(const char *function_name, mq_s32_t return_code)
 {
 #ifdef DEBUG
     const char *return_code_str;
@@ -101,7 +98,7 @@ void mq_print_csound_return_code(const char *function_name, S32 return_code)
 
 uintptr_t performance_routine(void* data)
 {
-    CsoundState* state = static_cast<CsoundState*>(data);
+    mq_csound_state_t* state = static_cast<mq_csound_state_t*>(data);
     CsoundWrapper* core = static_cast<CsoundWrapper*>(csoundGetHostData(state->csound));
 
     if (state->compileResult == CSOUND_SUCCESS)
@@ -137,37 +134,13 @@ uintptr_t performance_routine(void* data)
     return 1;
 }
 
-void onCreateSampleTable(void*, const S32 tableNumber, void* context)
-{
-    CsoundWrapper* wrapper = static_cast<CsoundWrapper*>(context);
-    wrapper->deleteTable(tableNumber);
-}
-
-void onCreateImmediateTable(void*, const S32 tableNumber, void* context)
-{
-    CsoundWrapper* wrapper = static_cast<CsoundWrapper*>(context);
-    wrapper->deleteTable(tableNumber);
-}
-
-void onCreateSegmentTable(void*, const S32 tableNumber, void* context)
-{
-    CsoundWrapper* wrapper = static_cast<CsoundWrapper*>(context);
-    wrapper->deleteTable(tableNumber);
-}
-
-void onDeleteTable(void*, const S32 tableNumber, void* context)
-{
-    CsoundWrapper* wrapper = static_cast<CsoundWrapper*>(context);
-    wrapper->deleteTable(tableNumber);
-}
-
 bool CsoundWrapper::start(bool bundle)
 {
     srand((unsigned)time(NULL));
     
     // Set Csound environment variables
-    String path = mq_get_executable_path();
-    USize lastSlashIndex = path.rfind("/");
+    mq_str_t path = mq_get_executable_path();
+    mq_list_size_t lastSlashIndex = path.rfind("/");
 
     path = path.substr(0, lastSlashIndex);
 
@@ -176,7 +149,7 @@ bool CsoundWrapper::start(bool bundle)
         path += "/..";
     }
 
-    String opcodePath = path;
+    mq_str_t opcodePath = path;
 
     if (bundle)
     {
@@ -187,8 +160,8 @@ bool CsoundWrapper::start(bool bundle)
         opcodePath += "/lib";
     }
 
-    String audioPath = path + "/Resources/audio";
-    String csdPath = path + "/Resources/csound/modiqus.csd";
+    mq_str_t audioPath = path + "/Resources/audio";
+    mq_str_t csdPath = path + "/Resources/csound/modiqus.csd";
 
     char log_message_1[100];
     sprintf(log_message_1, "Csound opcode directory: %s", opcodePath.c_str());
@@ -200,7 +173,7 @@ bool CsoundWrapper::start(bool bundle)
     sprintf(log_message_3, "Csound orchestra file path: %s", csdPath.c_str());
     MQ_LOG_DEBUG(log_message_3)
 
-    S32 callResult = CSOUND_ERROR;
+    mq_s32_t callResult = CSOUND_ERROR;
     callResult = csoundSetGlobalEnv("OPCODE6DIR64", opcodePath.c_str());
     mq_print_csound_return_code("csoundSetGlobalEnv", callResult);
 
@@ -236,10 +209,10 @@ bool CsoundWrapper::start(bool bundle)
     _state.compileResult = CSOUND_ERROR;
     _state.runPerformanceThread = false;
 
-    csoundSetMessageCallback(_state.csound, message_callback);
+    csoundSetMessageCallback(_state.csound, mq_msg_callback);
 
     // Compile orchestra file
-    S32 cSoundArgsCount = 2;
+    mq_s32_t cSoundArgsCount = 2;
     char* cSoundArgs[cSoundArgsCount];
     cSoundArgs[0] = const_cast<char *>("csound");
     char temp[csdPath.size() + 1];
@@ -289,22 +262,22 @@ void CsoundWrapper::stop()
     _state.runPerformanceThread = false;
 }
 
-void CsoundWrapper::setlogLevel(S32 level) const
+void CsoundWrapper::setlogLevel(mq_s32_t level) const
 {
     mq_log_level = level;
 }
 
-void CsoundWrapper::setOpcodePath(String path)
+void CsoundWrapper::setOpcodePath(mq_str_t path)
 {
     
 }
 
-void CsoundWrapper::setAudioPath(String path)
+void CsoundWrapper::setAudioPath(mq_str_t path)
 {
     
 }
 
-void CsoundWrapper::setCsdPath(String path)
+void CsoundWrapper::setCsdPath(mq_str_t path)
 {
     
 }
@@ -312,8 +285,8 @@ void CsoundWrapper::setCsdPath(String path)
 void CsoundWrapper::getChannelControlOutput(MYFLT& value, const char *name) const
 {
     MYFLT* chnPtr = NULL;
-    S32 chnType = CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
-    S32 result = csoundGetChannelPtr(_state.csound, &chnPtr, name, chnType);
+    mq_s32_t chnType = CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
+    mq_s32_t result = csoundGetChannelPtr(_state.csound, &chnPtr, name, chnType);
     
     if (result == CSOUND_SUCCESS)
     {
@@ -331,8 +304,8 @@ void CsoundWrapper::getChannelControlOutput(MYFLT& value, const char *name) cons
 void CsoundWrapper::setChannelControlInput(MYFLT value, const char *name) const
 {
     MYFLT *chnPtr = NULL;
-    S32 chnType = CSOUND_INPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
-    S32 result = csoundGetChannelPtr(_state.csound, &chnPtr, name, chnType);
+    mq_s32_t chnType = CSOUND_INPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
+    mq_s32_t result = csoundGetChannelPtr(_state.csound, &chnPtr, name, chnType);
     
     if (result == CSOUND_SUCCESS)
     {
@@ -362,9 +335,9 @@ void CsoundWrapper::sendMessage(const char* message) const
 	csoundInputMessage(_state.csound, message);
 }
 
-void CsoundWrapper::sendScoreEvent(const char type, MYFLT* parameters, S32 numParameters)
+void CsoundWrapper::sendScoreEvent(const char type, MYFLT* parameters, mq_s32_t numParameters)
 {
-    S32 result = csoundScoreEvent(_state.csound, type, parameters, numParameters);
+    mq_s32_t result = csoundScoreEvent(_state.csound, type, parameters, numParameters);
     
     if(result == CSOUND_SUCCESS)
     {
@@ -376,33 +349,33 @@ void CsoundWrapper::sendScoreEvent(const char type, MYFLT* parameters, S32 numPa
     }
 }
 
-const S32 CsoundWrapper::getSampleRate() const
+const mq_s32_t CsoundWrapper::getSampleRate() const
 {
-    return roundToInt(csoundGetSr(_state.csound));
+    return mq_round_to_int(csoundGetSr(_state.csound));
 }
 
-const S32 CsoundWrapper::getControlRate() const
+const mq_s32_t CsoundWrapper::getControlRate() const
 {
     return csoundGetKr(_state.csound);
 }
 
-const S32 CsoundWrapper::getNumberOfControlSamples() const
+const mq_s32_t CsoundWrapper::getNumberOfControlSamples() const
 {
     return csoundGetKsmps(_state.csound);
 }
 
-const F32 CsoundWrapper::getControlPeriod() const
+const mq_f32_t CsoundWrapper::getControlPeriod() const
 {
     return 1.0f / getSampleRate() * getNumberOfControlSamples(); // ksmps duration
 }
 
 void CsoundWrapper::createSampleTable(SampleTable* const table)
 {
-    String message = "f " + mq_to_string<S32>(table->number) + " 0 0 ";
-    message += mq_to_string<S32>(table->GENRoutine) + " \"" + table->filcod + "\" ";
-    message += mq_to_string<F32>(table->skiptime) + " ";
-    message += mq_to_string<S32>(table->format) + " ";
-    message += mq_to_string<S32>(table->channel);
+    mq_str_t message = "f " + mq_to_string<mq_s32_t>(table->number) + " 0 0 ";
+    message += mq_to_string<mq_s32_t>(table->GENRoutine) + " \"" + table->filcod + "\" ";
+    message += mq_to_string<mq_f32_t>(table->skiptime) + " ";
+    message += mq_to_string<mq_s32_t>(table->format) + " ";
+    message += mq_to_string<mq_s32_t>(table->channel);
 	sendMessage(message.c_str());
     
     while (!doesTableExist(table->number));
@@ -410,13 +383,13 @@ void CsoundWrapper::createSampleTable(SampleTable* const table)
 
 void CsoundWrapper::createImmediateTable(ImmediateTable* const table)
 {
-    USize numTables = table->tableNums.size();
-    String message = "f " + mq_to_string<S32>(table->number) + " 0 ";
-    message += mq_to_string<S32>(table->size)  + " -2";
+    mq_list_size_t numTables = table->tableNums.size();
+    mq_str_t message = "f " + mq_to_string<mq_s32_t>(table->number) + " 0 ";
+    message += mq_to_string<mq_s32_t>(table->size)  + " -2";
 
-    for (USize i = 0; i < numTables; i++)
+    for (mq_list_size_t i = 0; i < numTables; i++)
     {
-        message += " " + mq_to_string<S32>(table->tableNums[i]);
+        message += " " + mq_to_string<mq_s32_t>(table->tableNums[i]);
     }
         
 	sendMessage(message.c_str());
@@ -426,12 +399,12 @@ void CsoundWrapper::createImmediateTable(ImmediateTable* const table)
 
 void CsoundWrapper::createSegmentTable(SegmentTable* const table)
 {    
-    USize numSegments = table->segments.size();
+    mq_list_size_t numSegments = table->segments.size();
 
 	// Check segment/tablesize integrity
-    F32 totalLength = 0;
+    mq_f32_t totalLength = 0;
 
-	for (USize i = 0; i < numSegments; i++)
+	for (mq_list_size_t i = 0; i < numSegments; i++)
     {
 		totalLength += table->segments.at(i).length;
 	}
@@ -447,13 +420,13 @@ void CsoundWrapper::createSegmentTable(SegmentTable* const table)
     }
     
 	//Create score event:
-    String message = "f " + mq_to_string<S32>(table->number);
-    message += " 0 " + mq_to_string<S32>(table->size) + " -7";
+    mq_str_t message = "f " + mq_to_string<mq_s32_t>(table->number);
+    message += " 0 " + mq_to_string<mq_s32_t>(table->size) + " -7";
     
-    for (S32 i = 0; i < numSegments; i++)
+    for (mq_s32_t i = 0; i < numSegments; i++)
     {
-        message += " " + mq_to_string<F32>(table->segments.at(i).value);
-        message += " " + mq_to_string<F32>(table->segments.at(i).length);
+        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).value);
+        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).length);
     }
 	
 	sendMessage(message.c_str());
@@ -461,9 +434,9 @@ void CsoundWrapper::createSegmentTable(SegmentTable* const table)
     while (!doesTableExist(table->number));
 }
 
-const S32 CsoundWrapper::getTableData(const S32 tableNumber, F32List* const data)
+const mq_s32_t CsoundWrapper::getTableData(const mq_s32_t tableNumber, mq_f32_list_t* const data)
 {
-    S32 length = -1;
+    mq_s32_t length = -1;
     
     if (tableNumber == 0)
     {
@@ -495,7 +468,7 @@ const S32 CsoundWrapper::getTableData(const S32 tableNumber, F32List* const data
         data->clear();
         data->resize(length);
         
-        for (S32 i = 0; i < length; i++)
+        for (mq_s32_t i = 0; i < length; i++)
         {
             data->at(i) = tempDataPtr[i];
             //        samples[i] = tempSamples[i] / CSOUND_0DBFS;
@@ -516,7 +489,7 @@ const S32 CsoundWrapper::getTableData(const S32 tableNumber, F32List* const data
     return length;
 }
 
-void CsoundWrapper::setTableData(const S32 table, const F32List* const data)
+void CsoundWrapper::setTableData(const mq_s32_t table, const mq_f32_list_t* const data)
 {
     if (table == TABLE_UNDEFINED)
     {
@@ -528,9 +501,9 @@ void CsoundWrapper::setTableData(const S32 table, const F32List* const data)
     
     while (!_state.performanceThreadYield);
     
-    USize dataSize = data->size();
+    mq_list_size_t dataSize = data->size();
     
-    for (S32 i = 0; i < dataSize; i++)
+    for (mq_s32_t i = 0; i < dataSize; i++)
     {
         csoundTableSet(_state.csound, table, i, data->at(i));
     }
@@ -538,9 +511,9 @@ void CsoundWrapper::setTableData(const S32 table, const F32List* const data)
     _state.yieldPerformance = false;
 }
 
-const F32 CsoundWrapper::getTableValue(const S32 tableNumber, const S32 index)
+const mq_f32_t CsoundWrapper::getTableValue(const mq_s32_t tableNumber, const mq_s32_t index)
 {
-    F32 value = NAN;
+    mq_f32_t value = NAN;
     
     if (tableNumber <= 0)
     {
@@ -566,7 +539,7 @@ const F32 CsoundWrapper::getTableValue(const S32 tableNumber, const S32 index)
     return value;
 }
 
-bool CsoundWrapper::doesTableExist(S32 tableNumber)
+bool CsoundWrapper::doesTableExist(mq_s32_t tableNumber)
 {
     bool exists = false;
     
@@ -577,7 +550,7 @@ bool CsoundWrapper::doesTableExist(S32 tableNumber)
         return exists;
     }
 
-    S32 length = -1;
+    mq_s32_t length = -1;
     MYFLT* tablePtr = NULL;    
     _state.yieldPerformance = true;
     
@@ -603,7 +576,7 @@ bool CsoundWrapper::doesTableExist(S32 tableNumber)
     return exists;
 }
 
-void CsoundWrapper::deleteTable(const S32 tableNum)
+void CsoundWrapper::deleteTable(const mq_s32_t tableNum)
 {
     if (tableNum == TABLE_UNDEFINED)
     {
@@ -617,7 +590,7 @@ void CsoundWrapper::deleteTable(const S32 tableNum)
         sprintf(log_message, "Deleting table %d", tableNum);
         MQ_LOG_DEBUG(log_message)
         
-        String message = "f -" + mq_to_string<S32>(tableNum) + " 0";
+        mq_str_t message = "f -" + mq_to_string<mq_s32_t>(tableNum) + " 0";
         sendMessage(message.c_str());
     }
     else

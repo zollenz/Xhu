@@ -29,10 +29,10 @@
 #define MQ_LOG_LEVEL_INFO     (5)
 #define MQ_LOG_LEVEL_DEBUG    (6)
 
-extern modiqus::S32 mq_log_level;
+extern mq_s32_t mq_log_level;
 extern bool mq_log_with_func_info;
 
-inline const char* const mq_get_log_level_str(modiqus::S32 log_level_value)
+inline const char* const mq_get_log_level_str(mq_s32_t log_level_value)
 {
     switch (log_level_value) {
         case MQ_LOG_LEVEL_FATAL:
@@ -86,8 +86,8 @@ inline char *mq_get_filename(const char *path, char dot, char sep)
     return retstr;
 }
 
-inline void mq_log(const char *message, modiqus::S32 level,
-                   const char *caller_file_path, const char *caller_func_name, modiqus::S32 line)
+inline void mq_log(const char *message, mq_s32_t level,
+                   const char *caller_file_path, const char *caller_func_name, mq_s32_t line)
 {
     char *filename = mq_get_filename(caller_file_path, '.', '/');
     const char *log_level_str = mq_get_log_level_str(level);
