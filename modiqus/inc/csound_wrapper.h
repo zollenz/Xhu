@@ -66,47 +66,44 @@ struct SegmentTable : public Table
 
 typedef struct {
     CSOUND* csound;
-    mq_s32_t compileResult;
-    bool runPerformanceThread;
-    bool yieldPerformance;
-    bool performanceThreadYield;
+    mq_s32_t compile_result;
+    bool run_performance_thread;
+    bool yield_performance_thread;
+    bool performance_thread_yield;
 } mq_csound_state_t;
 
 class CsoundWrapper
 {
 public:
     
-    void setlogLevel(mq_s32_t level) const;
-    bool start(bool bundle);
-    void stop();
-    void setOpcodePath(mq_str_t path);
-    void setAudioPath(mq_str_t path);
-    void setCsdPath(mq_str_t path);
-    void getChannelControlOutput(MYFLT& value, const char *name) const;
-    void setChannelControlInput(MYFLT value, const char *name) const;
-    void setControlChannelInput(MYFLT value, const char *name) const;
-    void sendMessage(const char* message) const;
-    void sendScoreEvent(const char type, MYFLT* parameters, mq_s32_t numParameters);
-    void createSampleTable(SampleTable* const table);
-    void createImmediateTable(ImmediateTable* const table);
-    void createSegmentTable(SegmentTable* const table);
-    const mq_s32_t getTableData(const mq_s32_t tableNumber, mq_f32_list_t* const data);
-    void setTableData(const mq_s32_t table, const mq_f32_list_t* const data);
-    const mq_f32_t getTableValue(const mq_s32_t table, const mq_s32_t index);
-    bool doesTableExist(const mq_s32_t tableNumber);
-    void deleteTable(const mq_s32_t tableNumber);
-    const mq_s32_t getSampleRate() const;
-    const mq_s32_t getControlRate() const;
-    const mq_s32_t getNumberOfControlSamples() const;
-    const mq_f32_t getControlPeriod() const;
-    bool isPerformanceThreadRunning() const;
-    void isPerformanceThreadRunning(bool running);
+    void mq_set_log_level(mq_s32_t level) const;
+    bool mq_start(bool bundle);
+    void mq_stop();
+    void mq_set_opcode_path(mq_str_t path);
+    void mq_set_audio_path(mq_str_t path);
+    void mq_set_csd_path(mq_str_t path);
+    void mq_get_chn_ctrl_output(MYFLT& value, const char *name) const;
+    void mq_set_chn_ctrl_value(MYFLT value, const char *name) const;
+    void mq_send_message(const char* message) const;
+    void mq_send_score_event(const char type, MYFLT* parameters, mq_s32_t numParameters);
+    void mq_create_sample_table(SampleTable* const table);
+    void mq_create_immediate_table(ImmediateTable* const table);
+    void mq_create_segment_table(SegmentTable* const table);
+    const mq_s32_t mq_get_table_data(const mq_s32_t tableNumber, mq_f32_list_t* const data);
+    void mq_set_table_data(const mq_s32_t table, const mq_f32_list_t* const data);
+    const mq_f32_t mq_get_table_val(const mq_s32_t table, const mq_s32_t index);
+    bool mq_table_exists(const mq_s32_t tableNumber);
+    void mq_delete_table(const mq_s32_t tableNumber);
+    const mq_s32_t mq_get_sample_rate() const;
+    const mq_s32_t mq_get_control_rate() const;
+    const mq_s32_t mq_get_control_size() const;
+    const mq_f32_t mq_get_control_period() const;
+    bool mq_get_perf_thread_running() const;
+    void set_perf_thread_running(bool running);
     
 private:
     
-    mq_csound_state_t _state;
-    volatile bool _performanceThreadRunning;
-//        F32 _ksmpsDuration;
-    
+    mq_csound_state_t _mq_csound_state;
+    volatile bool _mq_perf_thread_running;
 };
 #endif //CSOUND_WRAPPER_H

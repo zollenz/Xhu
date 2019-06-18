@@ -20,12 +20,24 @@
 #ifndef TABLE_H
 #define TABLE_H
 
-struct table
-{
-    S32 number;
-    S32 start;
-    S32 size;
-    S32 GENRoutine;
-};
+typedef struct {
+    mq_f32_t number;
+    mq_f32_t start;
+    mq_f32_t size;
+    mq_f32_t gen_routine;
+} mq_base_table_t;
+
+typedef struct {
+    mq_base_table_t base;
+    mq_str_t filcod;
+    mq_f32_t skip_time;
+    mq_s32_t format;
+    mq_s32_t channel;
+} mq_sample_table_t;
+
+typedef struct {
+    mq_base_table_t base;
+    mq_f32_t *values;
+} mq_immediate_table_t;
 
 #endif /* tables_h */

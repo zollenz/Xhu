@@ -43,7 +43,6 @@ typedef float mq_f32_t;
 typedef double mq_f64_t;
 typedef size_t mq_mem_size_t;
 typedef std::string mq_str_t;
-typedef std::vector<mq_str_t> mq_str_list_t;
 typedef std::vector<mq_s32_t> mq_s32_list_t;
 typedef std::vector<mq_f32_t> mq_f32_list_t;
 

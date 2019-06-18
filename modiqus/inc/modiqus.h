@@ -25,5 +25,6 @@
 #include "math_utilities.h"
 #include "system_utilities.h"
 #include "csound_wrapper.h"
+#include "table.h"
 
 #endif //MODIQUS_H

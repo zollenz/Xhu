@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BF281D161D775ECB00EA0E86 /* CsoundLib64 in Frameworks */ = {isa = PBXBuildFile; fileRef = BF39851F1D775D3B00FF3F89 /* CsoundLib64 */; };
 		BF5DA3BD18BD22260053453C /* csound_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2C5E6F18685BF000DF51F5 /* csound_wrapper.cpp */; };
 		BF5DA3BF18BD23560053453C /* libmodiqus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5DA3A718BD1A550053453C /* libmodiqus.a */; };
+		BF61D08B22B983240029D03D /* CsoundLib64 in Frameworks */ = {isa = PBXBuildFile; fileRef = BF61D08A22B983240029D03D /* CsoundLib64 */; };
 		BF7EC9CC22B1897D00D51F97 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C422B1897D00D51F97 /* debug.h */; };
 		BF7EC9CE22B1897D00D51F97 /* math_utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C622B1897D00D51F97 /* math_utilities.h */; };
 		BF7EC9CF22B1897D00D51F97 /* modiqus.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C722B1897D00D51F97 /* modiqus.h */; };
@@ -46,8 +46,8 @@
 		BF0723B71D11F81F009BFE61 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
 		BF2C5E6F18685BF000DF51F5 /* csound_wrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csound_wrapper.cpp; sourceTree = "<group>"; };
 		BF39851E1D775D2900FF3F89 /* ext */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ext; sourceTree = "<group>"; };
-		BF39851F1D775D3B00FF3F89 /* CsoundLib64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = CsoundLib64; path = ext/csound/release/lib/CsoundLib64; sourceTree = "<group>"; };
 		BF5DA3A718BD1A550053453C /* libmodiqus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmodiqus.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF61D08A22B983240029D03D /* CsoundLib64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = CsoundLib64; path = ext/csound/release/lib/CsoundLib64; sourceTree = "<group>"; };
 		BF7EC9C422B1897D00D51F97 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
 		BF7EC9C622B1897D00D51F97 /* math_utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math_utilities.h; sourceTree = "<group>"; };
 		BF7EC9C722B1897D00D51F97 /* modiqus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modiqus.h; sourceTree = "<group>"; };
@@ -71,8 +71,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF61D08B22B983240029D03D /* CsoundLib64 in Frameworks */,
 				BF5DA3BF18BD23560053453C /* libmodiqus.a in Frameworks */,
-				BF281D161D775ECB00EA0E86 /* CsoundLib64 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,12 +82,12 @@
 		BF2C5E401868565000DF51F5 = {
 			isa = PBXGroup;
 			children = (
-				BF39851F1D775D3B00FF3F89 /* CsoundLib64 */,
 				BF39851E1D775D2900FF3F89 /* ext */,
 				BF0723B71D11F81F009BFE61 /* resources */,
 				BF5DA3AB18BD1B070053453C /* modiqus */,
 				BF2C5E4A1868565100DF51F5 /* Products */,
 				BF92230918BA2CFF00EFD7E8 /* test_modiqus */,
+				BF61D08922B983240029D03D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,6 +131,14 @@
 				BF2C5E6B18685BF000DF51F5 /* src */,
 			);
 			name = modiqus;
+			sourceTree = "<group>";
+		};
+		BF61D08922B983240029D03D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF61D08A22B983240029D03D /* CsoundLib64 */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BF92230918BA2CFF00EFD7E8 /* test_modiqus */ = {
@@ -208,10 +216,11 @@
 			};
 			buildConfigurationList = BF2C5E441868565000DF51F5 /* Build configuration list for PBXProject "modiqus" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = BF2C5E401868565000DF51F5;
 			productRefGroup = BF2C5E4A1868565100DF51F5 /* Products */;
@@ -236,7 +245,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Set variables\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Release\nfi\n\n# Delete/recreate lib and resource folders\n\nif [ ! -d ${TARGET_BUILD_DIR}/lib ]; then\n    mkdir ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/Resources ]; then\n    mkdir ${TARGET_BUILD_DIR}/Resources\nfi\n\n# Copy dependencies\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\ncp $PROJECT_DIR/ext/libsndfile.1.dylib ${TARGET_BUILD_DIR}/lib/\n#mv ${TARGET_BUILD_DIR}/libmodiqus.a ${TARGET_BUILD_DIR}/lib/\n\n# Update lib install names\n/bin/bash \\\n$PROJECT_DIR/tools/update_install_names.sh \\\n${TARGET_BUILD_DIR}/lib\n\n# Copy resources\n\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/Resources";
+			shellScript = "# Set variables\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Release\nfi\n\n# Delete/recreate lib and resource folders\n\nif [ ! -d ${TARGET_BUILD_DIR}/lib ]; then\n    mkdir ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/Resources ]; then\n    mkdir ${TARGET_BUILD_DIR}/Resources\nfi\n\n# Copy dependencies\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\ncp $PROJECT_DIR/ext/libsndfile.1.dylib ${TARGET_BUILD_DIR}/lib/\n#mv ${TARGET_BUILD_DIR}/libmodiqus.a ${TARGET_BUILD_DIR}/lib/\n\n# Update lib install names\n/bin/bash \\\n$PROJECT_DIR/tools/update_install_names.sh \\\n${TARGET_BUILD_DIR}/lib\n\n# Copy resources\n\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/Resources\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -460,7 +469,7 @@
 					"$(PROJECT_DIR)/ext/csound/release/inc",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ext/csound/release/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = test_modiqus;
@@ -485,7 +494,7 @@
 					"$(PROJECT_DIR)/ext/csound/release/inc",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ext/csound/release/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = test_modiqus;

@@ -31,10 +31,10 @@ int main(int argc, const char * argv[])
     mq_log_level = MQ_LOG_LEVEL_INFO;
     mq_log_with_func_info = false;
     
-    if (!csound->start(false))
+    if (!csound->mq_start(false))
     {
         MQ_LOG_FATAL("Modiqus engine failed initialization")
-        csound->stop();
+        csound->mq_stop();
         exit(EXIT_FAILURE);
     }
     else
@@ -44,11 +44,11 @@ int main(int argc, const char * argv[])
 
     MQ_LOG_INFO("Hello, World!\n")
     
-    csound->sendMessage("i1 0 1");
+    csound->mq_send_message("i1 0 1");
   
     mq_pause(5);
 
-    csound->stop();
+    csound->mq_stop();
     return 0;
 }
 
