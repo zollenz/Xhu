@@ -22,8 +22,15 @@
 #include "types.h"
 #include "csound_wrapper.h"
 
+//#define MACOS_BUNDLE
+
 mq_s32_t mq_log_level = MQ_LOG_LEVEL_DEBUG;
 bool mq_log_with_func_info = false;
+
+static const char *mq_executable_path;
+static char mq_opcode_path[PATH_MAX];
+static char mq_csd_path[PATH_MAX];
+static char mq_audio_path[PATH_MAX];
 
 static void mq_msg_callback(CSOUND *csound, mq_s32_t attr, const char *format, va_list args)
 {
@@ -31,7 +38,32 @@ static void mq_msg_callback(CSOUND *csound, mq_s32_t attr, const char *format, v
     return;
 }
 
-void mq_print_csound_return_code(const char *function_name, mq_s32_t return_code)
+static void mq_set_executable_path()
+{
+#ifdef __APPLE__
+    char full_path[PATH_MAX];
+    uint32_t size = sizeof(full_path);
+    char log_message[100];
+    
+    if (_NSGetExecutablePath(full_path, &size) != 0)
+    {
+        full_path[0] = '\0';
+        sprintf(log_message, "Buffer too small; need size %u", size);
+        MQ_LOG_ERROR(log_message)
+    }
+    
+    mq_executable_path = mq_get_folder_path(full_path);
+    sprintf(log_message, "Executable path is %s", mq_executable_path);
+    MQ_LOG_DEBUG(log_message)
+#else
+    //    char temp[PATH_MAX];
+    //    return (getcwd(temp, PATH_MAX) ? mq_str(temp) : mq_str(""));
+    mq_executable_path = "";
+#endif
+}
+
+
+static void mq_print_csound_return_code(const char *function_name, mq_s32_t return_code)
 {
 #ifdef DEBUG
     const char *return_code_str;
@@ -103,7 +135,7 @@ uintptr_t performance_routine(void* data)
 
     if (state->compile_result == CSOUND_SUCCESS)
     {
-        core->set_perf_thread_running(true);
+        core->mq_set_perf_thread_running(true);
         MQ_LOG_DEBUG("Csound performance thread created")
         
         while (true)
@@ -125,7 +157,7 @@ uintptr_t performance_routine(void* data)
             }
         }
         
-        core->set_perf_thread_running(false);
+        core->mq_set_perf_thread_running(false);
         MQ_LOG_DEBUG("Csound performance loop stopped")
         csoundDestroy(state->csound);
         MQ_LOG_DEBUG("Csound instance destroyed")
@@ -134,65 +166,46 @@ uintptr_t performance_routine(void* data)
     return 1;
 }
 
+void CsoundWrapper::mq_set_opcode_path(const char *path)
+{
+#ifdef MACOS_BUNDLE
+    sprintf(mq_opcode_path, "%s%s", mq_executable_path, "/../Frameworks");
+#else
+    sprintf(mq_opcode_path, "%s%s", mq_executable_path, "/lib");
+#endif
+    mq_set_global_env("OPCODE6DIR64", mq_opcode_path);
+}
+
+void CsoundWrapper::mq_set_audio_path(const char *path)
+{
+    const char *suffix = "/Resources/audio";
+#ifdef MACOS_BUNDLE
+    sprintf(mq_audio_path, "%s%s%s", mq_executable_path, "/..", suffix);
+#else
+    sprintf(mq_audio_path, "%s%s", mq_executable_path, suffix);
+#endif
+    mq_set_global_env("SSDIR", mq_audio_path);
+}
+
+void CsoundWrapper::mq_set_csd_path(const char *path)
+{
+    const char *suffix = "/Resources/csound/modiqus.csd";
+#ifdef MACOS_BUNDLE
+    sprintf(mq_csd_path, "%s%s%s", mq_executable_path, "/../", suffix);
+#else
+    sprintf(mq_csd_path, "%s%s", mq_executable_path, suffix);
+#endif
+}
+
 bool CsoundWrapper::mq_start(bool bundle)
 {
     srand((unsigned)time(NULL));
     
     // Set Csound environment variables
-    mq_str_t path = mq_get_executable_path();
-    mq_list_size_t lastSlashIndex = path.rfind("/");
-
-    path = path.substr(0, lastSlashIndex);
-
-    if (bundle)
-    {
-        path += "/..";
-    }
-
-    mq_str_t opcodePath = path;
-
-    if (bundle)
-    {
-        opcodePath += "/Frameworks";
-    }
-    else
-    {
-        opcodePath += "/lib";
-    }
-
-    mq_str_t audioPath = path + "/Resources/audio";
-    mq_str_t csdPath = path + "/Resources/csound/modiqus.csd";
-
-    char log_message_1[100];
-    sprintf(log_message_1, "Csound opcode directory: %s", opcodePath.c_str());
-    MQ_LOG_DEBUG(log_message_1)
-    char log_message_2[100];
-    sprintf(log_message_2, "Csound audio directory: %s", audioPath.c_str());
-    MQ_LOG_DEBUG(log_message_2)
-    char log_message_3[100];
-    sprintf(log_message_3, "Csound orchestra file path: %s", csdPath.c_str());
-    MQ_LOG_DEBUG(log_message_3)
-
-    mq_s32_t callResult = CSOUND_ERROR;
-    callResult = csoundSetGlobalEnv("OPCODE6DIR64", opcodePath.c_str());
-    mq_print_csound_return_code("csoundSetGlobalEnv", callResult);
-
-    if (callResult != CSOUND_SUCCESS)
-    {
-        MQ_LOG_FATAL( "Csound initialization of environment variable 'OPCODE6DIR' failed")
-
-        return false;
-    }
-
-    callResult = csoundSetGlobalEnv("SSDIR", audioPath.c_str());
-    mq_print_csound_return_code("csoundSetGlobalEnv", callResult);
-
-    if (callResult != CSOUND_SUCCESS)
-    {
-        MQ_LOG_FATAL( "Csound initialization of environment variable 'SSDIR' failed")
-
-        return false;
-    }
+    mq_set_executable_path();
+    mq_set_opcode_path(NULL);
+    mq_set_csd_path(NULL);
+    mq_set_audio_path(NULL);
 
     // Create Csound instance
     _mq_csound_state.csound = csoundCreate(this);
@@ -215,8 +228,8 @@ bool CsoundWrapper::mq_start(bool bundle)
     mq_s32_t cSoundArgsCount = 2;
     char* cSoundArgs[cSoundArgsCount];
     cSoundArgs[0] = const_cast<char *>("csound");
-    char temp[csdPath.size() + 1];
-    strcpy(temp, csdPath.c_str());
+    char temp[strlen(mq_csd_path) + 1];
+    strcpy(temp, mq_csd_path);
     cSoundArgs[1] = temp;
     _mq_csound_state.compile_result = csoundCompile(_mq_csound_state.csound, cSoundArgsCount, cSoundArgs);
     mq_print_csound_return_code("cSoundCompile", _mq_csound_state.compile_result);
@@ -227,7 +240,6 @@ bool CsoundWrapper::mq_start(bool bundle)
 
         return false;
     }
-
 
     // Start performance thread
     _mq_csound_state.run_performance_thread = true;
@@ -265,21 +277,6 @@ void CsoundWrapper::mq_stop()
 void CsoundWrapper::mq_set_log_level(mq_s32_t level) const
 {
     mq_log_level = level;
-}
-
-void CsoundWrapper::mq_set_opcode_path(mq_str_t path)
-{
-    
-}
-
-void CsoundWrapper::mq_set_audio_path(mq_str_t path)
-{
-    
-}
-
-void CsoundWrapper::mq_set_csd_path(mq_str_t path)
-{
-    
 }
 
 void CsoundWrapper::mq_get_chn_ctrl_output(MYFLT& value, const char *name) const
@@ -427,7 +424,7 @@ void CsoundWrapper::mq_create_segment_table(SegmentTable* const table)
     while (!mq_table_exists(table->number));
 }
 
-const mq_s32_t CsoundWrapper::mq_get_table_data(const mq_s32_t tableNumber, mq_f32_list_t* const data)
+const mq_s32_t CsoundWrapper::mq_get_table_data(const mq_s32_t tableNumber, mq_f32_list_t *const data)
 {
     mq_s32_t length = -1;
     
@@ -482,7 +479,7 @@ const mq_s32_t CsoundWrapper::mq_get_table_data(const mq_s32_t tableNumber, mq_f
     return length;
 }
 
-void CsoundWrapper::mq_set_table_data(const mq_s32_t table, const mq_f32_list_t* const data)
+void CsoundWrapper::mq_set_table_data(const mq_s32_t table, const mq_f32_list_t *const data)
 {
     if (table == TABLE_UNDEFINED)
     {
@@ -544,7 +541,7 @@ bool CsoundWrapper::mq_table_exists(mq_s32_t tableNumber)
     }
 
     mq_s32_t length = -1;
-    MYFLT* tablePtr = NULL;    
+    MYFLT *tablePtr = NULL;
     _mq_csound_state.yield_performance_thread = true;
     
     while (!_mq_csound_state.performance_thread_yield);
@@ -599,7 +596,30 @@ bool CsoundWrapper::mq_get_perf_thread_running() const
     return _mq_perf_thread_running;
 }
 
-void CsoundWrapper::set_perf_thread_running(bool running)
+void CsoundWrapper::mq_set_perf_thread_running(bool running)
 {
     _mq_perf_thread_running = running;
+}
+
+bool CsoundWrapper::mq_set_global_env(const char *name, const char *value)
+{
+    mq_s32_t status = csoundSetGlobalEnv(name, value);
+#ifdef DEBUG
+    mq_print_csound_return_code("csoundSetGlobalEnv", status);
+#endif
+    
+    bool success = status == CSOUND_SUCCESS;
+    
+    if (!success)
+    {
+        char log_message_error[100];
+        sprintf(log_message_error, "Setting environment variable '%s' to value '%s' failed", name, value);
+        MQ_LOG_FATAL(log_message_error);
+    }
+    
+    char log_message[100];
+    sprintf(log_message, "Set environment variable '%s' to value '%s'", name, value);
+    MQ_LOG_DEBUG(log_message);
+    
+    return success;
 }

@@ -469,7 +469,7 @@
 					"$(PROJECT_DIR)/ext/csound/release/inc",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ext/csound/release/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = test_modiqus;
@@ -494,7 +494,7 @@
 					"$(PROJECT_DIR)/ext/csound/release/inc",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ext/csound/release/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = test_modiqus;

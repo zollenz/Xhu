@@ -27,6 +27,13 @@
 
 static const mq_f64_t PI = atan(1) * 4;
 
+inline bool mq_approximately_equals(const mq_f32_t value_1, const mq_f32_t value_2)
+{
+    const mq_f32_t difference = std::abs(value_1 - value_2);
+    
+    return difference < EPSILON;
+}
+
 inline mq_f32_t mq_lerp(mq_f32_t min_value, mq_f32_t max_value, mq_f32_t amount)
 {
     return min_value + (max_value - min_value) * amount;

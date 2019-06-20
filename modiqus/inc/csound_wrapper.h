@@ -79,9 +79,6 @@ public:
     void mq_set_log_level(mq_s32_t level) const;
     bool mq_start(bool bundle);
     void mq_stop();
-    void mq_set_opcode_path(mq_str_t path);
-    void mq_set_audio_path(mq_str_t path);
-    void mq_set_csd_path(mq_str_t path);
     void mq_get_chn_ctrl_output(MYFLT& value, const char *name) const;
     void mq_set_chn_ctrl_value(MYFLT value, const char *name) const;
     void mq_send_message(const char* message) const;
@@ -99,7 +96,11 @@ public:
     const mq_s32_t mq_get_control_size() const;
     const mq_f32_t mq_get_control_period() const;
     bool mq_get_perf_thread_running() const;
-    void set_perf_thread_running(bool running);
+    void mq_set_perf_thread_running(bool running);
+    bool mq_set_global_env(const char *name, const char *value);
+    void mq_set_opcode_path(const char *path);
+    void mq_set_csd_path(const char *path);
+    void mq_set_audio_path(const char *path);
     
 private:
     

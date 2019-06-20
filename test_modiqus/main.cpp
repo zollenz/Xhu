@@ -28,9 +28,9 @@ int main(int argc, const char * argv[])
 {
     atexit(cleanup);
     CsoundWrapper* csound = new CsoundWrapper();
-    mq_log_level = MQ_LOG_LEVEL_INFO;
+    mq_log_level = MQ_LOG_LEVEL_DEBUG;
     mq_log_with_func_info = false;
-    
+
     if (!csound->mq_start(false))
     {
         MQ_LOG_FATAL("Modiqus engine failed initialization")
@@ -42,13 +42,12 @@ int main(int argc, const char * argv[])
         MQ_LOG_INFO("Modiqus engine initialized")
     }
 
-    MQ_LOG_INFO("Hello, World!\n")
-    
     csound->mq_send_message("i1 0 1");
-  
+
     mq_pause(5);
 
     csound->mq_stop();
+    
     return 0;
 }
 
