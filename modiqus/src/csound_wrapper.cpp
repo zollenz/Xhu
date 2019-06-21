@@ -359,69 +359,103 @@ const mq_f32_t CsoundWrapper::mq_get_control_period() const
     return 1.0f / mq_get_sample_rate() * mq_get_control_size(); // ksmps duration
 }
 
-void CsoundWrapper::mq_create_sample_table(SampleTable* const table)
+void CsoundWrapper::mq_create_sample_table(mq_sample_table_t* const table)
 {
-    mq_str_t message = "f " + mq_to_string<mq_s32_t>(table->number) + " 0 0 ";
-    message += mq_to_string<mq_s32_t>(table->GENRoutine) + " \"" + table->filcod + "\" ";
-    message += mq_to_string<mq_f32_t>(table->skiptime) + " ";
-    message += mq_to_string<mq_s32_t>(table->format) + " ";
-    message += mq_to_string<mq_s32_t>(table->channel);
-	mq_send_message(message.c_str());
+    char message[128];
+    sprintf(
+            message,
+            "f %u 0 0 %u \"%s\" %f %u %u",
+            table->base.number,
+            table->base.gen_routine,
+            table->filcod,
+            table->skip_time,
+            table->format,
+            table->channel
+            );
+    mq_send_message(message);
     
-    while (!mq_table_exists(table->number));
+    while (!mq_table_exists(table->base.number)); // TODO: replace with safer solution
 }
 
-void CsoundWrapper::mq_create_immediate_table(ImmediateTable* const table)
+void CsoundWrapper::mq_create_immediate_table(mq_immediate_table_t* const table)
 {
-    mq_list_size_t numTables = table->tableNums.size();
-    mq_str_t message = "f " + mq_to_string<mq_s32_t>(table->number) + " 0 ";
-    message += mq_to_string<mq_s32_t>(table->size)  + " -2";
-
-    for (mq_list_size_t i = 0; i < numTables; i++)
+    if (table->value_count > table->base.size)
     {
-        message += " " + mq_to_string<mq_s32_t>(table->tableNums[i]);
+        MQ_LOG_ERROR("Value count can not exceed table size for immediate table.")
+        return;
     }
-        
-	mq_send_message(message.c_str());
     
-    while (!mq_table_exists(table->number)); // TODO: replace with safer solution
+    mq_u32_t values_string_size = 2 * table->value_count + 1;
+    char values_string[values_string_size];
+    
+    for (mq_u32_t i = 0; i < table->value_count; i += 2)
+    {
+        values_string[i] = ' ';
+        values_string[i + 1] = table->values[i];
+    }
+    
+    values_string[values_string_size] = '\0';
+    
+    char message[values_string_size + 64];
+    
+    sprintf(
+            message,
+            "f %u 0 0 %u %s",
+            table->base.number,
+            table->base.gen_routine,
+            values_string
+            );
+    
+	mq_send_message(message);
+    
+    while (!mq_table_exists(table->base.number)); // TODO: replace with safer solution
 }
 
-void CsoundWrapper::mq_create_segment_table(SegmentTable* const table)
-{    
-    mq_list_size_t numSegments = table->segments.size();
-
-	// Check segment/tablesize integrity
-    mq_f32_t totalLength = 0;
-
-	for (mq_list_size_t i = 0; i < numSegments; i++)
-    {
-		totalLength += table->segments.at(i).length;
-	}
-    
-    if (totalLength < table->size)
-    {
-        MQ_LOG_WARN("Segment length sum is less than table size. Padding table end with zeros.");
-    }
-    
-    if (totalLength > table->size)
-    {
-        MQ_LOG_WARN("Segment length sum is bigger than table size. Excess segments will not be included.");
-    }
-    
-	//Create score event:
-    mq_str_t message = "f " + mq_to_string<mq_s32_t>(table->number);
-    message += " 0 " + mq_to_string<mq_s32_t>(table->size) + " -7";
-    
-    for (mq_s32_t i = 0; i < numSegments; i++)
-    {
-        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).value);
-        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).length);
-    }
-	
-	mq_send_message(message.c_str());
-    
-    while (!mq_table_exists(table->number));
+void CsoundWrapper::mq_create_segment_table(mq_segment_table_t* const table)
+{
+//    mq_u32_t segments_string_size = 4 * table->segment_count + 1;
+//    char segments_string[segments_string_size];
+//    mq_f32_t total_length = 0;
+//
+//    for (mq_u32_t i = 0; i < table->segment_count; ++i)
+//    {
+//        segments_string[i] = " ";
+//        char value_string[1079];
+//        segments_string[i] = "";
+//        segments_string[i] = " ";
+//        segments_string[i] = "";
+//        total_length += table->segments[i].length;
+//    }
+//
+//    if (total_length < table->base.size)
+//    {
+//        MQ_LOG_WARN("Segment length sum is less than table size. Padding table end with zeros.");
+//    }
+//
+//    if (total_length > table->base.size)
+//    {
+//        MQ_LOG_WARN("Segment length sum is bigger than table size. Excess segments will not be included.");
+//    }
+//
+//    for (mq_u32_t i = 0; i < numSegments; i++)
+//    {
+//        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).value);
+//        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).length);
+//    }
+//
+//
+////    mq_str_t message = "f " + mq_to_string<mq_s32_t>(table->number);
+////    message += " 0 " + mq_to_string<mq_s32_t>(table->size) + " -7";
+////
+////    for (mq_s32_t i = 0; i < numSegments; i++)
+////    {
+////        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).value);
+////        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).length);
+////    }
+//
+//    mq_send_message(message);
+//
+//    while (!mq_table_exists(table->number));
 }
 
 const mq_s32_t CsoundWrapper::mq_get_table_data(const mq_s32_t tableNumber, mq_f32_list_t *const data)
@@ -491,7 +525,7 @@ void CsoundWrapper::mq_set_table_data(const mq_s32_t table, const mq_f32_list_t 
     
     while (!_mq_csound_state.performance_thread_yield);
     
-    mq_list_size_t dataSize = data->size();
+    mq_array_size_t dataSize = data->size();
     
     for (mq_s32_t i = 0; i < dataSize; i++)
     {

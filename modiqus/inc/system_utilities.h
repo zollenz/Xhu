@@ -41,7 +41,7 @@ inline mq_str_t mq_to_string(const T& input)
     return stream.str();
 }
 
-inline const mq_s32_t mq_size_to_int(const mq_list_size_t value)
+inline const mq_s32_t mq_size_to_int(const mq_array_size_t value)
 {
     if (value <= INT_MAX)
     {
@@ -52,7 +52,7 @@ inline const mq_s32_t mq_size_to_int(const mq_list_size_t value)
     return -1;
 }
 
-inline void mq_pause(mq_list_size_t seconds)
+inline void mq_pause(mq_array_size_t seconds)
 {
     clock_t goal = clock() + seconds * CLOCKS_PER_SEC;
     while (goal > clock());

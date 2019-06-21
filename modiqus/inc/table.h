@@ -21,23 +21,30 @@
 #define TABLE_H
 
 typedef struct {
-    mq_f32_t number;
+    mq_u32_t number;
     mq_f32_t start;
-    mq_f32_t size;
-    mq_f32_t gen_routine;
+    mq_u32_t size;
+    mq_u32_t gen_routine;
 } mq_base_table_t;
 
 typedef struct {
     mq_base_table_t base;
-    mq_str_t filcod;
+    const char *filcod;
     mq_f32_t skip_time;
-    mq_s32_t format;
-    mq_s32_t channel;
+    mq_u32_t format;
+    mq_u32_t channel;
 } mq_sample_table_t;
 
 typedef struct {
     mq_base_table_t base;
     mq_f32_t *values;
+    mq_u32_t value_count;
 } mq_immediate_table_t;
+
+typedef struct {
+    mq_base_table_t base;
+    mq_segment_t *segments;
+    mq_u32_t segment_count;
+} mq_segment_table_t;
 
 #endif /* tables_h */

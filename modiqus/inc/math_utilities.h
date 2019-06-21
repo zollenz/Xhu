@@ -20,8 +20,8 @@
 #ifndef MATH_UTILITIES_H
 #define MATH_UTILITIES_H
 
-#include <cmath>
-#include <cfloat>
+#include <math.h>
+#include <float.h>
 
 #include "system_utilities.h"
 
@@ -29,7 +29,7 @@ static const mq_f64_t PI = atan(1) * 4;
 
 inline bool mq_approximately_equals(const mq_f32_t value_1, const mq_f32_t value_2)
 {
-    const mq_f32_t difference = std::abs(value_1 - value_2);
+    const mq_f32_t difference = abs(value_1 - value_2);
     
     return difference < EPSILON;
 }

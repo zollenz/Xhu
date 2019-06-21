@@ -21,48 +21,7 @@
 #define CSOUND_WRAPPER_H
 
 #include "csound.h"
-
-struct Table
-{
-    mq_s32_t number;
-    mq_s32_t start;
-    mq_s32_t size;
-    mq_s32_t GENRoutine;
-
-    Table();
-
-    void reset();
-};
-
-struct SampleTable : public Table
-{
-    mq_str_t filcod;
-    mq_f32_t skiptime;
-    mq_s32_t format;
-    mq_s32_t channel;
-
-    SampleTable();
-
-    void reset();
-};
-
-struct ImmediateTable : public Table
-{
-    mq_s32_list_t tableNums;
-
-    ImmediateTable();
-
-    void reset();
-};
-
-struct SegmentTable : public Table
-{
-    mq_segment_list_t segments;
-    
-    SegmentTable();
-    
-    void reset();
-};
+#include "table.h"
 
 typedef struct {
     CSOUND* csound;
@@ -83,9 +42,9 @@ public:
     void mq_set_chn_ctrl_value(MYFLT value, const char *name) const;
     void mq_send_message(const char* message) const;
     void mq_send_score_event(const char type, MYFLT* parameters, mq_s32_t numParameters);
-    void mq_create_sample_table(SampleTable* const table);
-    void mq_create_immediate_table(ImmediateTable* const table);
-    void mq_create_segment_table(SegmentTable* const table);
+    void mq_create_sample_table(mq_sample_table_t* const table);
+    void mq_create_immediate_table(mq_immediate_table_t* const table);
+    void mq_create_segment_table(mq_segment_table_t* const table);
     const mq_s32_t mq_get_table_data(const mq_s32_t tableNumber, mq_f32_list_t* const data);
     void mq_set_table_data(const mq_s32_t table, const mq_f32_list_t* const data);
     const mq_f32_t mq_get_table_val(const mq_s32_t table, const mq_s32_t index);
