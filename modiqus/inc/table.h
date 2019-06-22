@@ -29,7 +29,7 @@ typedef struct {
 
 typedef struct {
     mq_base_table_t base;
-    const char *filcod;
+    const char *filename;
     mq_f32_t skip_time;
     mq_u32_t format;
     mq_u32_t channel;
@@ -40,6 +40,11 @@ typedef struct {
     mq_f32_t *values;
     mq_u32_t value_count;
 } mq_immediate_table_t;
+
+typedef struct {
+    mq_f32_t value;
+    mq_u32_t length;
+} mq_segment_t;
 
 typedef struct {
     mq_base_table_t base;

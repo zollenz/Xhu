@@ -367,7 +367,7 @@ void CsoundWrapper::mq_create_sample_table(mq_sample_table_t* const table)
             "f %u 0 0 %u \"%s\" %f %u %u",
             table->base.number,
             table->base.gen_routine,
-            table->filcod,
+            table->filename,
             table->skip_time,
             table->format,
             table->channel
@@ -458,20 +458,20 @@ void CsoundWrapper::mq_create_segment_table(mq_segment_table_t* const table)
 //    while (!mq_table_exists(table->number));
 }
 
-const mq_s32_t CsoundWrapper::mq_get_table_data(const mq_s32_t tableNumber, mq_f32_list_t *const data)
+const mq_s32_t CsoundWrapper::mq_get_table_data(const mq_s32_t table_id, mq_float_t *data)
 {
     mq_s32_t length = -1;
     
-    if (tableNumber == 0)
+    if (table_id == 0)
     {
-        MQ_LOG_ERROR("Could not retrieve data. Table is undefined.")
+        MQ_LOG_ERROR("Table ID is undefined.")
         
         return length;
     }
     
     if (data == NULL)
     {
-        MQ_LOG_ERROR("NULL arg pointer, could not return data.")
+        MQ_LOG_ERROR("Data pointer is NULL.")
         
         return length;
     }
@@ -479,41 +479,28 @@ const mq_s32_t CsoundWrapper::mq_get_table_data(const mq_s32_t tableNumber, mq_f
     _mq_csound_state.yield_performance_thread = true;
 
     while (!_mq_csound_state.performance_thread_yield);
-    
-    char log_message[100];
-    sprintf(log_message, "Retrieving data for table %d", tableNumber);
-    MQ_LOG_DEBUG(log_message);
 
-    MYFLT* tempDataPtr = NULL;
-    length = csoundGetTable(_mq_csound_state.csound, &tempDataPtr, tableNumber);
+    length = csoundGetTable(_mq_csound_state.csound, &data, table_id);
     
-    if (length >= 0 && tempDataPtr != NULL)
+    if (length >= 0)
     {
-        data->clear();
-        data->resize(length);
-        
-        for (mq_s32_t i = 0; i < length; i++)
-        {
-            data->at(i) = tempDataPtr[i];
-            //        samples[i] = tempSamples[i] / CSOUND_0DBFS;
-            //        MQ_LOG_DEBUG("samples[" + toString<S32>(i) + "] = " + toString<F32>(samples[i]));
-        }
+        char log_message[100];
+        sprintf(log_message, "Got data for table %d", table_id);
+        MQ_LOG_DEBUG(log_message);
     }
-#ifdef DEBUG
     else
     {
         char log_message[100];
-        sprintf(log_message, "Could not retrieve data for table %d. Table does not exist.", tableNumber);
+        sprintf(log_message, "Could not get data for table %d. Table does not exist.", table_id);
         MQ_LOG_ERROR(log_message)
     }
-#endif
     
     _mq_csound_state.yield_performance_thread = false;
     
     return length;
 }
 
-void CsoundWrapper::mq_set_table_data(const mq_s32_t table, const mq_f32_list_t *const data)
+void CsoundWrapper::mq_set_table_data(const mq_s32_t table, const mq_float_t *const data, mq_u32_t data_count)
 {
     if (table == TABLE_UNDEFINED)
     {
@@ -525,11 +512,9 @@ void CsoundWrapper::mq_set_table_data(const mq_s32_t table, const mq_f32_list_t 
     
     while (!_mq_csound_state.performance_thread_yield);
     
-    mq_array_size_t dataSize = data->size();
-    
-    for (mq_s32_t i = 0; i < dataSize; i++)
+    for (mq_u32_t i = 0; i < data_count; ++i)
     {
-        csoundTableSet(_mq_csound_state.csound, table, i, data->at(i));
+        csoundTableSet(_mq_csound_state.csound, table, i, data[i]);
     }
     
     _mq_csound_state.yield_performance_thread = false;
@@ -600,27 +585,28 @@ bool CsoundWrapper::mq_table_exists(mq_s32_t tableNumber)
     return exists;
 }
 
-void CsoundWrapper::mq_delete_table(const mq_s32_t tableNum)
+void CsoundWrapper::mq_delete_table(const mq_s32_t table_id)
 {
-    if (tableNum == TABLE_UNDEFINED)
+    if (table_id == TABLE_UNDEFINED)
     {
         MQ_LOG_DEBUG("Table is undefined.")
         
         return;
     }
     
-    if (mq_table_exists(tableNum)) {
-        char log_message[100];
-        sprintf(log_message, "Deleting table %d", tableNum);
-        MQ_LOG_DEBUG(log_message)
+    if (mq_table_exists(table_id)) {
+        char message[50];
+        sprintf(message, "f -%d 0", table_id);
+        mq_send_message(message);
         
-        mq_str_t message = "f -" + mq_to_string<mq_s32_t>(tableNum) + " 0";
-        mq_send_message(message.c_str());
+        char log_message[100];
+        sprintf(log_message, "Deleted table %d", table_id);
+        MQ_LOG_DEBUG(log_message)
     }
     else
     {
         char log_message[100];
-        sprintf(log_message, "Table %d does not exist.", tableNum);
+        sprintf(log_message, "Table %d does not exist.", table_id);
         MQ_LOG_DEBUG(log_message)
     }
 }

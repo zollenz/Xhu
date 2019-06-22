@@ -24,22 +24,7 @@
 #include <mach-o/dyld.h>
 #endif
 
-#include <sstream>
 #include "debug.h"
-
-template<class T>
-inline mq_str_t mq_to_string(const T& input)
-{
-    std::ostringstream stream;
-    stream << input;
-    
-    //        if (stream.fail()) {
-    //            std::runtime_error e(numberAsString);
-    //            throw e;
-    //        }
-    
-    return stream.str();
-}
 
 inline const mq_s32_t mq_size_to_int(const mq_array_size_t value)
 {

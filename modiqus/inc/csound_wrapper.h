@@ -34,7 +34,6 @@ typedef struct {
 class CsoundWrapper
 {
 public:
-    
     void mq_set_log_level(mq_s32_t level) const;
     bool mq_start(bool bundle);
     void mq_stop();
@@ -45,8 +44,8 @@ public:
     void mq_create_sample_table(mq_sample_table_t* const table);
     void mq_create_immediate_table(mq_immediate_table_t* const table);
     void mq_create_segment_table(mq_segment_table_t* const table);
-    const mq_s32_t mq_get_table_data(const mq_s32_t tableNumber, mq_f32_list_t* const data);
-    void mq_set_table_data(const mq_s32_t table, const mq_f32_list_t* const data);
+    const mq_s32_t mq_get_table_data(const mq_s32_t tableNumber, mq_float_t* const data);
+    void mq_set_table_data(const mq_s32_t table, const mq_float_t *const data, mq_u32_t data_count);
     const mq_f32_t mq_get_table_val(const mq_s32_t table, const mq_s32_t index);
     bool mq_table_exists(const mq_s32_t tableNumber);
     void mq_delete_table(const mq_s32_t tableNumber);
@@ -60,9 +59,7 @@ public:
     void mq_set_opcode_path(const char *path);
     void mq_set_csd_path(const char *path);
     void mq_set_audio_path(const char *path);
-    
-private:
-    
+private:    
     mq_csound_state_t _mq_csound_state;
     volatile bool _mq_perf_thread_running;
 };

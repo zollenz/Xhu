@@ -20,11 +20,7 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-#include <climits>
-#include <stdint.h>
-#include <stddef.h>
-#include <string>
-#include <vector>
+#include "csound.h"
 
 #ifdef __LP64__
 typedef unsigned long mq_array_size_t;
@@ -41,10 +37,8 @@ typedef uint64_t mq_u64_t;
 typedef int64_t mq_s64_t;
 typedef float mq_f32_t;
 typedef double mq_f64_t;
+typedef MYFLT mq_float_t;
 typedef size_t mq_mem_size_t;
-typedef std::string mq_str_t;
-typedef std::vector<mq_s32_t> mq_s32_list_t;
-typedef std::vector<mq_f32_t> mq_f32_list_t;
 
 static const mq_s32_t SRATE = 44100;
 static const mq_s32_t KRATE = 4410;
@@ -52,16 +46,9 @@ static const mq_s32_t KSMPS = SRATE / KRATE;
 static const mq_s32_t BUFFER_SIZE = 512;
 static const mq_s32_t INDEX_INVALID = -1;
 static const mq_s32_t TABLE_UNDEFINED = 0;
-static const char *UNDEFINED_STR = "UNDEFINED";
 static const mq_s32_t UNDEFINED_INT = -1;
 static const mq_s32_t HAS_DATA = 1;
 static const mq_f32_t EPSILON = 0.001f;
-
-typedef struct {
-    mq_f32_t value;
-    mq_u32_t length;
-} mq_segment_t;
-
-typedef std::vector<mq_segment_t> mq_segment_list_t;
+static const char *const UNDEFINED_STRING = "UNDEFINED";
 
 #endif //TYPES_H
