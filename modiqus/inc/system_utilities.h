@@ -24,6 +24,7 @@
 #include <mach-o/dyld.h>
 #endif
 
+#include <time.h>
 #include "debug.h"
 
 inline const mq_s32_t mq_size_to_int(const mq_array_size_t value)

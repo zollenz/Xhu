@@ -17,6 +17,8 @@
 		BF7EC9D122B1897D00D51F97 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C922B1897D00D51F97 /* types.h */; };
 		BF7EC9D322B18E1A00D51F97 /* table.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9D222B18E1A00D51F97 /* table.h */; };
 		BF7EC9D522B1A01100D51F97 /* csound_wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9D422B1A01100D51F97 /* csound_wrapper.h */; };
+		BF7F089722C09BAB007FEA4A /* channel.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7F089622C09BAB007FEA4A /* channel.h */; };
+		BF7F089922C09FF6007FEA4A /* instrument.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7F089822C09FF6007FEA4A /* instrument.h */; };
 		BF92230B18BA2CFF00EFD7E8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF92230A18BA2CFF00EFD7E8 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +57,8 @@
 		BF7EC9C922B1897D00D51F97 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		BF7EC9D222B18E1A00D51F97 /* table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = table.h; sourceTree = "<group>"; };
 		BF7EC9D422B1A01100D51F97 /* csound_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_wrapper.h; sourceTree = "<group>"; };
+		BF7F089622C09BAB007FEA4A /* channel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = channel.h; sourceTree = "<group>"; };
+		BF7F089822C09FF6007FEA4A /* instrument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = instrument.h; sourceTree = "<group>"; };
 		BF92230818BA2CFF00EFD7E8 /* test_modiqus */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test_modiqus; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF92230A18BA2CFF00EFD7E8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,6 +114,8 @@
 				BF7EC9C822B1897D00D51F97 /* system_utilities.h */,
 				BF7EC9D222B18E1A00D51F97 /* table.h */,
 				BF7EC9C922B1897D00D51F97 /* types.h */,
+				BF7F089622C09BAB007FEA4A /* channel.h */,
+				BF7F089822C09FF6007FEA4A /* instrument.h */,
 			);
 			name = inc;
 			path = modiqus/inc;
@@ -156,8 +162,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF7F089722C09BAB007FEA4A /* channel.h in Headers */,
 				BF7EC9D322B18E1A00D51F97 /* table.h in Headers */,
 				BF7EC9CF22B1897D00D51F97 /* modiqus.h in Headers */,
+				BF7F089922C09FF6007FEA4A /* instrument.h in Headers */,
 				BF7EC9D522B1A01100D51F97 /* csound_wrapper.h in Headers */,
 				BF7EC9CE22B1897D00D51F97 /* math_utilities.h in Headers */,
 				BF7EC9D022B1897D00D51F97 /* system_utilities.h in Headers */,

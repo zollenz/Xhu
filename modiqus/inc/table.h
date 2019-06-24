@@ -52,4 +52,4 @@ typedef struct {
     mq_u32_t segment_count;
 } mq_segment_table_t;
 
-#endif /* tables_h */
+#endif /* TABLE_H */

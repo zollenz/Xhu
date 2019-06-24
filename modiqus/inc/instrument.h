@@ -17,16 +17,17 @@
  *
  */
 
-#ifndef MODIQUS_H
-#define MODIQUS_H
+#ifndef INSTRUMENT_H
+#define INSTRUMENT_H
 
-#include "types.h"
-#include "debug.h"
-#include "math_utilities.h"
-#include "system_utilities.h"
-#include "csound_wrapper.h"
-#include "table.h"
-#include "instrument.h"
-#include "channel.h"
+#define MQ_MAX_INSTANCE_NUMBER (999999)
+#define MQ_MAX_INSTANCES_PER_INSTRUMENT (10)
 
-#endif // MODIQUS_H
+typedef struct {
+    const char* name;
+    mq_u32_t instanceNumber;
+    mq_u32_t instrument_number;
+    bool active;
+} mq_instrument_instance_t;
+
+#endif // INSTRUMENT_H

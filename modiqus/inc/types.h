@@ -51,4 +51,4 @@ static const mq_s32_t HAS_DATA = 1;
 static const mq_f32_t EPSILON = 0.001f;
 static const char *const UNDEFINED_STRING = "UNDEFINED";
 
-#endif //TYPES_H
+#endif // TYPES_H

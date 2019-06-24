@@ -17,16 +17,15 @@
  *
  */
 
-#ifndef MODIQUS_H
-#define MODIQUS_H
+#ifndef CHANNEL_H
+#define CHANNEL_H
 
-#include "types.h"
-#include "debug.h"
-#include "math_utilities.h"
-#include "system_utilities.h"
-#include "csound_wrapper.h"
-#include "table.h"
-#include "instrument.h"
-#include "channel.h"
 
-#endif // MODIQUS_H
+typedef struct {
+    const char* name;
+    mq_u32_t instrument_instance;
+} mq_channel_t;
+
+
+
+#endif // CHANNEL_H

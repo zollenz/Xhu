@@ -128,4 +128,4 @@ do { mq_log(message, level, __FILE__, __func__, __LINE__); } while (0);
 #define MQ_LOG_INFO(message) MQ_LOG_MESSAGE(MQ_LOG_LEVEL_INFO, message)
 #define MQ_LOG_DEBUG(message) MQ_LOG_MESSAGE(MQ_LOG_LEVEL_DEBUG, message)
 
-#endif //DEBUG_H
+#endif // DEBUG_H

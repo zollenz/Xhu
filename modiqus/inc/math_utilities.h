@@ -151,4 +151,4 @@ inline mq_f64_t mq_hann_func(const unsigned int n, const unsigned int n_max)
     return 0.5 * (1 - cos((2 * PI * n) / (mq_f64_t)(n_max - 1)));
 }
 
-#endif //MATH_UTILITIES_H
+#endif // MATH_UTILITIES_H

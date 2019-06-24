@@ -19,22 +19,21 @@
 
 #include "modiqus.h"
 
-void cleanup(void)
+void on_exit(void)
 {
     puts ("Goodbye, cruel world....");
 }
 
 int main(int argc, const char * argv[])
 {
-    atexit(cleanup);
-    CsoundWrapper* csound = new CsoundWrapper();
+    atexit(on_exit);
     mq_log_level = MQ_LOG_LEVEL_DEBUG;
     mq_log_with_func_info = false;
 
-    if (!csound->mq_start(false))
+    if (!mq_start(false))
     {
         MQ_LOG_FATAL("Modiqus engine failed initialization")
-        csound->mq_stop();
+        mq_stop();
         exit(EXIT_FAILURE);
     }
     else
@@ -42,11 +41,9 @@ int main(int argc, const char * argv[])
         MQ_LOG_INFO("Modiqus engine initialized")
     }
 
-    csound->mq_send_message("i1 0 1");
-
+    mq_send_message("i1 0 1");
     mq_pause(5);
-
-    csound->mq_stop();
+    mq_stop();
     
     return 0;
 }
