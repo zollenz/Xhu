@@ -22,24 +22,23 @@
 
 #include <math.h>
 #include <float.h>
-
 #include "system_utilities.h"
 
-static const mq_f64_t PI = atan(1) * 4;
+#define EPSILON 0.001f;
 
-inline bool mq_approximately_equals(const mq_f32_t value_1, const mq_f32_t value_2)
+bool mq_approximately_equals(const mq_f32_t value_1, const mq_f32_t value_2)
 {
-    const mq_f32_t difference = abs(value_1 - value_2);
+    const mq_f32_t difference = fabs(value_1 - value_2);
     
     return difference < EPSILON;
 }
 
-inline mq_f32_t mq_lerp(mq_f32_t min_value, mq_f32_t max_value, mq_f32_t amount)
+mq_f32_t mq_lerp(mq_f32_t min_value, mq_f32_t max_value, mq_f32_t amount)
 {
     return min_value + (max_value - min_value) * amount;
 }
 
-inline void mq_normalize(mq_f32_t* data, const mq_s32_t size, const mq_f32_t threshold)
+void mq_normalize(mq_f32_t* data, const mq_s32_t size, const mq_f32_t threshold)
 {
     mq_s32_t i;
     mq_f32_t next_val = 0.0f;
@@ -47,7 +46,7 @@ inline void mq_normalize(mq_f32_t* data, const mq_s32_t size, const mq_f32_t thr
     
     for (i = 0; i < size; i++)
     {
-        next_val = abs(data[i]);
+        next_val = fabs(data[i]);
 
         if (max_val < next_val)
         {
@@ -68,7 +67,7 @@ inline void mq_normalize(mq_f32_t* data, const mq_s32_t size, const mq_f32_t thr
     }
 }
 
-inline const mq_f32_t mq_euclid_dist_squared(const mq_f32_t* const vector_a, const mq_f32_t* const vector_b, const mq_s32_t size)
+const mq_f32_t mq_euclid_dist_squared(const mq_f32_t* const vector_a, const mq_f32_t* const vector_b, const mq_s32_t size)
 {
     mq_f32_t single_dist = 0.0f;
     mq_f32_t acc_dist = 0.0f;
@@ -82,12 +81,12 @@ inline const mq_f32_t mq_euclid_dist_squared(const mq_f32_t* const vector_a, con
     return acc_dist;
 }
 
-inline const mq_f32_t mq_euclid_dist(const mq_f32_t* const vector_a, const mq_f32_t* const vector_b, const mq_s32_t size)
+const mq_f32_t mq_euclid_dist(const mq_f32_t* const vector_a, const mq_f32_t* const vector_b, const mq_s32_t size)
 {
     return sqrt(mq_euclid_dist_squared(vector_a, vector_b, size));
 }
 
-inline mq_f32_t mq_rand_01()
+mq_f32_t mq_rand_01()
 {
     mq_f32_t scale = RAND_MAX + 1.;
     mq_f32_t base = rand() / scale;
@@ -96,7 +95,7 @@ inline mq_f32_t mq_rand_01()
     return base + fine / scale;
 }
 
-inline mq_f32_t mq_rand_in_range(mq_f32_t min, mq_f32_t max)
+mq_f32_t mq_rand_in_range(mq_f32_t min, mq_f32_t max)
 {
     mq_f32_t random = ((mq_f32_t) rand()) / (mq_f32_t) RAND_MAX;
     mq_f32_t diff = max - min;
@@ -105,7 +104,7 @@ inline mq_f32_t mq_rand_in_range(mq_f32_t min, mq_f32_t max)
     return min + r;
 }
 
-inline mq_f32_t mq_mean(const mq_f32_t* data, const mq_s32_t size, const mq_s32_t start_idx, const mq_s32_t end_idx)
+mq_f32_t mq_mean(const mq_f32_t* data, const mq_s32_t size, const mq_s32_t start_idx, const mq_s32_t end_idx)
 {
     if (start_idx < 0 || end_idx < 0 ||
         start_idx >= size || end_idx >= size ||
@@ -126,29 +125,29 @@ inline mq_f32_t mq_mean(const mq_f32_t* data, const mq_s32_t size, const mq_s32_
     return sum / (end_idx - start_idx);
 }
 
-inline mq_f32_t mq_abs_mean(const mq_f32_t* data, const mq_s32_t size, const mq_s32_t start_idx, const mq_s32_t end_idx)
+mq_f32_t mq_abs_mean(const mq_f32_t* data, const mq_s32_t size, const mq_s32_t start_idx, const mq_s32_t end_idx)
 {
-    return abs(mq_mean(data, size, start_idx, end_idx));
+    return fabs(mq_mean(data, size, start_idx, end_idx));
 }
 
-inline mq_f32_t mq_clamp(mq_f32_t val, mq_f32_t min_val, mq_f32_t max_val)
+mq_f32_t mq_clamp(mq_f32_t val, mq_f32_t min_val, mq_f32_t max_val)
 {
     return fmax(min_val, fmin(max_val, val));
 }
 
-inline mq_f32_t mq_round(mq_f32_t val)
+mq_f32_t mq_round(mq_f32_t val)
 {
     return (val > 0.0) ? floor(val + 0.5) : ceil(val - 0.5);
 }
 
-inline mq_s32_t mq_round_to_int(mq_f32_t val)
+mq_s32_t mq_round_to_int(mq_f32_t val)
 {
     return (mq_s32_t)mq_round(val);
 }
 
-inline mq_f64_t mq_hann_func(const unsigned int n, const unsigned int n_max)
+mq_f64_t mq_hann_func(const unsigned int n, const unsigned int n_max)
 {
-    return 0.5 * (1 - cos((2 * PI * n) / (mq_f64_t)(n_max - 1)));
+    return 0.5 * (1 - cos((2 * M_PI * n) / (mq_f64_t)(n_max - 1)));
 }
 
 #endif // MATH_UTILITIES_H

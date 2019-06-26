@@ -17,35 +17,37 @@
  *
  */
 
-#include "modiqus.h"
-#include "csound_wrapper.h"
+#ifndef DEFS_H
+#define DEFS_H
 
-void on_exit(void)
-{
-    puts ("Goodbye, cruel world....");
-}
+#include <stdbool.h>
+#include "csound.h"
 
-int main(int argc, const char * argv[])
-{
-    atexit(on_exit);
-    mq_log_level = MQ_LOG_LEVEL_DEBUG;
-    mq_log_with_func_info = false;
+#ifdef __cplusplus
+#define EXTERN_C extern "C"
+#else
+#define EXTERN_C
+#endif
 
-    if (!mq_start(false))
-    {
-        MQ_LOG_FATAL("Modiqus engine failed initialization")
-        mq_stop();
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        MQ_LOG_INFO("Modiqus engine initialized")
-    }
+#define UNDEFINED_STRING "UNDEFINED"
+#define TABLE_UNDEFINED (0)
 
-    mq_send_message("i1 0 1");
-    mq_pause(5);
-    mq_stop();
-    
-    return 0;
-}
+#ifdef __LP64__
+typedef unsigned long mq_array_size_t;
+#else
+typedef unsigned int mq_array_size_t;
+#endif
+typedef uint8_t mq_u8_t;
+typedef int8_t mq_s8_t;
+typedef uint16_t mq_u16_t;
+typedef int16_t mq_s16_t;
+typedef uint32_t mq_u32_t;
+typedef int32_t mq_s32_t;
+typedef uint64_t mq_u64_t;
+typedef int64_t mq_s64_t;
+typedef float mq_f32_t;
+typedef double mq_f64_t;
+typedef MYFLT mq_float_t;
+typedef size_t mq_mem_size_t;
 
+#endif // DEFS_H

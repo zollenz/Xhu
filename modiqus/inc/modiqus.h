@@ -20,13 +20,13 @@
 #ifndef MODIQUS_H
 #define MODIQUS_H
 
-#include "types.h"
 #include "debug.h"
+#include "defs.h"
 #include "math_utilities.h"
 #include "system_utilities.h"
-#include "csound_wrapper.h"
 #include "table.h"
 #include "instrument.h"
 #include "channel.h"
+#include "csound_wrapper.h"
 
 #endif // MODIQUS_H

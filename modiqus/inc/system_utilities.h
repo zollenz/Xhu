@@ -26,32 +26,22 @@
 
 #include <time.h>
 #include "debug.h"
+#include "defs.h"
 
-inline const mq_s32_t mq_size_to_int(const mq_array_size_t value)
-{
-    if (value <= INT_MAX)
-    {
-        return static_cast<mq_s32_t>(value);
-    }
-
-    MQ_LOG_ERROR("Size is bigger than INT_MAX. Returning -1");
-    return -1;
-}
-
-inline void mq_pause(mq_array_size_t seconds)
+void mq_pause(mq_array_size_t seconds)
 {
     clock_t goal = clock() + seconds * CLOCKS_PER_SEC;
     while (goal > clock());
 }
 
-inline long mq_get_timestamp_ms()
+long mq_get_timestamp_ms()
 {
     clock_t timestamp = clock() * CLK_TCK;
     
     return (long)(timestamp / 1000);
 }
 
-inline char *mq_get_folder_path(const char *path)
+char *mq_get_folder_path(const char *path)
 {
     if (path == NULL) {
         return NULL;
@@ -70,6 +60,5 @@ inline char *mq_get_folder_path(const char *path)
     
     return folder_path;
 }
-
 
 #endif //SYSTEM_UTILITIES_H

@@ -1,26 +1,28 @@
 /*
- * Copyright (C) 2019 by Martin Dejean
- *
- * This file is part of Modiqus.
- * Modiqus is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Modiqus is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Modiqus.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
+* Copyright (C) 2019 by Martin Dejean
+*
+* This file is part of Modiqus.
+* Modiqus is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Modiqus is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with Modiqus.  If not, see <http://www.gnu.org/licenses/>.
+*
+*/
 
-#include "math_utilities.h"
-#include "system_utilities.h"
-#include "types.h"
+
+#include <time.h>
+#include "debug.h"
 #include "csound_wrapper.h"
+#include "system_utilities.h"
+#include "math_utilities.h"
 
 //#define MACOS_BUNDLE
 
@@ -120,8 +122,8 @@ static void mq_print_csound_return_code(const char *function_name, mq_s32_t retu
 
 uintptr_t csound_thread(void* data)
 {
-    mq_csound_state_t* state = static_cast<mq_csound_state_t*>(data);
-
+    mq_csound_state_t* state = (mq_csound_state_t*)data;
+    
     if (state->compile_result == CSOUND_SUCCESS) {
         _mq_perf_thread_running = true;
         MQ_LOG_DEBUG("Csound performance thread created")
@@ -191,50 +193,49 @@ bool mq_start(bool bundle)
     mq_set_opcode_path(NULL);
     mq_set_csd_path(NULL);
     mq_set_audio_path(NULL);
-
+    
     // Create Csound instance
     _mq_csound_state.csound = csoundCreate(NULL);
-
+    
     if (_mq_csound_state.csound == NULL) {
         MQ_LOG_FATAL( "Csound instance creation failed")
-
         return false;
     }
-
+    
     _mq_perf_thread_running = false;
-
+    
     _mq_csound_state.compile_result = CSOUND_ERROR;
     _mq_csound_state.run_performance_thread = false;
-
+    
     csoundSetMessageCallback(_mq_csound_state.csound, mq_msg_callback);
-
+    
     // Compile orchestra file
     mq_s32_t cSoundArgsCount = 2;
     char* cSoundArgs[cSoundArgsCount];
-    cSoundArgs[0] = const_cast<char *>("csound");
+    cSoundArgs[0] = "csound";
     char temp[strlen(mq_csd_path) + 1];
     strcpy(temp, mq_csd_path);
     cSoundArgs[1] = temp;
     _mq_csound_state.compile_result = csoundCompile(_mq_csound_state.csound, cSoundArgsCount, cSoundArgs);
     mq_print_csound_return_code("cSoundCompile", _mq_csound_state.compile_result);
-
+    
     if (_mq_csound_state.compile_result != CSOUND_SUCCESS) {
         MQ_LOG_FATAL( "Csound .csd compilation failed")
-
+        
         return false;
     }
-
+    
     // Start performance thread
     _mq_csound_state.run_performance_thread = true;
     _mq_csound_state.pause_csound_thread = false;
     _mq_csound_state.csound_thread_paused = false;
-
+    
     if (csoundCreateThread(csound_thread, (void *)&_mq_csound_state) == NULL) {
         MQ_LOG_FATAL( "Csound performance thread creation failed")
-
+        
         return false;
     }
-
+    
     // Wait for performance thread
     while (true) {
         if (_mq_perf_thread_running) {
@@ -242,14 +243,14 @@ bool mq_start(bool bundle)
         }
         mq_pause(1);
     }
-
+    
     // Everything is OK...
     MQ_LOG_DEBUG("Csound wrapper initialized and performance thread running")
     
     return true;
 }
 
-void mq_stop()
+void mq_stop(void)
 {
     _mq_csound_state.run_performance_thread = false;
 }
@@ -259,16 +260,16 @@ void mq_set_log_level(mq_s32_t level)
     mq_log_level = level;
 }
 
-void mq_get_chn_ctrl_output(MYFLT& value, const char *name)
+void mq_get_chn_ctrl_output(MYFLT *value, const char *name)
 {
-    MYFLT* chnPtr = NULL;
+    MYFLT *chnPtr = NULL;
     mq_s32_t chnType = CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
     mq_s32_t result = csoundGetChannelPtr(_mq_csound_state.csound, &chnPtr, name, chnType);
     
     if (result == CSOUND_SUCCESS) {
-        value = *chnPtr;
+        *value = *chnPtr;
         char log_message[100];
-        sprintf(log_message, "Value %f received from channel %s", value, name);
+        sprintf(log_message, "Value %f received from channel %s", *value, name);
         MQ_LOG_DEBUG(log_message)
     } else {
         mq_print_csound_return_code("csoundGetChannelPtr", result);
@@ -299,7 +300,7 @@ void mq_send_message(const char* message)
     char log_message[100];
     sprintf(log_message, "Sending message to Csound:\n%s", message);
     MQ_LOG_DEBUG(log_message);
-	csoundInputMessage(_mq_csound_state.csound, message);
+    csoundInputMessage(_mq_csound_state.csound, message);
 }
 
 void mq_send_score_event(const char type, MYFLT* parameters, mq_s32_t numParameters)
@@ -316,22 +317,22 @@ void mq_send_score_event(const char type, MYFLT* parameters, mq_s32_t numParamet
     }
 }
 
-const mq_s32_t mq_get_sample_rate()
+const mq_s32_t mq_get_sample_rate(void)
 {
     return mq_round_to_int(csoundGetSr(_mq_csound_state.csound));
 }
 
-const mq_s32_t mq_get_control_rate()
+const mq_s32_t mq_get_control_rate(void)
 {
     return csoundGetKr(_mq_csound_state.csound);
 }
 
-const mq_s32_t mq_get_control_size()
+const mq_s32_t mq_get_control_size(void)
 {
     return csoundGetKsmps(_mq_csound_state.csound);
 }
 
-const mq_f32_t mq_get_control_period()
+const mq_f32_t mq_get_control_period(void)
 {
     return 1.0f / mq_get_sample_rate() * mq_get_control_size(); // ksmps duration
 }
@@ -383,56 +384,56 @@ void mq_create_immediate_table(mq_immediate_table_t* const table)
             values_string
             );
     
-	mq_send_message(message);
+    mq_send_message(message);
     
     while (!mq_table_exists(table->base.number)); // TODO: replace with safer solution
 }
 
 void mq_create_segment_table(mq_segment_table_t* const table)
 {
-//    mq_u32_t segments_string_size = 4 * table->segment_count + 1;
-//    char segments_string[segments_string_size];
-//    mq_f32_t total_length = 0;
-//
-//    for (mq_u32_t i = 0; i < table->segment_count; ++i)
-//    {
-//        segments_string[i] = " ";
-//        char value_string[1079];
-//        segments_string[i] = "";
-//        segments_string[i] = " ";
-//        segments_string[i] = "";
-//        total_length += table->segments[i].length;
-//    }
-//
-//    if (total_length < table->base.size)
-//    {
-//        MQ_LOG_WARN("Segment length sum is less than table size. Padding table end with zeros.");
-//    }
-//
-//    if (total_length > table->base.size)
-//    {
-//        MQ_LOG_WARN("Segment length sum is bigger than table size. Excess segments will not be included.");
-//    }
-//
-//    for (mq_u32_t i = 0; i < numSegments; i++)
-//    {
-//        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).value);
-//        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).length);
-//    }
-//
-//
-////    mq_str_t message = "f " + mq_to_string<mq_s32_t>(table->number);
-////    message += " 0 " + mq_to_string<mq_s32_t>(table->size) + " -7";
-////
-////    for (mq_s32_t i = 0; i < numSegments; i++)
-////    {
-////        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).value);
-////        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).length);
-////    }
-//
-//    mq_send_message(message);
-//
-//    while (!mq_table_exists(table->number));
+    //    mq_u32_t segments_string_size = 4 * table->segment_count + 1;
+    //    char segments_string[segments_string_size];
+    //    mq_f32_t total_length = 0;
+    //
+    //    for (mq_u32_t i = 0; i < table->segment_count; ++i)
+    //    {
+    //        segments_string[i] = " ";
+    //        char value_string[1079];
+    //        segments_string[i] = "";
+    //        segments_string[i] = " ";
+    //        segments_string[i] = "";
+    //        total_length += table->segments[i].length;
+    //    }
+    //
+    //    if (total_length < table->base.size)
+    //    {
+    //        MQ_LOG_WARN("Segment length sum is less than table size. Padding table end with zeros.");
+    //    }
+    //
+    //    if (total_length > table->base.size)
+    //    {
+    //        MQ_LOG_WARN("Segment length sum is bigger than table size. Excess segments will not be included.");
+    //    }
+    //
+    //    for (mq_u32_t i = 0; i < numSegments; i++)
+    //    {
+    //        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).value);
+    //        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).length);
+    //    }
+    //
+    //
+    ////    mq_str_t message = "f " + mq_to_string<mq_s32_t>(table->number);
+    ////    message += " 0 " + mq_to_string<mq_s32_t>(table->size) + " -7";
+    ////
+    ////    for (mq_s32_t i = 0; i < numSegments; i++)
+    ////    {
+    ////        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).value);
+    ////        message += " " + mq_to_string<mq_f32_t>(table->segments.at(i).length);
+    ////    }
+    //
+    //    mq_send_message(message);
+    //
+    //    while (!mq_table_exists(table->number));
 }
 
 const mq_s32_t mq_get_table_data(const mq_s32_t table_id, mq_float_t *data)
@@ -454,9 +455,9 @@ const mq_s32_t mq_get_table_data(const mq_s32_t table_id, mq_float_t *data)
     }
     
     _mq_csound_state.pause_csound_thread = true;
-
+    
     while (!_mq_csound_state.csound_thread_paused);
-
+    
     length = csoundGetTable(_mq_csound_state.csound, &data, table_id);
     
     if (length >= 0)
@@ -535,7 +536,7 @@ bool mq_table_exists(mq_s32_t tableNumber)
         
         return exists;
     }
-
+    
     mq_s32_t length = -1;
     MYFLT *tablePtr = NULL;
     _mq_csound_state.pause_csound_thread = true;
@@ -545,7 +546,7 @@ bool mq_table_exists(mq_s32_t tableNumber)
     length = csoundGetTable(_mq_csound_state.csound, &tablePtr, tableNumber);
     _mq_csound_state.pause_csound_thread = false;
     exists = length > 0 && tablePtr != NULL;
-
+    
     char message[100];
     
     if (exists)
@@ -599,12 +600,12 @@ bool mq_set_global_env(const char *name, const char *value)
     
     if (!success)
     {
-        char log_message_error[100];
+        char log_message_error[512];
         sprintf(log_message_error, "Setting environment variable '%s' to value '%s' failed", name, value);
         MQ_LOG_FATAL(log_message_error);
     }
     
-    char log_message[100];
+    char log_message[512];
     sprintf(log_message, "Set environment variable '%s' to value '%s'", name, value);
     MQ_LOG_DEBUG(log_message);
     

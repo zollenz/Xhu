@@ -20,7 +20,8 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include "types.h"
+#include <stdbool.h>
+#include "defs.h"
 
 #define MQ_LOG_LEVEL_MUTE     (1)
 #define MQ_LOG_LEVEL_FATAL    (2)
@@ -32,7 +33,7 @@
 extern mq_s32_t mq_log_level;
 extern bool mq_log_with_func_info;
 
-inline const char* const mq_get_log_level_str(mq_s32_t log_level_value)
+static inline const char* const mq_get_log_level_str(mq_s32_t log_level_value)
 {
     switch (log_level_value) {
         case MQ_LOG_LEVEL_FATAL:
@@ -50,7 +51,8 @@ inline const char* const mq_get_log_level_str(mq_s32_t log_level_value)
     }
 }
 
-inline char *mq_get_filename(const char *path, char dot, char sep)
+
+static inline char *mq_get_filename(const char *path, char dot, char sep)
 {
     char *retstr, *lastdot, *lastsep;
     
@@ -86,7 +88,7 @@ inline char *mq_get_filename(const char *path, char dot, char sep)
     return retstr;
 }
 
-inline void mq_log(const char *message, mq_s32_t level,
+static inline void mq_log(const char *message, mq_s32_t level,
                    const char *caller_file_path, const char *caller_func_name, mq_s32_t line)
 {
     char *filename = mq_get_filename(caller_file_path, '.', '/');
@@ -103,7 +105,7 @@ inline void mq_log(const char *message, mq_s32_t level,
     free(filename);
 }
 
-inline void mq_log_csound(const char* format, va_list args)
+static inline void mq_log_csound(const char* format, va_list args)
 {
     if (mq_log_level == MQ_LOG_LEVEL_DEBUG) {
         printf("[Csound] ");

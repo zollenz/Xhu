@@ -20,12 +20,9 @@
 #ifndef CHANNEL_H
 #define CHANNEL_H
 
-
 typedef struct {
     const char* name;
     mq_u32_t instrument_instance;
 } mq_channel_t;
-
-
 
 #endif // CHANNEL_H
