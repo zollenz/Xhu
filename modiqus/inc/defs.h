@@ -20,7 +20,7 @@
 #ifndef DEFS_H
 #define DEFS_H
 
-#include <stdbool.h>
+#include <stdint.h>
 #include "csound.h"
 
 #ifdef __cplusplus

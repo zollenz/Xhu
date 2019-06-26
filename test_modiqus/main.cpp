@@ -18,7 +18,6 @@
  */
 
 #include "modiqus.h"
-#include "csound_wrapper.h"
 
 void on_exit(void)
 {

@@ -20,8 +20,6 @@
 #ifndef CSOUND_WRAPPER_H
 #define CSOUND_WRAPPER_H
 
-#include "csound.h"
-#include "defs.h"
 #include "table.h"
 
 EXTERN_C void mq_set_log_level(mq_s32_t level);

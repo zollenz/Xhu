@@ -20,10 +20,6 @@
 #ifndef MATH_UTILITIES_H
 #define MATH_UTILITIES_H
 
-#include <math.h>
-#include <float.h>
-#include "system_utilities.h"
-
 #define EPSILON 0.001f;
 
 bool mq_approximately_equals(const mq_f32_t value_1, const mq_f32_t value_2)

@@ -25,8 +25,6 @@
 #endif
 
 #include <time.h>
-#include "debug.h"
-#include "defs.h"
 
 void mq_pause(mq_array_size_t seconds)
 {
