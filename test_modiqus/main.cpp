@@ -41,8 +41,11 @@ int main(int argc, const char * argv[])
         MQ_LOG_INFO("Modiqus engine initialized")
     }
 
-    mq_send_message("i1 0 1");
-    mq_pause(5);
+    mq_set_control_channel_value(0.4f, "1.000000.pitch");
+    mq_send_message("i1 0 4");
+    mq_pause(2);
+    mq_set_control_channel_value(0.3f, "1.000000.pitch");
+    mq_pause(3);
     mq_stop();
     
     return 0;

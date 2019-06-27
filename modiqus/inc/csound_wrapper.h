@@ -25,8 +25,8 @@
 EXTERN_C void mq_set_log_level(mq_s32_t level);
 EXTERN_C bool mq_start(bool bundle);
 EXTERN_C void mq_stop(void);
-EXTERN_C void mq_get_chn_ctrl_output(MYFLT* value, const char *name);
-EXTERN_C void mq_set_chn_ctrl_value(MYFLT value, const char *name);
+EXTERN_C void mq_get_control_channel_value(MYFLT* value, const char *name);
+EXTERN_C void mq_set_control_channel_value(MYFLT value, const char *name);
 EXTERN_C void mq_send_message(const char* message);
 EXTERN_C void mq_send_score_event(const char type, MYFLT* parameters, mq_s32_t numParameters);
 EXTERN_C void mq_create_sample_table(mq_sample_table_t* const table);

@@ -260,7 +260,7 @@ void mq_set_log_level(mq_s32_t level)
     mq_log_level = level;
 }
 
-void mq_get_chn_ctrl_output(MYFLT *value, const char *name)
+void mq_get_control_channel_value(MYFLT *value, const char *name)
 {
     MYFLT *chnPtr = NULL;
     mq_s32_t chnType = CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
@@ -276,7 +276,7 @@ void mq_get_chn_ctrl_output(MYFLT *value, const char *name)
     }
 }
 
-void mq_set_chn_ctrl_value(MYFLT value, const char *name)
+void mq_set_control_channel_value(MYFLT value, const char *name)
 {
     MYFLT *chnPtr = NULL;
     mq_s32_t chnType = CSOUND_INPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
