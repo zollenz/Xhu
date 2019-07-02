@@ -260,20 +260,28 @@ void mq_set_log_level(mq_s32_t level)
     mq_log_level = level;
 }
 
-void mq_get_control_channel_value(MYFLT *value, const char *name)
+MYFLT *mq_get_channel_pointer(const char *name, mq_s32_t flags)
 {
-    MYFLT *chnPtr = NULL;
-    mq_s32_t chnType = CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
-    mq_s32_t result = csoundGetChannelPtr(_mq_csound_state.csound, &chnPtr, name, chnType);
+    MYFLT *channel;
+    mq_s32_t result = csoundGetChannelPtr(_mq_csound_state.csound, &channel, name, flags);
     
     if (result == CSOUND_SUCCESS) {
-        *value = *chnPtr;
         char log_message[100];
-        sprintf(log_message, "Value %f received from channel %s", *value, name);
+        sprintf(log_message, "Got pointer to channel %s", name);
         MQ_LOG_DEBUG(log_message)
-    } else {
-        mq_print_csound_return_code("csoundGetChannelPtr", result);
+        return channel;
     }
+    
+    char log_message[100];
+    sprintf(log_message, "Could not get pointer to channel %s", name);
+    mq_print_csound_return_code("csoundGetChannelPtr", result);
+    MQ_LOG_ERROR(log_message)
+    return NULL;
+}
+
+MYFLT mq_get_control_channel_value(MYFLT *channel)
+{
+    return *channel;
 }
 
 void mq_set_control_channel_value(MYFLT value, const char *name)
@@ -282,15 +290,12 @@ void mq_set_control_channel_value(MYFLT value, const char *name)
     mq_s32_t chnType = CSOUND_INPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
     mq_s32_t result = csoundGetChannelPtr(_mq_csound_state.csound, &chnPtr, name, chnType);
     
-    if (result == CSOUND_SUCCESS)
-    {
+    if (result == CSOUND_SUCCESS) {
         *chnPtr = (MYFLT)value;
         char log_message[100];
         sprintf(log_message, "Value %f sent to channel %s", value, name);
         MQ_LOG_DEBUG(log_message)
-    }
-    else
-    {
+    } else {
         mq_print_csound_return_code("csoundGetChannelPtr", result);
     }
 }
@@ -307,12 +312,9 @@ void mq_send_score_event(const char type, MYFLT* parameters, mq_s32_t numParamet
 {
     mq_s32_t result = csoundScoreEvent(_mq_csound_state.csound, type, parameters, numParameters);
     
-    if(result == CSOUND_SUCCESS)
-    {
+    if(result == CSOUND_SUCCESS) {
         MQ_LOG_DEBUG("Sent score event");
-    }
-    else
-    {
+    } else {
         mq_print_csound_return_code("csoundScoreEvent", result);
     }
 }
@@ -366,8 +368,7 @@ void mq_create_immediate_table(mq_immediate_table_t* const table)
     mq_u32_t values_string_size = 2 * table->value_count + 1;
     char values_string[values_string_size];
     
-    for (mq_u32_t i = 0; i < table->value_count; i += 2)
-    {
+    for (mq_u32_t i = 0; i < table->value_count; i += 2) {
         values_string[i] = ' ';
         values_string[i + 1] = table->values[i];
     }
@@ -436,7 +437,7 @@ void mq_create_segment_table(mq_segment_table_t* const table)
     //    while (!mq_table_exists(table->number));
 }
 
-const mq_s32_t mq_get_table_data(const mq_s32_t table_id, mq_float_t *data)
+const mq_s32_t mq_get_table_data(const mq_s32_t table_id, audio_data_t *data)
 {
     mq_s32_t length = -1;
     
@@ -460,14 +461,11 @@ const mq_s32_t mq_get_table_data(const mq_s32_t table_id, mq_float_t *data)
     
     length = csoundGetTable(_mq_csound_state.csound, &data, table_id);
     
-    if (length >= 0)
-    {
+    if (length >= 0) {
         char log_message[100];
         sprintf(log_message, "Got data for table %d", table_id);
         MQ_LOG_DEBUG(log_message);
-    }
-    else
-    {
+    } else {
         char log_message[100];
         sprintf(log_message, "Could not get data for table %d. Table does not exist.", table_id);
         MQ_LOG_ERROR(log_message)
@@ -478,10 +476,9 @@ const mq_s32_t mq_get_table_data(const mq_s32_t table_id, mq_float_t *data)
     return length;
 }
 
-void mq_set_table_data(const mq_s32_t table, const mq_float_t *const data, mq_u32_t data_count)
+void mq_set_table_data(const mq_s32_t table, const audio_data_t *const data, mq_u32_t data_count)
 {
-    if (table == TABLE_UNDEFINED)
-    {
+    if (table == TABLE_UNDEFINED) {
         MQ_LOG_DEBUG("Table is undefined.");
         return;
     }
@@ -490,8 +487,7 @@ void mq_set_table_data(const mq_s32_t table, const mq_float_t *const data, mq_u3
     
     while (!_mq_csound_state.csound_thread_paused);
     
-    for (mq_u32_t i = 0; i < data_count; ++i)
-    {
+    for (mq_u32_t i = 0; i < data_count; ++i) {
         csoundTableSet(_mq_csound_state.csound, table, i, data[i]);
     }
     
@@ -502,15 +498,13 @@ const mq_f32_t mq_get_table_val(const mq_s32_t tableNumber, const mq_s32_t index
 {
     mq_f32_t value = NAN;
     
-    if (tableNumber <= 0)
-    {
+    if (tableNumber <= 0) {
         MQ_LOG_ERROR("Could not retrieve data. Invalid table number.")
         
         return value;
     }
     
-    if (index < 0)
-    {
+    if (index < 0) {
         MQ_LOG_ERROR("Could not retrieve data. Index is negative.")
         
         return value;
@@ -530,8 +524,7 @@ bool mq_table_exists(mq_s32_t tableNumber)
 {
     bool exists = false;
     
-    if (tableNumber == 0)
-    {
+    if (tableNumber == 0) {
         MQ_LOG_ERROR("Could not retrieve data. Table is undefined.")
         
         return exists;
@@ -549,13 +542,10 @@ bool mq_table_exists(mq_s32_t tableNumber)
     
     char message[100];
     
-    if (exists)
-    {
+    if (exists) {
         sprintf(message, "Table %d exists.", tableNumber);
         MQ_LOG_DEBUG(message)
-    }
-    else
-    {
+    } else {
         sprintf(message, "Table %d does not exist.", tableNumber);
         MQ_LOG_DEBUG(message)
     }
@@ -565,8 +555,7 @@ bool mq_table_exists(mq_s32_t tableNumber)
 
 void mq_delete_table(const mq_s32_t table_id)
 {
-    if (table_id == TABLE_UNDEFINED)
-    {
+    if (table_id == TABLE_UNDEFINED) {
         MQ_LOG_DEBUG("Table is undefined.")
         
         return;
@@ -580,9 +569,7 @@ void mq_delete_table(const mq_s32_t table_id)
         char log_message[100];
         sprintf(log_message, "Deleted table %d", table_id);
         MQ_LOG_DEBUG(log_message)
-    }
-    else
-    {
+    } else {
         char log_message[100];
         sprintf(log_message, "Table %d does not exist.", table_id);
         MQ_LOG_DEBUG(log_message)
@@ -598,8 +585,7 @@ bool mq_set_global_env(const char *name, const char *value)
     
     bool success = status == CSOUND_SUCCESS;
     
-    if (!success)
-    {
+    if (!success) {
         char log_message_error[512];
         sprintf(log_message_error, "Setting environment variable '%s' to value '%s' failed", name, value);
         MQ_LOG_FATAL(log_message_error);

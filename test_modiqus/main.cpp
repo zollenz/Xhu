@@ -41,10 +41,19 @@ int main(int argc, const char * argv[])
         MQ_LOG_INFO("Modiqus engine initialized")
     }
 
-    mq_set_control_channel_value(0.4f, "1.000000.pitch");
+    
+    mq_set_control_channel_value(0.4f, "i.1.000000.pitch");
     mq_send_message("i1 0 4");
     mq_pause(2);
-    mq_set_control_channel_value(0.3f, "1.000000.pitch");
+    
+    mq_s32_t flags = CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
+    audio_data_t *output_channel_pointer = mq_get_channel_pointer("o.1.000000.pitch", flags);
+    audio_data_t value = mq_get_control_channel_value(output_channel_pointer);
+    char log_message[100];
+    sprintf(log_message, "Received value %f from channel o.1.000000.pitch", value);
+    MQ_LOG_INFO(log_message)
+    mq_set_control_channel_value(0.3f, "i.1.000000.pitch");
+    
     mq_pause(3);
     mq_stop();
     

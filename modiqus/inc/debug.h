@@ -33,7 +33,7 @@
 extern mq_s32_t mq_log_level;
 extern bool mq_log_with_func_info;
 
-static inline const char* const mq_get_log_level_str(mq_s32_t log_level_value)
+static inline const char *const mq_get_log_level_str(mq_s32_t log_level_value)
 {
     switch (log_level_value) {
         case MQ_LOG_LEVEL_FATAL:
