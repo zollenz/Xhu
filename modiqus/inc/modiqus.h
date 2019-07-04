@@ -22,7 +22,7 @@
 
 #include "defs.h"
 #include "table.h"
-#include "instrument.h"
+#include "sound.h"
 #include "channel.h"
 #include "debug.h"
 #include "math_utilities.h"

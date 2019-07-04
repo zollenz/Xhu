@@ -20,9 +20,38 @@
 #ifndef CHANNEL_H
 #define CHANNEL_H
 
+#include <stdbool.h>
+#include "defs.h"
+
+#define MAX_CHANNELS (100)
+
 typedef struct {
-    const char* name;
-    mq_u32_t instrument_instance;
-} mq_channel_t;
+    mq_u32_t map_index;
+    mq_u64_t hash;
+} mq_channel_handle_t;
+
+typedef enum
+{
+    INPUT,
+    OUTPUT
+} channel_direction;
+
+typedef enum
+{
+    ACTIVE,
+    SUSPENDED
+} channel_state;
+
+EXTERN_C void delete_channel(void);
+EXTERN_C void suspend_channel(void);
+EXTERN_C const mq_channel_handle_t *const create_channel(
+                                                         channel_direction direction,
+                                                         channel_state state,
+                                                         const char *sound_aggregate_id,
+                                                         const char *parameter_name
+                                                         );
+EXTERN_C channel_state get_channel_state(const mq_channel_handle_t *const handle);
+EXTERN_C void set_channel_value(const mq_channel_handle_t *const handle_pointer, mq_audio_data_t value);
+EXTERN_C mq_audio_data_t get_channel_value(const mq_channel_handle_t *const handle);
 
 #endif // CHANNEL_H

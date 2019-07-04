@@ -47,7 +47,7 @@ typedef uint64_t mq_u64_t;
 typedef int64_t mq_s64_t;
 typedef float mq_f32_t;
 typedef double mq_f64_t;
-typedef MYFLT audio_data_t;
+typedef MYFLT mq_audio_data_t;
 typedef size_t mq_mem_size_t;
 
 #endif // DEFS_H

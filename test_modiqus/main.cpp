@@ -47,8 +47,8 @@ int main(int argc, const char * argv[])
     mq_pause(2);
     
     mq_s32_t flags = CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
-    audio_data_t *output_channel_pointer = mq_get_channel_pointer("o.1.000000.pitch", flags);
-    audio_data_t value = mq_get_control_channel_value(output_channel_pointer);
+    mq_audio_data_t *output_channel_pointer = mq_get_channel_pointer("o.1.000000.pitch", flags);
+    mq_audio_data_t value = mq_get_control_channel_value(output_channel_pointer);
     char log_message[100];
     sprintf(log_message, "Received value %f from channel o.1.000000.pitch", value);
     MQ_LOG_INFO(log_message)

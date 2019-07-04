@@ -20,6 +20,8 @@
 #ifndef TABLE_H
 #define TABLE_H
 
+#include "defs.h"
+
 typedef struct {
     mq_u32_t number;
     mq_f32_t start;
@@ -51,5 +53,9 @@ typedef struct {
     mq_segment_t *segments;
     mq_u32_t segment_count;
 } mq_segment_table_t;
+
+EXTERN_C void mq_create_sample_table(mq_sample_table_t* const table);
+EXTERN_C void mq_create_immediate_table(mq_immediate_table_t* const table);
+EXTERN_C void mq_create_segment_table(mq_segment_table_t* const table);
 
 #endif /* TABLE_H */

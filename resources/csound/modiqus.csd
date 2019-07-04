@@ -29,25 +29,30 @@ gipitchrange    =           gipitchhigh - gipitchlow
 
 giSine          ftgen       1, 0, 4096, 10, 1
 
-instr 1
+/*********************/
+/* sine_oscil        */
+/*********************/
 
-Sinstance       sprintf     "%f", p1
-S_pitch_channel_in    sprintf     "i.%s.pitch", Sinstance
-S_pitch_channel_out   sprintf     "o.%s.pitch", Sinstance
+instr +sine_oscil
 
-puts            S_pitch_channel_in, 1
-puts            S_pitch_channel_out, 1
+Sinstance   sprintf "%f", p1
+Spitchin    sprintf "i.%s.pitch", Sinstance
+Spitchout   sprintf "o.%s.pitch", Sinstance
 
-kpitch          chnget      S_pitch_channel_in
-                chnset      kpitch, S_pitch_channel_out
+            puts    Spitchin, 1
+            puts    Spitchout, 1
 
-                printf      "kpitch: %f", 1, kpitch
+kpitch      chnget  Spitchin
+            chnset  kpitch, Spitchout
 
-kpitch          =           gipitchlow + kpitch * gipitchrange
-apitch          interp      kpitch
+            printf  "kpitch: %f", 1, kpitch
 
-asound          oscili      0.5, apitch, 1
-                outs        asound, asound
+kpitch      =       gipitchlow + kpitch * gipitchrange
+apitch      interp  kpitch
+
+asound      oscili  0.5, apitch, 1
+            outs    asound, asound
+
 endin
 
 </CsInstruments>

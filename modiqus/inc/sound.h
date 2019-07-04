@@ -17,17 +17,20 @@
  *
  */
 
-#ifndef INSTRUMENT_H
-#define INSTRUMENT_H
+#ifndef SOUND_H
+#define SOUND_H
 
-#define MQ_MAX_INSTANCE_NUMBER (999999)
-#define MQ_MAX_INSTANCES_PER_INSTRUMENT (10)
+#include "defs.h"
 
-typedef struct {
-    const char* name;
-    mq_u32_t instanceNumber;
-    mq_u32_t instrument_number;
-    bool active;
-} mq_instrument_instance_t;
+#define MQ_MAX_NAME_SIZE (30)
+#define MQ_MAX_VOICES (100)
+#define MQ_MAX_SOUND_INSTANCES (1000)
+#define MQ_MAX_SOUND_INSTANCE_ID (999999)
 
-#endif // INSTRUMENT_H
+typedef enum { STOPPED, PLAYING, PAUSED, MUTED } mq_sound_playback_state;
+typedef mq_u32_t mq_sound_handle_t;
+
+EXTERN_C bool get_state(mq_sound_handle_t handle);
+
+
+#endif // SOUND_H

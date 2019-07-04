@@ -1,26 +1,41 @@
 /*
-* Copyright (C) 2019 by Martin Dejean
-*
-* This file is part of Modiqus.
-* Modiqus is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* Modiqus is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with Modiqus.  If not, see <http://www.gnu.org/licenses/>.
-*
-*/
+ * Copyright (C) 2019 by Martin Dejean
+ *
+ * This file is part of Modiqus.
+ * Modiqus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modiqus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modiqus.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 #ifndef MATH_UTILITIES_H
 #define MATH_UTILITIES_H
 
+#include "debug.h"
+
 #define EPSILON 0.001f;
+
+mq_u64_t hash(char *str)
+{
+    mq_u64_t hash = 5381;
+    mq_u32_t c;
+    
+    while ((c = *str++))
+    {
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+    }
+    
+    return hash;
+}
 
 bool mq_approximately_equals(const mq_f32_t value_1, const mq_f32_t value_2)
 {
