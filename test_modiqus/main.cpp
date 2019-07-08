@@ -24,6 +24,16 @@ void on_exit(void)
     puts ("Goodbye, cruel world....");
 }
 
+void callback(CSOUND *csound,
+              const char *channelName,
+              void *channelValuePtr,
+              const void *channelType)
+{
+    const char *value = (const char *) channelValuePtr;
+    
+    printf("Sound ended : %s - %s\n", channelName, value);
+}
+
 int main(int argc, const char * argv[])
 {
     atexit(on_exit);
@@ -40,8 +50,13 @@ int main(int argc, const char * argv[])
     {
         MQ_LOG_INFO("Modiqus engine initialized")
     }
+    
+    mq_pause(2);
 
     
+//    mq_create_channels(0);
+
+    mq_set_output_channel_callback(callback);
     mq_set_control_channel_value(0.4f, "i.1.000000.pitch");
     mq_send_message("i1 0 4");
     mq_pause(2);

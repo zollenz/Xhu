@@ -23,8 +23,6 @@
 #include "defs.h"
 
 #define MQ_MAX_NAME_SIZE (30)
-#define MQ_MAX_VOICES (100)
-#define MQ_MAX_SOUND_INSTANCES (1000)
 #define MQ_MAX_SOUND_INSTANCE_ID (999999)
 
 typedef enum { STOPPED, PLAYING, PAUSED, MUTED } mq_sound_playback_state;

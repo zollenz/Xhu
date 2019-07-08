@@ -17,21 +17,26 @@
  *
  */
 
-#include "csound_wrapper.h"
 #include "channel.h"
 #include "math_utilities.h"
+#include "csound_wrapper.h"
+
 
 #define PARAMETER_NAME_MAX_LENGTH (16)
 #define AGGREGATE_ID_MAX_LENGTH (32)
 
 typedef struct {
     mq_channel_handle_t handle;
-    channel_direction direction;        /**< The type of the channel as known to Csound */
+    mq_audio_data_t *channel_pointer;
     channel_state state;
     char *sound_aggregate_id;
     char parameter_name[PARAMETER_NAME_MAX_LENGTH];            /**< The name of the sound parameter the channel controls */
-    char aggregate_id[AGGREGATE_ID_MAX_LENGTH];              /**< The name of the channel as known to Csound */
 } mq_channel_t;
+
+typedef struct {
+    mq_channel_handle_t handle;
+    
+} mq_callback_channel_t;
 
 mq_channel_t channels[MAX_CHANNELS];
 mq_u32_t channel_handle_map[MAX_CHANNELS];
@@ -50,6 +55,17 @@ void form_channel_aggregate_id(
     sprintf(result, "%s.%s.%s", &direction_prefix, sound_id, parameter_name);
 }
 
+void mq_create_channels(mq_u32_t count)
+{
+    for (mq_u32_t index = 0; index < MAX_CHANNELS; ++index)
+    {
+        char channel_name[4];
+        sprintf(channel_name, "%d", index);
+        mq_s32_t flags = CSOUND_OUTPUT_CHANNEL | CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
+        channels[index].channel_pointer = mq_get_channel_pointer(channel_name, flags);
+    }
+}
+
 const mq_channel_handle_t *const create_channel(
                     channel_direction direction,
                     channel_state state,
@@ -58,24 +74,18 @@ const mq_channel_handle_t *const create_channel(
                     )
 {
     // TODO: Sanity check parameter name length
-    channels[handle_count].direction = direction;
     strncpy(channels[handle_count].parameter_name, parameter_name, PARAMETER_NAME_MAX_LENGTH);
-    form_channel_aggregate_id(
-                              direction,
-                              sound_aggregate_id,
-                              parameter_name,
-                              channels[handle_count].aggregate_id
-                              );
+//    form_channel_aggregate_id(
+//                              direction,
+//                              sound_aggregate_id,
+//                              parameter_name
+//                              );
     channels[handle_count].handle.map_index = last_available_map_index;
-    channels[handle_count].handle.hash = hash(channels[handle_count].aggregate_id);
 
     return &channels[handle_count].handle;
 }
-void delete_channel(void)
-{
-}
 
-void suspend_channel(void)
+void mq_suspend_channel(mq_channel_handle_t handle)
 {
     
 }

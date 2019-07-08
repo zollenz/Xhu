@@ -8,6 +8,7 @@
 
 #include <stdbool.h>
 #include "sound.h"
+#include "channel.h"
 
 typedef struct {
     mq_sound_handle_t handle;
@@ -16,9 +17,10 @@ typedef struct {
     mq_u32_t instance_id;
     char aggregate_id;
     mq_sound_playback_state state;
+    mq_channel_handle_t *channel_handles;
 } mq_sound_t;
 
-mq_sound_t sounds[MQ_MAX_SOUND_INSTANCES];
+mq_sound_t sounds[MQ_MAX_VOICES];
 
 bool is_muted(mq_sound_handle_t handle)
 {

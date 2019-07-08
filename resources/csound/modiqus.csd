@@ -30,10 +30,27 @@ gipitchrange    =           gipitchhigh - gipitchlow
 giSine          ftgen       1, 0, 4096, 10, 1
 
 /*********************/
+/* inst_end          */
+/*********************/
+
+instr 2, inst_end
+
+Sname  sprintf "callback-%d", p4
+Svalue      =        "sad"
+outvalue Sname, Svalue
+
+endin
+
+/*********************/
 /* sine_oscil        */
 /*********************/
 
-instr +sine_oscil
+instr 1, sine_oscil
+
+if p3 > - 1 then
+event_i "i", 2, p3, 0, 8
+endif
+
 
 Sinstance   sprintf "%f", p1
 Spitchin    sprintf "i.%s.pitch", Sinstance
@@ -43,7 +60,7 @@ Spitchout   sprintf "o.%s.pitch", Sinstance
             puts    Spitchout, 1
 
 kpitch      chnget  Spitchin
-            chnset  kpitch, Spitchout
+            //chnset  kpitch, Spitchout
 
             printf  "kpitch: %f", 1, kpitch
 

@@ -42,14 +42,17 @@ typedef enum
     SUSPENDED
 } channel_state;
 
-EXTERN_C void delete_channel(void);
-EXTERN_C void suspend_channel(void);
+EXTERN_C mq_audio_data_t *mq_get_channel_pointer(const char *name, mq_s32_t flags);
+EXTERN_C mq_audio_data_t mq_get_control_channel_value(mq_audio_data_t *channel);
+EXTERN_C void mq_set_control_channel_value(mq_audio_data_t value, const char *name);
+EXTERN_C void mq_create_channels(mq_u32_t count);
 EXTERN_C const mq_channel_handle_t *const create_channel(
                                                          channel_direction direction,
                                                          channel_state state,
                                                          const char *sound_aggregate_id,
                                                          const char *parameter_name
                                                          );
+EXTERN_C void mq_suspend_channel(mq_channel_handle_t handle);
 EXTERN_C channel_state get_channel_state(const mq_channel_handle_t *const handle);
 EXTERN_C void set_channel_value(const mq_channel_handle_t *const handle_pointer, mq_audio_data_t value);
 EXTERN_C mq_audio_data_t get_channel_value(const mq_channel_handle_t *const handle);

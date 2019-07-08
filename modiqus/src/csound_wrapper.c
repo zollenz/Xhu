@@ -259,9 +259,9 @@ void mq_set_log_level(mq_s32_t level)
     mq_log_level = level;
 }
 
-MYFLT *mq_get_channel_pointer(const char *name, mq_s32_t flags)
+mq_audio_data_t *mq_get_channel_pointer(const char *name, mq_s32_t flags)
 {
-    MYFLT *channel;
+    mq_audio_data_t *channel;
     mq_s32_t result = csoundGetChannelPtr(_mq_csound_state.csound, &channel, name, flags);
     
     if (result == CSOUND_SUCCESS) {
@@ -278,19 +278,19 @@ MYFLT *mq_get_channel_pointer(const char *name, mq_s32_t flags)
     return NULL;
 }
 
-MYFLT mq_get_control_channel_value(MYFLT *channel)
+mq_audio_data_t mq_get_control_channel_value(mq_audio_data_t *channel)
 {
     return *channel;
 }
 
-void mq_set_control_channel_value(MYFLT value, const char *name)
+void mq_set_control_channel_value(mq_audio_data_t value, const char *name)
 {
-    MYFLT *chnPtr = NULL;
+    mq_audio_data_t *chnPtr = NULL;
     mq_s32_t chnType = CSOUND_INPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
     mq_s32_t result = csoundGetChannelPtr(_mq_csound_state.csound, &chnPtr, name, chnType);
     
     if (result == CSOUND_SUCCESS) {
-        *chnPtr = (MYFLT)value;
+        *chnPtr = (mq_audio_data_t)value;
         char log_message[100];
         sprintf(log_message, "Value %f sent to channel %s", value, name);
         MQ_LOG_DEBUG(log_message)
@@ -307,7 +307,7 @@ void mq_send_message(const char* message)
     csoundInputMessage(_mq_csound_state.csound, message);
 }
 
-void mq_send_score_event(const char type, MYFLT* parameters, mq_s32_t numParameters)
+void mq_send_score_event(const char type, mq_audio_data_t* parameters, mq_s32_t numParameters)
 {
     mq_s32_t result = csoundScoreEvent(_mq_csound_state.csound, type, parameters, numParameters);
     
@@ -432,7 +432,7 @@ bool mq_table_exists(mq_s32_t tableNumber)
     }
     
     mq_s32_t length = -1;
-    MYFLT *tablePtr = NULL;
+    mq_audio_data_t *tablePtr = NULL;
     _mq_csound_state.pause_csound_thread = true;
     
     while (!_mq_csound_state.csound_thread_paused);
@@ -497,4 +497,9 @@ bool mq_set_global_env(const char *name, const char *value)
     MQ_LOG_DEBUG(log_message);
     
     return success;
+}
+
+void mq_set_output_channel_callback(channelCallback_t callback)
+{
+    csoundSetOutputChannelCallback(_mq_csound_state.csound, callback);
 }

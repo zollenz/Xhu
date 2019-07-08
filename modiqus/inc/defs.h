@@ -29,6 +29,8 @@
 #define EXTERN_C
 #endif
 
+#define MQ_MAX_VOICES (100)
+
 #define UNDEFINED_STRING "UNDEFINED"
 #define TABLE_UNDEFINED (0)
 
