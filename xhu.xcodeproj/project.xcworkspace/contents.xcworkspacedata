@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:modiqus.xcodeproj">
+      location = "self:/Users/dejean/Developer/github/personal/modiqus/xhu.xcodeproj">
    </FileRef>
 </Workspace>

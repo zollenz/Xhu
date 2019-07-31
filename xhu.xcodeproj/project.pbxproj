@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		61D4FAB922C2D76B00D6D7C3 /* csound_wrapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 61D4FAB822C2D76B00D6D7C3 /* csound_wrapper.c */; };
-		61D4FABB22C2D8C400D6D7C3 /* libmodiqus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5DA3A718BD1A550053453C /* libmodiqus.a */; };
-		61D4FABC22C2DA0900D6D7C3 /* csound_wrapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 61D4FAB822C2D76B00D6D7C3 /* csound_wrapper.c */; };
-		61D4FABE22C3598700D6D7C3 /* defs.h in Headers */ = {isa = PBXBuildFile; fileRef = 61D4FABD22C3598700D6D7C3 /* defs.h */; };
-		BF5F68E522CAA7A600A2F232 /* table.c in Sources */ = {isa = PBXBuildFile; fileRef = BF5F68E422CAA7A600A2F232 /* table.c */; };
+		61D4FAB922C2D76B00D6D7C3 /* xhu_csound_wrapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 61D4FAB822C2D76B00D6D7C3 /* xhu_csound_wrapper.c */; };
+		61D4FABB22C2D8C400D6D7C3 /* libxhu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5DA3A718BD1A550053453C /* libxhu.a */; };
+		61D4FABC22C2DA0900D6D7C3 /* xhu_csound_wrapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 61D4FAB822C2D76B00D6D7C3 /* xhu_csound_wrapper.c */; };
+		61D4FABE22C3598700D6D7C3 /* xhu_defs.h in Headers */ = {isa = PBXBuildFile; fileRef = 61D4FABD22C3598700D6D7C3 /* xhu_defs.h */; };
+		BF5F68E522CAA7A600A2F232 /* xhu_table.c in Sources */ = {isa = PBXBuildFile; fileRef = BF5F68E422CAA7A600A2F232 /* xhu_table.c */; };
 		BF61D08B22B983240029D03D /* CsoundLib64 in Frameworks */ = {isa = PBXBuildFile; fileRef = BF61D08A22B983240029D03D /* CsoundLib64 */; };
-		BF7EC9CC22B1897D00D51F97 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C422B1897D00D51F97 /* debug.h */; };
-		BF7EC9CE22B1897D00D51F97 /* math_utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C622B1897D00D51F97 /* math_utilities.h */; };
-		BF7EC9CF22B1897D00D51F97 /* modiqus.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C722B1897D00D51F97 /* modiqus.h */; };
-		BF7EC9D022B1897D00D51F97 /* system_utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C822B1897D00D51F97 /* system_utilities.h */; };
-		BF7EC9D322B18E1A00D51F97 /* table.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9D222B18E1A00D51F97 /* table.h */; };
-		BF7EC9D522B1A01100D51F97 /* csound_wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9D422B1A01100D51F97 /* csound_wrapper.h */; };
-		BF7F089722C09BAB007FEA4A /* channel.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7F089622C09BAB007FEA4A /* channel.h */; };
-		BF7F089922C09FF6007FEA4A /* sound.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7F089822C09FF6007FEA4A /* sound.h */; };
+		BF7EC9CC22B1897D00D51F97 /* xhu_debug.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C422B1897D00D51F97 /* xhu_debug.h */; };
+		BF7EC9CE22B1897D00D51F97 /* xhu_math_utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C622B1897D00D51F97 /* xhu_math_utilities.h */; };
+		BF7EC9CF22B1897D00D51F97 /* xhu.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C722B1897D00D51F97 /* xhu.h */; };
+		BF7EC9D022B1897D00D51F97 /* xhu_system_utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C822B1897D00D51F97 /* xhu_system_utilities.h */; };
+		BF7EC9D322B18E1A00D51F97 /* xhu_table.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9D222B18E1A00D51F97 /* xhu_table.h */; };
+		BF7EC9D522B1A01100D51F97 /* xhu_csound_wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9D422B1A01100D51F97 /* xhu_csound_wrapper.h */; };
+		BF7F089722C09BAB007FEA4A /* xhu_channel.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7F089622C09BAB007FEA4A /* xhu_channel.h */; };
+		BF7F089922C09FF6007FEA4A /* xhu_sound.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7F089822C09FF6007FEA4A /* xhu_sound.h */; };
 		BF92230B18BA2CFF00EFD7E8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF92230A18BA2CFF00EFD7E8 /* main.cpp */; };
-		BF95577E22CD1FD900F9CC1F /* channel.c in Sources */ = {isa = PBXBuildFile; fileRef = BF95577D22CD1FD900F9CC1F /* channel.c */; };
-		BF97816722CD2614002F2A4B /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = BF97816622CD2614002F2A4B /* sound.c */; };
+		BF95577E22CD1FD900F9CC1F /* xhu_channel.c in Sources */ = {isa = PBXBuildFile; fileRef = BF95577D22CD1FD900F9CC1F /* xhu_channel.c */; };
+		BF97816722CD2614002F2A4B /* xhu_sound.c in Sources */ = {isa = PBXBuildFile; fileRef = BF97816622CD2614002F2A4B /* xhu_sound.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,25 +49,25 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		61D4FAB822C2D76B00D6D7C3 /* csound_wrapper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = csound_wrapper.c; sourceTree = "<group>"; };
-		61D4FABD22C3598700D6D7C3 /* defs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = defs.h; sourceTree = "<group>"; };
+		61D4FAB822C2D76B00D6D7C3 /* xhu_csound_wrapper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xhu_csound_wrapper.c; sourceTree = "<group>"; };
+		61D4FABD22C3598700D6D7C3 /* xhu_defs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xhu_defs.h; sourceTree = "<group>"; };
 		BF0723B71D11F81F009BFE61 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
 		BF39851E1D775D2900FF3F89 /* ext */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ext; sourceTree = "<group>"; };
-		BF5DA3A718BD1A550053453C /* libmodiqus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmodiqus.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF5F68E422CAA7A600A2F232 /* table.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = table.c; sourceTree = "<group>"; };
+		BF5DA3A718BD1A550053453C /* libxhu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libxhu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF5F68E422CAA7A600A2F232 /* xhu_table.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xhu_table.c; sourceTree = "<group>"; };
 		BF61D08A22B983240029D03D /* CsoundLib64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = CsoundLib64; path = ext/csound/release/lib/CsoundLib64; sourceTree = "<group>"; };
-		BF7EC9C422B1897D00D51F97 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
-		BF7EC9C622B1897D00D51F97 /* math_utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math_utilities.h; sourceTree = "<group>"; };
-		BF7EC9C722B1897D00D51F97 /* modiqus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modiqus.h; sourceTree = "<group>"; };
-		BF7EC9C822B1897D00D51F97 /* system_utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = system_utilities.h; sourceTree = "<group>"; };
-		BF7EC9D222B18E1A00D51F97 /* table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = table.h; sourceTree = "<group>"; };
-		BF7EC9D422B1A01100D51F97 /* csound_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_wrapper.h; sourceTree = "<group>"; };
-		BF7F089622C09BAB007FEA4A /* channel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = channel.h; sourceTree = "<group>"; };
-		BF7F089822C09FF6007FEA4A /* sound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sound.h; sourceTree = "<group>"; };
-		BF92230818BA2CFF00EFD7E8 /* test_modiqus */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test_modiqus; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF7EC9C422B1897D00D51F97 /* xhu_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xhu_debug.h; sourceTree = "<group>"; };
+		BF7EC9C622B1897D00D51F97 /* xhu_math_utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xhu_math_utilities.h; sourceTree = "<group>"; };
+		BF7EC9C722B1897D00D51F97 /* xhu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xhu.h; sourceTree = "<group>"; };
+		BF7EC9C822B1897D00D51F97 /* xhu_system_utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xhu_system_utilities.h; sourceTree = "<group>"; };
+		BF7EC9D222B18E1A00D51F97 /* xhu_table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xhu_table.h; sourceTree = "<group>"; };
+		BF7EC9D422B1A01100D51F97 /* xhu_csound_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xhu_csound_wrapper.h; sourceTree = "<group>"; };
+		BF7F089622C09BAB007FEA4A /* xhu_channel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xhu_channel.h; sourceTree = "<group>"; };
+		BF7F089822C09FF6007FEA4A /* xhu_sound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xhu_sound.h; sourceTree = "<group>"; };
+		BF92230818BA2CFF00EFD7E8 /* test_xhu */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test_xhu; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF92230A18BA2CFF00EFD7E8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		BF95577D22CD1FD900F9CC1F /* channel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = channel.c; sourceTree = "<group>"; };
-		BF97816622CD2614002F2A4B /* sound.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
+		BF95577D22CD1FD900F9CC1F /* xhu_channel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xhu_channel.c; sourceTree = "<group>"; };
+		BF97816622CD2614002F2A4B /* xhu_sound.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xhu_sound.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61D4FABB22C2D8C400D6D7C3 /* libmodiqus.a in Frameworks */,
+				61D4FABB22C2D8C400D6D7C3 /* libxhu.a in Frameworks */,
 				BF61D08B22B983240029D03D /* CsoundLib64 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,7 +97,7 @@
 				BF0723B71D11F81F009BFE61 /* resources */,
 				BF5DA3AB18BD1B070053453C /* modiqus */,
 				BF2C5E4A1868565100DF51F5 /* Products */,
-				BF92230918BA2CFF00EFD7E8 /* test_modiqus */,
+				BF92230918BA2CFF00EFD7E8 /* test_xhu */,
 				BF61D08922B983240029D03D /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -105,8 +105,8 @@
 		BF2C5E4A1868565100DF51F5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BF92230818BA2CFF00EFD7E8 /* test_modiqus */,
-				BF5DA3A718BD1A550053453C /* libmodiqus.a */,
+				BF92230818BA2CFF00EFD7E8 /* test_xhu */,
+				BF5DA3A718BD1A550053453C /* libxhu.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,15 +114,15 @@
 		BF2C5E5018685BE500DF51F5 /* inc */ = {
 			isa = PBXGroup;
 			children = (
-				BF7F089622C09BAB007FEA4A /* channel.h */,
-				BF7EC9D422B1A01100D51F97 /* csound_wrapper.h */,
-				BF7EC9C422B1897D00D51F97 /* debug.h */,
-				61D4FABD22C3598700D6D7C3 /* defs.h */,
-				BF7F089822C09FF6007FEA4A /* sound.h */,
-				BF7EC9C622B1897D00D51F97 /* math_utilities.h */,
-				BF7EC9C722B1897D00D51F97 /* modiqus.h */,
-				BF7EC9C822B1897D00D51F97 /* system_utilities.h */,
-				BF7EC9D222B18E1A00D51F97 /* table.h */,
+				BF7F089622C09BAB007FEA4A /* xhu_channel.h */,
+				BF7EC9D422B1A01100D51F97 /* xhu_csound_wrapper.h */,
+				BF7EC9C422B1897D00D51F97 /* xhu_debug.h */,
+				61D4FABD22C3598700D6D7C3 /* xhu_defs.h */,
+				BF7F089822C09FF6007FEA4A /* xhu_sound.h */,
+				BF7EC9C622B1897D00D51F97 /* xhu_math_utilities.h */,
+				BF7EC9C722B1897D00D51F97 /* xhu.h */,
+				BF7EC9C822B1897D00D51F97 /* xhu_system_utilities.h */,
+				BF7EC9D222B18E1A00D51F97 /* xhu_table.h */,
 			);
 			name = inc;
 			path = modiqus/inc;
@@ -131,10 +131,10 @@
 		BF2C5E6B18685BF000DF51F5 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				61D4FAB822C2D76B00D6D7C3 /* csound_wrapper.c */,
-				BF5F68E422CAA7A600A2F232 /* table.c */,
-				BF95577D22CD1FD900F9CC1F /* channel.c */,
-				BF97816622CD2614002F2A4B /* sound.c */,
+				61D4FAB822C2D76B00D6D7C3 /* xhu_csound_wrapper.c */,
+				BF5F68E422CAA7A600A2F232 /* xhu_table.c */,
+				BF95577D22CD1FD900F9CC1F /* xhu_channel.c */,
+				BF97816622CD2614002F2A4B /* xhu_sound.c */,
 			);
 			name = src;
 			path = modiqus/src;
@@ -157,12 +157,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BF92230918BA2CFF00EFD7E8 /* test_modiqus */ = {
+		BF92230918BA2CFF00EFD7E8 /* test_xhu */ = {
 			isa = PBXGroup;
 			children = (
 				BF92230A18BA2CFF00EFD7E8 /* main.cpp */,
 			);
-			path = test_modiqus;
+			path = test_xhu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,24 +172,24 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF7F089722C09BAB007FEA4A /* channel.h in Headers */,
-				61D4FABE22C3598700D6D7C3 /* defs.h in Headers */,
-				BF7EC9D322B18E1A00D51F97 /* table.h in Headers */,
-				BF7EC9CF22B1897D00D51F97 /* modiqus.h in Headers */,
-				BF7F089922C09FF6007FEA4A /* sound.h in Headers */,
-				BF7EC9D522B1A01100D51F97 /* csound_wrapper.h in Headers */,
-				BF7EC9CE22B1897D00D51F97 /* math_utilities.h in Headers */,
-				BF7EC9D022B1897D00D51F97 /* system_utilities.h in Headers */,
-				BF7EC9CC22B1897D00D51F97 /* debug.h in Headers */,
+				BF7F089722C09BAB007FEA4A /* xhu_channel.h in Headers */,
+				61D4FABE22C3598700D6D7C3 /* xhu_defs.h in Headers */,
+				BF7EC9D322B18E1A00D51F97 /* xhu_table.h in Headers */,
+				BF7EC9CF22B1897D00D51F97 /* xhu.h in Headers */,
+				BF7F089922C09FF6007FEA4A /* xhu_sound.h in Headers */,
+				BF7EC9D522B1A01100D51F97 /* xhu_csound_wrapper.h in Headers */,
+				BF7EC9CE22B1897D00D51F97 /* xhu_math_utilities.h in Headers */,
+				BF7EC9D022B1897D00D51F97 /* xhu_system_utilities.h in Headers */,
+				BF7EC9CC22B1897D00D51F97 /* xhu_debug.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		BF5DA3A618BD1A550053453C /* modiqus */ = {
+		BF5DA3A618BD1A550053453C /* xhu */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BF5DA3A818BD1A550053453C /* Build configuration list for PBXNativeTarget "modiqus" */;
+			buildConfigurationList = BF5DA3A818BD1A550053453C /* Build configuration list for PBXNativeTarget "xhu" */;
 			buildPhases = (
 				BF5DA3A318BD1A550053453C /* Sources */,
 				BF5DA3A418BD1A550053453C /* Frameworks */,
@@ -199,14 +199,14 @@
 			);
 			dependencies = (
 			);
-			name = modiqus;
+			name = xhu;
 			productName = test;
-			productReference = BF5DA3A718BD1A550053453C /* libmodiqus.a */;
+			productReference = BF5DA3A718BD1A550053453C /* libxhu.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		BF92230718BA2CFF00EFD7E8 /* test_modiqus */ = {
+		BF92230718BA2CFF00EFD7E8 /* test_xhu */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BF92230E18BA2CFF00EFD7E8 /* Build configuration list for PBXNativeTarget "test_modiqus" */;
+			buildConfigurationList = BF92230E18BA2CFF00EFD7E8 /* Build configuration list for PBXNativeTarget "test_xhu" */;
 			buildPhases = (
 				BF92230418BA2CFF00EFD7E8 /* Sources */,
 				BF92230518BA2CFF00EFD7E8 /* Frameworks */,
@@ -218,9 +218,9 @@
 			dependencies = (
 				BF5DA3C518BD27F10053453C /* PBXTargetDependency */,
 			);
-			name = test_modiqus;
+			name = test_xhu;
 			productName = test_modiq;
-			productReference = BF92230818BA2CFF00EFD7E8 /* test_modiqus */;
+			productReference = BF92230818BA2CFF00EFD7E8 /* test_xhu */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -230,9 +230,9 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0940;
-				ORGANIZATIONNAME = Modicus;
+				ORGANIZATIONNAME = Miosis;
 			};
-			buildConfigurationList = BF2C5E441868565000DF51F5 /* Build configuration list for PBXProject "modiqus" */;
+			buildConfigurationList = BF2C5E441868565000DF51F5 /* Build configuration list for PBXProject "xhu" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -245,8 +245,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BF92230718BA2CFF00EFD7E8 /* test_modiqus */,
-				BF5DA3A618BD1A550053453C /* modiqus */,
+				BF92230718BA2CFF00EFD7E8 /* test_xhu */,
+				BF5DA3A618BD1A550053453C /* xhu */,
 			);
 		};
 /* End PBXProject section */
@@ -272,10 +272,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF95577E22CD1FD900F9CC1F /* channel.c in Sources */,
-				BF97816722CD2614002F2A4B /* sound.c in Sources */,
-				BF5F68E522CAA7A600A2F232 /* table.c in Sources */,
-				61D4FABC22C2DA0900D6D7C3 /* csound_wrapper.c in Sources */,
+				BF95577E22CD1FD900F9CC1F /* xhu_channel.c in Sources */,
+				BF97816722CD2614002F2A4B /* xhu_sound.c in Sources */,
+				BF5F68E522CAA7A600A2F232 /* xhu_table.c in Sources */,
+				61D4FABC22C2DA0900D6D7C3 /* xhu_csound_wrapper.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF92230B18BA2CFF00EFD7E8 /* main.cpp in Sources */,
-				61D4FAB922C2D76B00D6D7C3 /* csound_wrapper.c in Sources */,
+				61D4FAB922C2D76B00D6D7C3 /* xhu_csound_wrapper.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +293,7 @@
 /* Begin PBXTargetDependency section */
 		BF5DA3C518BD27F10053453C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BF5DA3A618BD1A550053453C /* modiqus */;
+			target = BF5DA3A618BD1A550053453C /* xhu */;
 			targetProxy = BF5DA3C418BD27F10053453C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -496,7 +496,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = test_modiqus;
+				PRODUCT_NAME = test_xhu;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -521,7 +521,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = test_modiqus;
+				PRODUCT_NAME = test_xhu;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -529,7 +529,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BF2C5E441868565000DF51F5 /* Build configuration list for PBXProject "modiqus" */ = {
+		BF2C5E441868565000DF51F5 /* Build configuration list for PBXProject "xhu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BF2C5E4B1868565100DF51F5 /* Debug */,
@@ -538,7 +538,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BF5DA3A818BD1A550053453C /* Build configuration list for PBXNativeTarget "modiqus" */ = {
+		BF5DA3A818BD1A550053453C /* Build configuration list for PBXNativeTarget "xhu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BF5DA3A918BD1A550053453C /* Debug */,
@@ -547,7 +547,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BF92230E18BA2CFF00EFD7E8 /* Build configuration list for PBXNativeTarget "test_modiqus" */ = {
+		BF92230E18BA2CFF00EFD7E8 /* Build configuration list for PBXNativeTarget "test_xhu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BF92230F18BA2CFF00EFD7E8 /* Debug */,
