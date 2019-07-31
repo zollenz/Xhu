@@ -95,7 +95,7 @@
 			children = (
 				BF39851E1D775D2900FF3F89 /* ext */,
 				BF0723B71D11F81F009BFE61 /* resources */,
-				BF5DA3AB18BD1B070053453C /* modiqus */,
+				BF5DA3AB18BD1B070053453C /* xhu */,
 				BF2C5E4A1868565100DF51F5 /* Products */,
 				BF92230918BA2CFF00EFD7E8 /* test_xhu */,
 				BF61D08922B983240029D03D /* Frameworks */,
@@ -124,8 +124,7 @@
 				BF7EC9C822B1897D00D51F97 /* xhu_system_utilities.h */,
 				BF7EC9D222B18E1A00D51F97 /* xhu_table.h */,
 			);
-			name = inc;
-			path = modiqus/inc;
+			path = inc;
 			sourceTree = "<group>";
 		};
 		BF2C5E6B18685BF000DF51F5 /* src */ = {
@@ -136,17 +135,16 @@
 				BF95577D22CD1FD900F9CC1F /* xhu_channel.c */,
 				BF97816622CD2614002F2A4B /* xhu_sound.c */,
 			);
-			name = src;
-			path = modiqus/src;
+			path = src;
 			sourceTree = "<group>";
 		};
-		BF5DA3AB18BD1B070053453C /* modiqus */ = {
+		BF5DA3AB18BD1B070053453C /* xhu */ = {
 			isa = PBXGroup;
 			children = (
 				BF2C5E5018685BE500DF51F5 /* inc */,
 				BF2C5E6B18685BF000DF51F5 /* src */,
 			);
-			name = modiqus;
+			path = xhu;
 			sourceTree = "<group>";
 		};
 		BF61D08922B983240029D03D /* Frameworks */ = {
@@ -263,7 +261,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Set variables\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Release\nfi\n\n# Delete/recreate lib and resource folders\n\nif [ ! -d ${TARGET_BUILD_DIR}/lib ]; then\n    mkdir ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/Resources ]; then\n    mkdir ${TARGET_BUILD_DIR}/Resources\nfi\n\n# Copy dependencies\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\ncp $PROJECT_DIR/ext/libsndfile.1.dylib ${TARGET_BUILD_DIR}/lib/\n#mv ${TARGET_BUILD_DIR}/libmodiqus.a ${TARGET_BUILD_DIR}/lib/\n\n# Update lib install names\n/bin/bash \\\n$PROJECT_DIR/tools/update_install_names.sh \\\n${TARGET_BUILD_DIR}/lib\n\n# Copy resources\n\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/Resources\n";
+			shellScript = "# Set variables\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Debug\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    TARGET_BUILD_DIR=$PROJECT_DIR/build/Release\nfi\n\n# Delete/recreate lib and resource folders\n\nif [ ! -d ${TARGET_BUILD_DIR}/lib ]; then\n    mkdir ${TARGET_BUILD_DIR}/lib\nfi\n\nif [ ! -d ${TARGET_BUILD_DIR}/Resources ]; then\n    mkdir ${TARGET_BUILD_DIR}/Resources\nfi\n\n# Copy dependencies\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\ncp -R $PROJECT_DIR/ext/csound/release/lib/ ${TARGET_BUILD_DIR}/lib/\nfi\n\ncp $PROJECT_DIR/ext/libsndfile.1.dylib ${TARGET_BUILD_DIR}/lib/\n#mv ${TARGET_BUILD_DIR}/libxhu.a ${TARGET_BUILD_DIR}/lib/\n\n# Update lib install names\n/bin/bash \\\n$PROJECT_DIR/tools/update_install_names.sh \\\n${TARGET_BUILD_DIR}/lib\n\n# Copy resources\n\ncp -R $PROJECT_DIR/resources/csound ${TARGET_BUILD_DIR}/Resources\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
