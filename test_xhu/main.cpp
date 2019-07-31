@@ -65,9 +65,7 @@ int main(int argc, const char * argv[])
     xhu_s32_t flags = CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
     xhu_audio_data_t *output_channel_pointer = xhu_get_channel_pointer("o.1.000000.pitch", flags);
     xhu_audio_data_t value = xhu_get_control_channel_value(output_channel_pointer);
-    char log_message[100];
-    sprintf(log_message, "Received value %f from channel o.1.000000.pitch", value);
-    XHU_LOG_INFO(log_message)
+    XHU_LOG_INFO("Received value %f from channel o.1.000000.pitch", value)
     xhu_set_control_channel_value(0.3f, "i.1.000000.pitch");
     
     xhu_pause(3);

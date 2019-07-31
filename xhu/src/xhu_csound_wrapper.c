@@ -55,17 +55,14 @@ static void xhu_set_executable_path()
 #ifdef __APPLE__
     char full_path[PATH_MAX];
     uint32_t size = sizeof(full_path);
-    char log_message[100];
     
     if (_NSGetExecutablePath(full_path, &size) != 0) {
         full_path[0] = '\0';
-        sprintf(log_message, "Buffer too small; need size %u", size);
-        XHU_LOG_ERROR(log_message)
+        XHU_LOG_ERROR("Buffer too small; need size %u", size)
     }
     
     xhu_executable_path = xhu_get_folder_path(full_path);
-    sprintf(log_message, "Executable path is %s", xhu_executable_path);
-    XHU_LOG_DEBUG(log_message)
+    XHU_LOG_DEBUG("Executable path is %s", xhu_executable_path)
 #else
     //    char temp[PATH_MAX];
     //    return (getcwd(temp, PATH_MAX) ? xhu_str(temp) : xhu_str(""));
@@ -113,9 +110,7 @@ static void xhu_print_csound_return_code(const char *function_name, xhu_s32_t re
         }
     }
     
-    char log_message[100];
-    sprintf(log_message, "Csound function '%s' returned %d (%s)", function_name, return_code, return_code_str);
-    XHU_LOG_DEBUG(log_message);
+    XHU_LOG_DEBUG("Csound function '%s' returned %d (%s)", function_name, return_code, return_code_str);
 #endif
 }
 
@@ -265,16 +260,12 @@ xhu_audio_data_t *xhu_get_channel_pointer(const char *name, xhu_s32_t flags)
     xhu_s32_t result = csoundGetChannelPtr(_xhu_csound_state.csound, &channel, name, flags);
     
     if (result == CSOUND_SUCCESS) {
-        char log_message[100];
-        sprintf(log_message, "Got pointer to channel %s", name);
-        XHU_LOG_DEBUG(log_message)
+        XHU_LOG_DEBUG("Got pointer to channel %s", name)
         return channel;
     }
     
-    char log_message[100];
-    sprintf(log_message, "Could not get pointer to channel %s", name);
     xhu_print_csound_return_code("csoundGetChannelPtr", result);
-    XHU_LOG_ERROR(log_message)
+    XHU_LOG_ERROR("Could not get pointer to channel %s", name)
     return NULL;
 }
 
@@ -291,9 +282,7 @@ void xhu_set_control_channel_value(xhu_audio_data_t value, const char *name)
     
     if (result == CSOUND_SUCCESS) {
         *chnPtr = (xhu_audio_data_t)value;
-        char log_message[100];
-        sprintf(log_message, "Value %f sent to channel %s", value, name);
-        XHU_LOG_DEBUG(log_message)
+        XHU_LOG_DEBUG("Value %f sent to channel %s", value, name)
     } else {
         xhu_print_csound_return_code("csoundGetChannelPtr", result);
     }
@@ -301,9 +290,7 @@ void xhu_set_control_channel_value(xhu_audio_data_t value, const char *name)
 
 void xhu_send_message(const char* message)
 {
-    char log_message[100];
-    sprintf(log_message, "Sending message to Csound:\n%s", message);
-    XHU_LOG_DEBUG(log_message);
+    XHU_LOG_DEBUG("Sending message to Csound:\n%s", message);
     csoundInputMessage(_xhu_csound_state.csound, message);
 }
 
@@ -363,13 +350,9 @@ const xhu_s32_t xhu_get_table_data(const xhu_s32_t table_id, xhu_audio_data_t *d
     length = csoundGetTable(_xhu_csound_state.csound, &data, table_id);
     
     if (length >= 0) {
-        char log_message[100];
-        sprintf(log_message, "Got data for table %d", table_id);
-        XHU_LOG_DEBUG(log_message);
+        XHU_LOG_DEBUG("Got data for table %d", table_id);
     } else {
-        char log_message[100];
-        sprintf(log_message, "Could not get data for table %d. Table does not exist.", table_id);
-        XHU_LOG_ERROR(log_message)
+        XHU_LOG_ERROR("Could not get data for table %d. Table does not exist.", table_id)
     }
     
     _xhu_csound_state.pause_csound_thread = false;
@@ -441,14 +424,10 @@ bool xhu_table_exists(xhu_s32_t tableNumber)
     _xhu_csound_state.pause_csound_thread = false;
     exists = length > 0 && tablePtr != NULL;
     
-    char message[100];
-    
     if (exists) {
-        sprintf(message, "Table %d exists.", tableNumber);
-        XHU_LOG_DEBUG(message)
+        XHU_LOG_DEBUG("Table %d exists.", tableNumber)
     } else {
-        sprintf(message, "Table %d does not exist.", tableNumber);
-        XHU_LOG_DEBUG(message)
+        XHU_LOG_DEBUG("Table %d does not exist.", tableNumber)
     }
     
     return exists;
@@ -467,13 +446,9 @@ void xhu_delete_table(const xhu_s32_t table_id)
         sprintf(message, "f -%d 0", table_id);
         xhu_send_message(message);
         
-        char log_message[100];
-        sprintf(log_message, "Deleted table %d", table_id);
-        XHU_LOG_DEBUG(log_message)
+        XHU_LOG_DEBUG("Deleted table %d", table_id)
     } else {
-        char log_message[100];
-        sprintf(log_message, "Table %d does not exist.", table_id);
-        XHU_LOG_DEBUG(log_message)
+        XHU_LOG_DEBUG("Table %d does not exist.", table_id)
     }
 }
 
@@ -487,14 +462,10 @@ bool xhu_set_global_env(const char *name, const char *value)
     bool success = status == CSOUND_SUCCESS;
     
     if (!success) {
-        char log_message_error[512];
-        sprintf(log_message_error, "Setting environment variable '%s' to value '%s' failed", name, value);
-        XHU_LOG_FATAL(log_message_error);
+        XHU_LOG_FATAL("Setting environment variable '%s' to value '%s' failed", name, value);
     }
     
-    char log_message[512];
-    sprintf(log_message, "Set environment variable '%s' to value '%s'", name, value);
-    XHU_LOG_DEBUG(log_message);
+    XHU_LOG_DEBUG("Set environment variable '%s' to value '%s'", name, value);
     
     return success;
 }

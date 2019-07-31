@@ -30,6 +30,8 @@
 #define XHU_LOG_LEVEL_INFO     (5)
 #define XHU_LOG_LEVEL_DEBUG    (6)
 
+#define XHU_LOG_BUFFER_SIZE (256)
+
 extern xhu_s32_t xhu_log_level;
 extern bool xhu_log_with_func_info;
 
@@ -72,7 +74,7 @@ static inline char *xhu_get_filename(const char *path, char dot, char sep)
     
     // If it has an extension separator.
     if (lastdot != NULL) {
-        // and it's before the extenstion separator.
+        // and it's before the extension separator.
         if (lastsep != NULL) {
             if (lastsep < lastdot) {
                 // then remove it.
@@ -88,8 +90,10 @@ static inline char *xhu_get_filename(const char *path, char dot, char sep)
     return retstr;
 }
 
-static inline void xhu_log(const char *message, xhu_s32_t level,
-                   const char *caller_file_path, const char *caller_func_name, xhu_s32_t line)
+static inline void xhu_log(const char *message,
+                           xhu_s32_t level,
+                           const char *caller_file_path,
+                           const char *caller_func_name, xhu_s32_t line)
 {
     char *filename = xhu_get_filename(caller_file_path, '.', '/');
     const char *log_level_str = xhu_get_log_level_str(level);
@@ -117,17 +121,31 @@ static inline void xhu_log_csound(const char* format, va_list args)
     }
 }
 
+static inline char *xhu_format_log_message(const char *format, ...)
+{
+    char *result = (char*)malloc(XHU_LOG_BUFFER_SIZE * sizeof(char) + 1);
+    va_list args;
+    va_start (args, format);
+    vsprintf(result, format, args);
+    va_end (args);
+    return result;
+}
+
 #ifdef DEBUG
-#define XHU_LOG_MESSAGE(level, message) \
-do { xhu_log(message, level, __FILE__, __func__, __LINE__); } while (0);
+#define XHU_LOG_MESSAGE(level, message, ...) \
+do { \
+char *formatted_message = xhu_format_log_message(message, ##__VA_ARGS__); \
+xhu_log(formatted_message, level, __FILE__, __func__, __LINE__); \
+free(formatted_message); \
+} while (0);
 #else
 #define XHU_LOG_MESSAGE(level, message) do {} while (0);
 #endif
 
-#define XHU_LOG_FATAL(message) XHU_LOG_MESSAGE(XHU_LOG_LEVEL_FATAL, message)
-#define XHU_LOG_ERROR(message) XHU_LOG_MESSAGE(XHU_LOG_LEVEL_ERROR, message)
-#define XHU_LOG_WARN(message) XHU_LOG_MESSAGE(XHU_LOG_LEVEL_WARN, message)
-#define XHU_LOG_INFO(message) XHU_LOG_MESSAGE(XHU_LOG_LEVEL_INFO, message)
-#define XHU_LOG_DEBUG(message) XHU_LOG_MESSAGE(XHU_LOG_LEVEL_DEBUG, message)
+#define XHU_LOG_FATAL(message, ...) XHU_LOG_MESSAGE(XHU_LOG_LEVEL_FATAL, message, ##__VA_ARGS__)
+#define XHU_LOG_ERROR(message, ...) XHU_LOG_MESSAGE(XHU_LOG_LEVEL_ERROR, message, ##__VA_ARGS__)
+#define XHU_LOG_WARN(message, ...) XHU_LOG_MESSAGE(XHU_LOG_LEVEL_WARN, message, ##__VA_ARGS__)
+#define XHU_LOG_INFO(message, ...) XHU_LOG_MESSAGE(XHU_LOG_LEVEL_INFO, message, ##__VA_ARGS__)
+#define XHU_LOG_DEBUG(message, ...) XHU_LOG_MESSAGE(XHU_LOG_LEVEL_DEBUG, message, ##__VA_ARGS__)
 
 #endif // DEBUG_H
