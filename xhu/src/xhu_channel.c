@@ -35,7 +35,6 @@ typedef struct {
 
 typedef struct {
     xhu_channel_handle_t handle;
-    
 } xhu_callback_channel_t;
 
 xhu_channel_t channels[MAX_CHANNELS];
@@ -61,7 +60,7 @@ void xhu_create_channels(xhu_u32_t count)
     {
         char channel_name[4];
         sprintf(channel_name, "%d", index);
-        xhu_s32_t flags = CSOUND_OUTPUT_CHANNEL | CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
+        xhu_s32_t flags = CSOUND_OUTPUT_CHANNEL | CSOUND_CONTROL_CHANNEL;
         channels[index].channel_pointer = xhu_get_channel_pointer(channel_name, flags);
     }
 }

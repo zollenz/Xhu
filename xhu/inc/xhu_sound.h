@@ -23,16 +23,18 @@
 #include "xhu_defs.h"
 
 #define XHU_MAX_NAME_SIZE (30)
+#define XHU_MAX_SOUND_ID (300)
 #define XHU_MAX_SOUND_INSTANCE_ID (999999)
+#define XHU_MAX_AGGREGATE_ID_SIZE (10)
 
 typedef enum { STOPPED, PLAYING, PAUSED, MUTED } xhu_sound_state;
 typedef xhu_u32_t xhu_sound_handle_t;
 
+EXTERN_C void xhu_initialize_sound_management(void);
+EXTERN_C xhu_sound_handle_t xhu_initialize_sound(const xhu_u32_t sound_id, const char *const name);
 EXTERN_C xhu_sound_state xhu_get_sound_state(xhu_sound_handle_t handle);
-EXTERN_C xhu_sound_handle_t xhu_create_sound(void);
 EXTERN_C bool xhu_is_sound_valid(xhu_sound_handle_t handle);
-
-
-
+EXTERN_C void xhu_play_sound(xhu_sound_handle_t handle);
+EXTERN_C void xhu_stop_sound(xhu_sound_handle_t handle);
 
 #endif // SOUND_H

@@ -51,11 +51,13 @@ int main(int argc, const char * argv[])
         XHU_LOG_INFO("Xhu engine initialized")
     }
     
+    xhu_sound_handle_t handle = xhu_initialize_sound(2, "TestSound");
+    xhu_sound_handle_t handle2 = xhu_initialize_sound(2, "TestSound");
+    xhu_sound_handle_t handle3 = xhu_initialize_sound(2, "TestSound");
+
+    return 0;
+    
     xhu_pause(2);
-    
-    xhu_sound_handle_t handle = xhu_create_sound();
-    
-//    xhu_create_channels(0);
 
     xhu_set_output_channel_callback(callback);
     xhu_set_control_channel_value(0.4f, "i.1.000000.pitch");
@@ -69,6 +71,7 @@ int main(int argc, const char * argv[])
     xhu_set_control_channel_value(0.3f, "i.1.000000.pitch");
     
     xhu_pause(3);
+    
     xhu_stop();
     
     return 0;

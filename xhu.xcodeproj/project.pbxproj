@@ -13,6 +13,8 @@
 		61D4FABE22C3598700D6D7C3 /* xhu_defs.h in Headers */ = {isa = PBXBuildFile; fileRef = 61D4FABD22C3598700D6D7C3 /* xhu_defs.h */; };
 		BF5F68E522CAA7A600A2F232 /* xhu_table.c in Sources */ = {isa = PBXBuildFile; fileRef = BF5F68E422CAA7A600A2F232 /* xhu_table.c */; };
 		BF61D08B22B983240029D03D /* CsoundLib64 in Frameworks */ = {isa = PBXBuildFile; fileRef = BF61D08A22B983240029D03D /* CsoundLib64 */; };
+		BF69EDC123187F58008DD4E8 /* xhu_queue.h in Headers */ = {isa = PBXBuildFile; fileRef = BF69EDBF23187F58008DD4E8 /* xhu_queue.h */; };
+		BF69EDC223187F58008DD4E8 /* xhu_queue.c in Sources */ = {isa = PBXBuildFile; fileRef = BF69EDC023187F58008DD4E8 /* xhu_queue.c */; };
 		BF7EC9CC22B1897D00D51F97 /* xhu_debug.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C422B1897D00D51F97 /* xhu_debug.h */; };
 		BF7EC9CE22B1897D00D51F97 /* xhu_math_utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C622B1897D00D51F97 /* xhu_math_utilities.h */; };
 		BF7EC9CF22B1897D00D51F97 /* xhu.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7EC9C722B1897D00D51F97 /* xhu.h */; };
@@ -56,6 +58,8 @@
 		BF5DA3A718BD1A550053453C /* libxhu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libxhu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5F68E422CAA7A600A2F232 /* xhu_table.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xhu_table.c; sourceTree = "<group>"; };
 		BF61D08A22B983240029D03D /* CsoundLib64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = CsoundLib64; path = ext/csound/release/lib/CsoundLib64; sourceTree = "<group>"; };
+		BF69EDBF23187F58008DD4E8 /* xhu_queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xhu_queue.h; path = xhu/inc/xhu_queue.h; sourceTree = SOURCE_ROOT; };
+		BF69EDC023187F58008DD4E8 /* xhu_queue.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = xhu_queue.c; path = xhu/src/xhu_queue.c; sourceTree = SOURCE_ROOT; };
 		BF7EC9C422B1897D00D51F97 /* xhu_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xhu_debug.h; sourceTree = "<group>"; };
 		BF7EC9C622B1897D00D51F97 /* xhu_math_utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xhu_math_utilities.h; sourceTree = "<group>"; };
 		BF7EC9C722B1897D00D51F97 /* xhu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xhu.h; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 				BF7EC9C722B1897D00D51F97 /* xhu.h */,
 				BF7EC9C822B1897D00D51F97 /* xhu_system_utilities.h */,
 				BF7EC9D222B18E1A00D51F97 /* xhu_table.h */,
+				BF69EDBF23187F58008DD4E8 /* xhu_queue.h */,
 			);
 			path = inc;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				61D4FAB822C2D76B00D6D7C3 /* xhu_csound_wrapper.c */,
+				BF69EDC023187F58008DD4E8 /* xhu_queue.c */,
 				BF5F68E422CAA7A600A2F232 /* xhu_table.c */,
 				BF95577D22CD1FD900F9CC1F /* xhu_channel.c */,
 				BF97816622CD2614002F2A4B /* xhu_sound.c */,
@@ -170,6 +176,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF69EDC123187F58008DD4E8 /* xhu_queue.h in Headers */,
 				BF7F089722C09BAB007FEA4A /* xhu_channel.h in Headers */,
 				61D4FABE22C3598700D6D7C3 /* xhu_defs.h in Headers */,
 				BF7EC9D322B18E1A00D51F97 /* xhu_table.h in Headers */,
@@ -270,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF69EDC223187F58008DD4E8 /* xhu_queue.c in Sources */,
 				BF95577E22CD1FD900F9CC1F /* xhu_channel.c in Sources */,
 				BF97816722CD2614002F2A4B /* xhu_sound.c in Sources */,
 				BF5F68E522CAA7A600A2F232 /* xhu_table.c in Sources */,
